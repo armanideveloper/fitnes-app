@@ -1,0 +1,64 @@
+@import "the-new-css-reset/css/reset.css";
+
+html {
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body {
+  max-width: 800px;
+  margin: 0 auto;
+  color: $dark-blue;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  line-height: 1.2;
+  background-color: #fff;
+}
+
+.container {
+  max-width: calc(500px + (22px * 2));
+  margin: 0 auto;
+  padding: 0 22px;
+
+  &--small {
+    max-width: calc(500px + (17px * 2));
+    padding: 0 17px;
+  }
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.settings-page {
+  padding-top: 42px;
+}
+
+// Margins
+.mt-22 {
+  margin-top: 22px;
+}
+
+.mt-16 {
+  margin-top: 16px;
+}
+
+// Flex
+.flex-1 {
+  flex: 1;
+}
+
+.items-start {
+  align-items: flex-start !important;
+}
+
+// Sizes
+.w-100 {
+  width: 100%;
+}
