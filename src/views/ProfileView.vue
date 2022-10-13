@@ -178,9 +178,6 @@ export default {
 
     &::before {
       content: url('@/assets/images/icons/checkmark.svg');
-      width: 0.65em;
-      height: 0.65em;
-      border-radius: 50%;
       transform: scale(0);
       transition: 0.2s transform ease-in-out;
     }
@@ -215,7 +212,7 @@ export default {
     display: flex;
     width: 36px;
     height: 36px;
-    background-color: $dark-blue-2;
+    background-color: $blue-2;
     border: 2px solid #fff;
     border-radius: 50%;
 

@@ -20,15 +20,19 @@ export default {
   },
   computed: {
     titleColor() {
-      if (this.item.status !== 'Participated') {
+      if (!['Accepted', 'Participated'].includes(this.item.status)) {
         return 'red';
       }
 
       return 'blue';
     },
     pointsColor() {
-      if (this.item.status !== 'Participated') {
+      if (!['Accepted', 'Participated'].includes(this.item.status)) {
         return 'red';
+      }
+
+      if (this.item.status === 'Accepted') {
+        return 'blue';
       }
 
       return 'green';
@@ -69,6 +73,10 @@ export default {
   &__points {
     &--green {
       color: $dark-green;
+    }
+
+    &--blue {
+      color: $blue;
     }
 
     &--red {

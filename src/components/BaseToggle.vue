@@ -1,5 +1,5 @@
 <template>
-  <label class="toggle" :class="{ active: isActive }">
+  <label class="toggle" :class="{ active: currentState }">
     <span class="toggle__label"><slot /></span>
 
     <input
@@ -23,7 +23,7 @@ export default {
     },
     id: {
       type: String,
-      default: 'primary',
+      default: 'base-toggle',
     },
   },
   data() {
@@ -40,9 +40,6 @@ export default {
     },
   },
   computed: {
-    isActive() {
-      return this.currentState;
-    },
     checkedValue: {
       get() {
         return this.currentState;
@@ -80,6 +77,34 @@ export default {
     }
   }
 
+  &.primary {
+    gap: 4px;
+
+    .toggle__switch {
+      width: 36px;
+      height: 22px;
+      background: $grey-100;
+
+      &::after {
+        left: 2px;
+        background: #fff;
+        box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.1), 0px 1px 2px rgba(16, 24, 40, 0.06);
+      }
+    }
+
+    &.active {
+      .toggle__switch {
+        background: $blue;
+
+        &::after {
+          left: 0;
+          background: #fff;
+          transform: translateX(calc(100% - 2px)) translateY(-50%);
+        }
+      }
+    }
+  }
+
   &__checkbox {
     opacity: 0;
     position: absolute;
@@ -104,13 +129,10 @@ export default {
       display: block;
       height: 18px;
       width: 18px;
+      background: $dark-grey;
       border-radius: 50%;
       transform: translateX(0) translateY(-50%);
       transition: all 0.25s cubic-bezier(0.5, -0.6, 0.5, 1.6);
-    }
-
-    &::after {
-      background: $dark-grey;
     }
   }
 }

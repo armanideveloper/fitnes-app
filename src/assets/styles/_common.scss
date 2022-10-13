@@ -17,6 +17,15 @@ body {
   font-weight: 400;
   line-height: 1.2;
   background-color: #fff;
+
+  &.scroll-lock {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: hidden;
+  }
 }
 
 .container {

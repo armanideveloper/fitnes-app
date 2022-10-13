@@ -10,8 +10,10 @@
           <button class="header-btn">
             <img :src="require('@/assets/images/icons/bell.svg')" alt="bell icon" />
           </button>
-          <router-link tag="button" :to="{ name: 'History' }" class="header-btn">
-            <img :src="require('@/assets/images/icons/calendar-check.svg')" alt="calendar icon" />
+          <router-link :to="{ name: 'History' }" class="header-btn" v-slot="{ navigate }" custom>
+            <button class="header-btn" @click="navigate">
+              <img :src="require('@/assets/images/icons/calendar-check.svg')" alt="calendar icon" />
+            </button>
           </router-link>
         </div>
       </header>
@@ -166,9 +168,11 @@ export default {
   methods: {
     showSettingsMenu() {
       this.showSettings = true;
+      document.body.classList.add('scroll-lock');
     },
     closeSettingsMenu() {
       this.showSettings = false;
+      document.body.classList.remove('scroll-lock');
     },
     checkIn() {
       function padTo2Digits(num) {
@@ -180,6 +184,11 @@ export default {
       this.bookingCheckedIn = true;
       this.checkedInTime = timeStr;
     },
+  },
+  destroyed() {
+    if (document.body.classList.contains('scroll-lock')) {
+      document.body.classList.remove('scroll-lock');
+    }
   },
 };
 </script>

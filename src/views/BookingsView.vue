@@ -14,9 +14,12 @@
 import BookingItem from '@/components/BookingItem';
 
 export default {
-  name: 'TheBookings',
+  name: 'BookingsView',
   components: {
     BookingItem,
+  },
+  metaInfo: {
+    title: 'Bookings',
   },
   data() {
     return {
@@ -57,11 +60,14 @@ export default {
 
 <style lang="scss" scoped>
 .bookings {
+  padding: 40px 0;
+
   &__title {
     margin-bottom: 30px;
     font-weight: 500;
     font-size: 24px;
     line-height: 22px;
+    text-align: center;
   }
 }
 </style>

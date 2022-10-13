@@ -127,7 +127,7 @@ export default {
     &:checked {
       & + .settings-item__radio-label {
         color: #fff;
-        background-color: #fff;
+        background-color: $blue;
       }
     }
   }

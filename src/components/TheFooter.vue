@@ -4,7 +4,7 @@
       <nav class="footer__nav">
         <ul class="footer-menu">
           <li v-for="(link, index) in footerLinks" :key="`footer-item_${index}`" class="footer-menu__item">
-            <router-link class="footer-menu__link footer-link" :to="{ name: link.to }">
+            <router-link class="footer-menu__link footer-link" :to="{ name: link.to }" :exact="link.name === 'Home'">
               <div class="footer-link__icon-wrapper">
                 <img
                   :src="require(`@/assets/images/icons/${link.icon}.svg`)"
@@ -66,6 +66,7 @@ export default {
   border-radius: 10px;
   background: #fff;
   box-shadow: 0px -4px 32px rgba(198, 202, 202, 0.22);
+  z-index: 9;
 
   &__nav {
     padding: 25px 0 10px;
@@ -87,7 +88,7 @@ export default {
   font-size: 10px;
   line-height: 22px;
 
-  &.router-link-exact-active {
+  &.router-link-active {
     .footer-link__icon-wrapper {
       background-color: $light-green-3;
     }

@@ -102,7 +102,7 @@ export default {
   background: #fff;
   box-shadow: 0 4px 50px 12px rgba(117, 125, 132, 0.35);
   border-radius: 34px;
-  z-index: 2;
+  z-index: 10;
   transform: translateY(-50%);
   transition: all 0.3s ease-in-out;
   opacity: 0;

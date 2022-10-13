@@ -58,7 +58,9 @@
 
         <ul class="club-contact__list">
           <li v-for="(contact, index) in clubContact" :key="`contact-item_${index}`" class="club-contact__item">
-            <img :src="require(`@/assets/images/icons/${contact.icon}.svg`)" alt="" />
+            <div class="club-contact__icon-wrapper">
+              <img class="club-contact__icon" :src="require(`@/assets/images/icons/${contact.icon}.svg`)" alt="" />
+            </div>
             <a
               :href="getHref(contact.href, contact.type)"
               class="club-contact__link"
@@ -341,13 +343,11 @@ export default {
 .club-contact {
   margin-bottom: 26px;
 
-  &__list {
-  }
-
   &__item {
     display: grid;
     grid-template-columns: 24px 1fr;
     grid-column-gap: 24px;
+    align-items: center;
     color: $dark-blue;
     font-weight: 500;
     font-size: 15px;
@@ -356,6 +356,12 @@ export default {
     & + .club-contact__item {
       margin-top: 11px;
     }
+  }
+
+  &__icon-wrapper {
+    display: grid;
+    place-items: center;
+    height: 24px;
   }
 }
 
