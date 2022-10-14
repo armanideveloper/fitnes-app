@@ -48,7 +48,7 @@ export default {
 
 .base-tabs {
   width: 100%;
-  padding: 2px 4px;
+  padding: 4px;
   background-color: #eff1f2;
   border-radius: 8px;
 

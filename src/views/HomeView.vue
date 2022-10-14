@@ -47,7 +47,7 @@
           <h2 class="card__title">Personal training</h2>
           <p class="card__time">20:00</p>
 
-          <base-button class="small-blue-btn">Cancel</base-button>
+          <base-button class="small-btn">Cancel</base-button>
         </div>
         <div class="card checkin-card">
           <template v-if="!bookingCheckedIn"
@@ -302,7 +302,7 @@ export default {
       margin-bottom: 5px;
     }
 
-    .small-blue-btn {
+    .small-btn {
       width: 80px;
       margin: 0 auto;
       padding: 0;
@@ -455,7 +455,7 @@ export default {
     height: 8px;
     border: 0;
     border-radius: 10px;
-    background-color: #c5f4f2;
+    background-color: $green-2;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 
     &::-webkit-progress-bar {
@@ -463,7 +463,7 @@ export default {
       height: 8px;
       border: 0;
       border-radius: 10px;
-      background-color: #c5f4f2;
+      background-color: $green-2;
     }
 
     &::-webkit-progress-value {
@@ -478,7 +478,7 @@ export default {
       height: 8px;
       border: 0;
       border-radius: 10px;
-      background-color: #c5f4f2;
+      background-color: $green-2;
     }
   }
 }

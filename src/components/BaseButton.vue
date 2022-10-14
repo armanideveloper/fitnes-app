@@ -13,7 +13,7 @@ export default {
 <style lang="scss">
 @import '@/assets/styles/vars/_colors.scss';
 
-.small-blue-btn {
+.small-btn {
   display: block;
   padding: 7px 0;
   color: #fff;
@@ -26,7 +26,7 @@ export default {
   border-radius: 40px;
 }
 
-.base-blue-btn {
+.base-btn {
   display: block;
   max-width: 332px;
   width: 100%;

@@ -1,7 +1,7 @@
 <template>
   <div class="settings-page profile">
     <div class="container">
-      <settings-page-header items-start>
+      <base-page-header items-start>
         <div class="profile-avatar">
           <img ref="avatar" :src="profileAvatarPreview" alt="" class="profile-avatar__img" />
 
@@ -10,7 +10,7 @@
             <label for="avatarInput"><img :src="require('@/assets/images/icons/camera.svg')" alt="" /></label>
           </div>
         </div>
-      </settings-page-header>
+      </base-page-header>
 
       <main>
         <form id="profile-form" action="" class="profile__form profile-form" @submit.prevent="profileDataHandler">
@@ -42,7 +42,7 @@
             </div>
           </fieldset>
 
-          <base-button class="base-blue-btn">Apply changes</base-button>
+          <base-button class="base-btn">Apply changes</base-button>
         </form>
       </main>
     </div>
@@ -53,7 +53,7 @@
 // import BaseRadioInput from '@/components/BaseRadioInput';
 import BaseButton from '@/components/BaseButton';
 import BaseTextInput from '@/components/BaseTextInput';
-import SettingsPageHeader from '@/components/SettingsPageHeader';
+import BasePageHeader from '@/components/BasePageHeader';
 
 export default {
   name: 'ProfileView',
@@ -61,7 +61,7 @@ export default {
     // BaseRadioInput,
     BaseButton,
     BaseTextInput,
-    SettingsPageHeader,
+    BasePageHeader,
   },
   metaInfo: {
     title: 'Profile',

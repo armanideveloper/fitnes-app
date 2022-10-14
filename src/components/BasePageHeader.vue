@@ -1,8 +1,8 @@
 <template>
-  <header class="settings-page-header" :class="{ 'settings-page-header--items-start': itemsStart }">
-    <go-back-btn class="settings-page-header__go-back" />
+  <header class="base-page-header" :class="{ 'base-page-header--items-start': itemsStart }">
+    <go-back-btn class="base-page-header__go-back" back-to="Home" />
 
-    <h1 class="settings-page-header__title"><slot /></h1>
+    <h1 class="base-page-header__title"><slot /></h1>
   </header>
 </template>
 
@@ -10,7 +10,7 @@
 import GoBackBtn from '@/components/GoBackBtn';
 
 export default {
-  name: 'SettingsPageHeader',
+  name: 'BasePageHeader',
   components: {
     GoBackBtn,
   },
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.settings-page-header {
+.base-page-header {
   position: relative;
   display: flex;
   justify-content: center;
@@ -33,7 +33,7 @@ export default {
   margin-bottom: 36px;
 
   &--items-start {
-    .settings-page-header__go-back {
+    .base-page-header__go-back {
       top: 0;
       transform: none;
     }

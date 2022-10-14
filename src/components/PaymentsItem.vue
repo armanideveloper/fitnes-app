@@ -15,9 +15,9 @@
     </div>
 
     <template v-if="paid">
-      <base-button class="small-blue-btn mt-16">View Receipt</base-button>
+      <base-button class="small-btn mt-16">View Receipt</base-button>
 
-      <base-button class="small-blue-btn mt-16">View Contract</base-button>
+      <base-button class="small-btn mt-16">View Contract</base-button>
     </template>
   </li>
 </template>

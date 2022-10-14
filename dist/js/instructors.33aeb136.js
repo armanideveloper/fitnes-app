@@ -1,2 +1,2 @@
 "use strict";(self["webpackChunkfitness_app"]=self["webpackChunkfitness_app"]||[]).push([[592],{5909:function(s,n,t){t.r(n),t.d(n,{default:function(){return f}});var e=function(){var s=this,n=s._self._c;return n("h1",[s._v("This is Instructors")])},u=[],r={name:"InstructorsView"},a=r,i=t(1001),c=(0,i.Z)(a,e,u,!1,null,"60045aba",null),f=c.exports}}]);
-//# sourceMappingURL=instructors.94f5411f.js.map
+//# sourceMappingURL=instructors.33aeb136.js.map

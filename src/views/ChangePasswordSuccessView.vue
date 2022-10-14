@@ -1,7 +1,7 @@
 <template>
   <div class="settings-page change-password-success">
     <div class="container w-100">
-      <settings-page-header />
+      <base-page-header />
 
       <h1 class="change-password-success__title">All done!</h1>
     </div>
@@ -17,7 +17,7 @@
         <p class="done-block__subtitle">Go to Settings for other changes</p>
 
         <router-link :to="{ name: 'Home' }" v-slot="{ href, navigate }">
-          <base-button class="base-blue-btn" :href="href" @click.native="navigate">Continue</base-button>
+          <base-button class="base-btn" :href="href" @click.native="navigate">Continue</base-button>
         </router-link>
       </div>
     </main>
@@ -26,13 +26,13 @@
 
 <script>
 import BaseButton from '@/components/BaseButton';
-import SettingsPageHeader from '@/components/SettingsPageHeader';
+import BasePageHeader from '@/components/BasePageHeader';
 
 export default {
   name: 'ChangePasswordSuccessView',
   components: {
     BaseButton,
-    SettingsPageHeader,
+    BasePageHeader,
   },
   metaInfo: {
     title: 'Password changed successfully',
@@ -49,7 +49,7 @@ export default {
   justify-content: space-between;
   background-color: $blue;
 
-  .settings-page-header {
+  .base-page-header {
     margin-bottom: 55px;
   }
 

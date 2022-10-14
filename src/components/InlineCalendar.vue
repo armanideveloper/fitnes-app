@@ -1,20 +1,23 @@
 <template>
   <div class="inline-calendar">
     <ul class="inline-calendar__dates" ref="datesWrapper">
-      <li v-for="(date, index) in datesReadable" :key="`date-item_${index}`" class="inline-calendar__date date-item">
+      <li
+        v-for="(date, index) in datesReadable"
+        :key="`date-item_${index}`"
+        class="inline-calendar__date date-item"
+        :class="{ active: date.id === selectedDate }"
+        @click="setActiveDate(date)"
+      >
         <p class="date-item__weekday">{{ date.weekday }}</p>
 
         <h2 class="date-item__day">{{ date.day }}</h2>
       </li>
+      <base-observer
+        class="inline-calendar__date date-item"
+        @intersect="getDatesInRange(maxDate, daysRange, true)"
+        :options="{ threshold: 0.01 }"
+      />
     </ul>
-
-    <base-observer
-      @intersect="getDatesInRange(maxDate, daysRange)"
-      :options="{
-        rootMargin: '100% 0% 100% 0%',
-        threshold: 1.0,
-      }"
-    />
   </div>
 </template>
 
@@ -29,10 +32,10 @@ export default {
   data() {
     return {
       today: new Date(),
-      dates: null,
+      dates: [],
       selectedDate: null,
-      maxDate: null,
-      daysRange: 10,
+      maxDate: new Date(),
+      daysRange: 7,
     };
   },
   created() {
@@ -40,8 +43,9 @@ export default {
   },
   computed: {
     datesReadable() {
-      return this.dates.map(date => {
+      return this.dates.map((date, index) => {
         return {
+          id: index + 1,
           date,
           weekday: new Date(date).toLocaleDateString('en-US', { weekday: 'short' }),
           day: new Date(date).getDate(),
@@ -50,9 +54,15 @@ export default {
     },
   },
   methods: {
-    getDatesInRange(startDate, days) {
+    getDatesInRange(startDate, days, excludeFirstDate = false) {
       const date = new Date(startDate.getTime());
-      const endDate = new Date(new Date().setDate(date.getDate() + days));
+
+      if (excludeFirstDate) {
+        date.setDate(date.getDate() + 1);
+      }
+
+      const dateCopy = new Date(date.getTime());
+      const endDate = new Date(dateCopy.setDate(dateCopy.getDate() + days));
 
       const dates = [];
 
@@ -61,10 +71,13 @@ export default {
         date.setDate(date.getDate() + 1);
       }
 
-      this.dates = this.dates !== null ? [...this.dates, ...dates] : dates;
-
-      this.dates = dates;
+      this.dates = this.dates.length ? [...this.dates, ...dates] : dates;
       this.maxDate = dates[dates.length - 1];
+      this.setActiveDate(this.datesReadable[0]);
+    },
+    setActiveDate(date) {
+      this.selectedDate = date.id;
+      this.$emit('set-active-date', date);
     },
   },
 };

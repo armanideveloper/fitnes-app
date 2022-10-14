@@ -39,8 +39,8 @@
         <a href="#" class="club-facilities__link">View gym rules</a>
 
         <div class="club-facilities__btn-block">
-          <base-button class="small-blue-btn">View memberships</base-button>
-          <base-button class="small-blue-btn">View classes</base-button>
+          <base-button class="small-btn">View memberships</base-button>
+          <base-button class="small-btn">View classes</base-button>
         </div>
       </section>
 
@@ -307,7 +307,7 @@ export default {
     justify-content: space-between;
   }
 
-  .small-blue-btn {
+  .small-btn {
     width: 150px;
   }
 }

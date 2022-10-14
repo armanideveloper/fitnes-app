@@ -35,8 +35,8 @@
     </main>
 
     <footer class="training-card__footer">
-      <base-button v-if="training.isBookingAvailable" class="small-blue-btn training-card__book-btn">Book</base-button>
-      <base-button v-else class="small-blue-btn training-card__book-btn training-card__book-btn--disabled"
+      <base-button v-if="training.isBookingAvailable" class="small-btn training-card__book-btn">Book</base-button>
+      <base-button v-else class="small-btn training-card__book-btn training-card__book-btn--disabled"
         >Booking available in {{ training.availableIn }}</base-button
       >
     </footer>

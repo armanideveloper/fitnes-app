@@ -16,7 +16,7 @@
     >
       {{ booking.status }}
     </p>
-    <base-button v-else class="small-blue-btn booking-item__btn">Cancel</base-button>
+    <base-button v-else class="small-btn booking-item__btn">Cancel</base-button>
   </li>
 </template>
 

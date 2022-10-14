@@ -1,2 +1,2 @@
 "use strict";(self["webpackChunkfitness_app"]=self["webpackChunkfitness_app"]||[]).push([[119],{8051:function(e,n,s){s.r(n),s.d(n,{default:function(){return c}});var t=function(){var e=this,n=e._self._c;return n("h1",[e._v("This is Store")])},u=[],r={name:"StoreView"},i=r,f=s(1001),a=(0,f.Z)(i,t,u,!1,null,"05b6dc6e",null),c=a.exports}}]);
-//# sourceMappingURL=store.71656ce5.js.map
+//# sourceMappingURL=store.ba1ec805.js.map

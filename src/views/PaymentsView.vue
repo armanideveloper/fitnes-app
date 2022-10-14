@@ -1,7 +1,7 @@
 <template>
   <div class="settings-page payments">
     <div class="container">
-      <settings-page-header>Payments</settings-page-header>
+      <base-page-header>Payments</base-page-header>
 
       <main>
         <ul class="payments__list">
@@ -20,13 +20,13 @@
 </template>
 
 <script>
-import SettingsPageHeader from '@/components/SettingsPageHeader';
+import BasePageHeader from '@/components/BasePageHeader';
 import PaymentsItem from '@/components/PaymentsItem';
 
 export default {
   name: 'PaymentsView',
   components: {
-    SettingsPageHeader,
+    BasePageHeader,
     PaymentsItem,
   },
   metaInfo: {

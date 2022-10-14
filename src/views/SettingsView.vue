@@ -1,7 +1,7 @@
 <template>
   <div class="settings-page settings">
     <div class="container">
-      <settings-page-header>Settings</settings-page-header>
+      <base-page-header>Settings</base-page-header>
 
       <main>
         <ul class="settings__list">
@@ -44,11 +44,11 @@
 
 <script>
 import BaseToggle from '@/components/BaseToggle';
-import SettingsPageHeader from '@/components/SettingsPageHeader';
+import BasePageHeader from '@/components/BasePageHeader';
 
 export default {
   name: 'SettingsView',
-  components: { BaseToggle, SettingsPageHeader },
+  components: { BaseToggle, BasePageHeader },
   metaInfo: {
     title: 'Settings',
   },

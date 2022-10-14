@@ -1,7 +1,7 @@
 <template>
   <div class="settings-page change-password">
     <div class="container">
-      <settings-page-header>Change Password</settings-page-header>
+      <base-page-header>Change Password</base-page-header>
     </div>
 
     <div class="container container--small">
@@ -14,7 +14,7 @@
             >
           </fieldset>
 
-          <base-button class="change-password__submit-btn small-blue-btn mt-22">Apply</base-button>
+          <base-button class="change-password__submit-btn small-btn mt-22">Apply</base-button>
         </form>
       </main>
     </div>
@@ -24,14 +24,14 @@
 <script>
 import BaseButton from '@/components/BaseButton';
 import BaseTextInput from '@/components/BaseTextInput';
-import SettingsPageHeader from '@/components/SettingsPageHeader';
+import BasePageHeader from '@/components/BasePageHeader';
 
 export default {
   name: 'ChangePasswordView',
   components: {
     BaseButton,
     BaseTextInput,
-    SettingsPageHeader,
+    BasePageHeader,
   },
   metaInfo: {
     title: 'Change Password',

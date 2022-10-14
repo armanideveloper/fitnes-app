@@ -1,19 +1,22 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import HomeView from '../views/HomeView.vue';
+import HomeView from '../views/HomeView';
+import MainView from '@/views/MainView';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: HomeView,
-  },
-  {
-    path: '/history',
-    name: 'History',
-    component: () => import(/* webpackChunkName: "history" */ '../views/HistoryView'),
+    component: MainView,
+    children: [
+      { path: '', name: 'Home', component: HomeView },
+      {
+        path: '/history',
+        name: 'History',
+        component: () => import(/* webpackChunkName: "history" */ '../views/HistoryView'),
+      },
+    ],
   },
   {
     path: '/club',
@@ -68,6 +71,12 @@ const routes = [
     path: '/change-password/success',
     name: 'ChangePasswordSuccess',
     component: () => import(/* webpackChunkName: "change-password-success" */ '../views/ChangePasswordSuccessView'),
+    meta: { hideFooter: true },
+  },
+  {
+    path: '/payment',
+    name: 'StorePayment',
+    component: () => import(/* webpackChunkName: "store-payment" */ '../views/StorePaymentView'),
     meta: { hideFooter: true },
   },
 ];

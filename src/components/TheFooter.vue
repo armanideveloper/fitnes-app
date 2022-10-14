@@ -88,7 +88,7 @@ export default {
   font-size: 10px;
   line-height: 22px;
 
-  &.router-link-active {
+  &.router-link-exact-active {
     .footer-link__icon-wrapper {
       background-color: $light-green-3;
     }
