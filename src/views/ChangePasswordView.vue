@@ -1,5 +1,5 @@
 <template>
-  <div class="settings-page change-password">
+  <div class="pt-42 change-password">
     <div class="container">
       <base-page-header>Change Password</base-page-header>
     </div>

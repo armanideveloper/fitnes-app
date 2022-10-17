@@ -1,6 +1,6 @@
 <template>
   <header class="base-page-header" :class="{ 'base-page-header--items-start': itemsStart }">
-    <go-back-btn class="base-page-header__go-back" back-to="Home" />
+    <go-back-btn class="base-page-header__go-back" :back-to="backTo" />
 
     <h1 class="base-page-header__title"><slot /></h1>
   </header>
@@ -15,6 +15,10 @@ export default {
     GoBackBtn,
   },
   props: {
+    backTo: {
+      type: String,
+      default: 'Home',
+    },
     itemsStart: {
       type: Boolean,
       default: false,
@@ -23,7 +27,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .base-page-header {
   position: relative;
   display: flex;

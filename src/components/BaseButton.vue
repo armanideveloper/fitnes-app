@@ -39,5 +39,11 @@ export default {
   text-align: center;
   background-color: $blue;
   border-radius: 10px;
+
+  &--white {
+    color: $grey;
+    background: #fff;
+    box-shadow: 0 10px 60px rgba(219, 224, 225, 0.8);
+  }
 }
 </style>

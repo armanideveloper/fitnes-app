@@ -1,5 +1,5 @@
 <template>
-  <div class="settings-page settings">
+  <div class="pt-42 settings">
     <div class="container">
       <base-page-header>Settings</base-page-header>
 

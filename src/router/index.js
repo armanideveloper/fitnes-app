@@ -79,6 +79,18 @@ const routes = [
     component: () => import(/* webpackChunkName: "store-payment" */ '../views/StorePaymentView'),
     meta: { hideFooter: true },
   },
+  {
+    path: '/payment/card',
+    name: 'StorePaymentCard',
+    component: () => import(/* webpackChunkName: "store-payment-card" */ '../views/StorePaymentCardView'),
+    meta: { hideFooter: true },
+  },
+  {
+    path: '/payment/success',
+    name: 'StorePaymentSuccess',
+    component: () => import(/* webpackChunkName: "payment-success" */ '../views/PaymentSuccessView'),
+    meta: { hideFooter: true },
+  },
 ];
 
 const router = new VueRouter({

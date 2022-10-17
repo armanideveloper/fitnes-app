@@ -1,5 +1,5 @@
 <template>
-  <div class="settings-page payments">
+  <div class="pt-42 payments">
     <div class="container">
       <base-page-header>Payments</base-page-header>
 

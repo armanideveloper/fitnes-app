@@ -9,6 +9,7 @@
       :type="type"
       :value="value"
       @input="changeInputVal"
+      v-bind="$attrs"
     />
   </label>
 </template>
@@ -16,6 +17,7 @@
 <script>
 export default {
   name: 'BaseInput',
+  inheritAttrs: false,
   props: {
     id: {
       type: String,

@@ -1547,15 +1547,6 @@
     postcss "^8.4.14"
     source-map "^0.6.1"
 
-"@vue/compiler-sfc@2.7.12":
-  version "2.7.12"
-  resolved "https://registry.yarnpkg.com/@vue/compiler-sfc/-/compiler-sfc-2.7.12.tgz#9b62e75d57d461cdbd62f16d9d20e46c73b4c053"
-  integrity sha512-7FOITA2+4ND7lMAfegljHBpNSG3X9mVzgQwcS3g928QZM1EADedUw2JLKcgOm1ZEJEkvyDHh6lwa08vrLmoCOA==
-  dependencies:
-    "@babel/parser" "^7.18.4"
-    postcss "^8.4.14"
-    source-map "^0.6.1"
-
 "@vue/component-compiler-utils@^3.1.0", "@vue/component-compiler-utils@^3.3.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@vue/component-compiler-utils/-/component-compiler-utils-3.3.0.tgz#f9f5fb53464b0c37b2c8d2f3fbfe44df60f61dc9"
@@ -5772,13 +5763,6 @@ vue-eslint-parser@^8.0.1:
     lodash "^4.17.21"
     semver "^7.3.5"
 
-vue-horizontal-calendar@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/vue-horizontal-calendar/-/vue-horizontal-calendar-1.0.0.tgz#4b4d696e46a5bfe73fc2fbdf3fc509c6c65b5bb3"
-  integrity sha512-2KR63Kkfu9bQbe1K9suErQqkm41XVU59HW489yo/cfpO1209uRVumxvBN9bl9BxD10gTPshaZnj27FxkdLH9lw==
-  dependencies:
-    vue "^2.6.10"
-
 vue-hot-reload-api@^2.3.0:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"
@@ -5825,14 +5809,6 @@ vue-template-es2015-compiler@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
-
-vue@^2.6.10:
-  version "2.7.12"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.7.12.tgz#895162c258dc1f88d2accf3cae4824a51c1d4988"
-  integrity sha512-yRS44vPsCj6b5IZQHdEYqIwnay8stCnL8RsaVsm5aGtOhka00aoG+3ybaBAELDsXtNlzECe8myb2ukdzn19IOg==
-  dependencies:
-    "@vue/compiler-sfc" "2.7.12"
-    csstype "^3.1.0"
 
 vue@^2.6.14:
   version "2.7.10"

@@ -1,8 +1,8 @@
 <template>
   <successful-action>
-    <template v-slot:title>All done!</template>
-    <template v-slot:doneBlockTitle>New password created</template>
-    <template v-slot:doneBlockSubtitle>Go to Settings for other changes</template>
+    <template v-slot:title>Thanks!</template>
+    <template v-slot:doneBlockTitle>Payment successful</template>
+    <template v-slot:doneBlockSubtitle>Your membership is active. Enjoy!</template>
     <template v-slot:buttonText>Continue</template>
   </successful-action>
 </template>
@@ -11,12 +11,12 @@
 import SuccessfulAction from '@/components/SuccessfulAction';
 
 export default {
-  name: 'ChangePasswordSuccessView',
+  name: 'PaymentSuccessView',
   components: {
     SuccessfulAction,
   },
   metaInfo: {
-    title: 'Password changed successfully',
+    title: 'Payment has been confirmed',
   },
 };
 </script>

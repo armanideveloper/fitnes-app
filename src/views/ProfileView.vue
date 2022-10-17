@@ -1,5 +1,5 @@
 <template>
-  <div class="settings-page profile">
+  <div class="pt-42 profile">
     <div class="container">
       <base-page-header items-start>
         <div class="profile-avatar">

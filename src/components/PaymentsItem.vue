@@ -15,9 +15,9 @@
     </div>
 
     <template v-if="paid">
-      <base-button class="small-btn mt-16">View Receipt</base-button>
+      <base-button class="small-btn mt-16 payments-item__btn">View Receipt</base-button>
 
-      <base-button class="small-btn mt-16">View Contract</base-button>
+      <base-button class="small-btn mt-16 payments-item__btn">View Contract</base-button>
     </template>
   </li>
 </template>
@@ -99,14 +99,12 @@ export default {
     display: flex;
     align-items: center;
     gap: 4px;
-    width: fit-content;
     margin: 0 auto;
-    padding: 2px 7px;
+    padding: 2px 12px 2px 6px;
     border-radius: 16px;
 
     &--paid {
       background-color: $light-green-2;
-      border-radius: 16px;
 
       svg circle {
         fill: $green-success;
@@ -138,6 +136,12 @@ export default {
 
   &__btn-block {
     margin-top: 16px;
+  }
+
+  &__btn {
+    width: 130px;
+    margin-right: auto;
+    margin-left: auto;
   }
 }
 </style>
