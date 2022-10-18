@@ -63,7 +63,7 @@ export default {
 .footer {
   position: sticky;
   bottom: 0;
-  border-radius: 10px;
+  border-radius: 10px 10px 0 0;
   background: #fff;
   box-shadow: 0px -4px 32px rgba(198, 202, 202, 0.22);
   z-index: 9;

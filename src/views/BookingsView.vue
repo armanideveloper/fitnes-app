@@ -1,6 +1,8 @@
 <template>
   <div class="bookings">
     <div class="container">
+      <base-tabs :tabs="tabs" :active-tab-initial="currentComponent" @change-tab="changeTab" />
+
       <h2 class="bookings__title">Bookings</h2>
 
       <ul class="bookings__list">
@@ -11,11 +13,13 @@
 </template>
 
 <script>
+import BaseTabs from '@/components/BaseTabs';
 import BookingItem from '@/components/BookingItem';
 
 export default {
   name: 'BookingsView',
   components: {
+    BaseTabs,
     BookingItem,
   },
   metaInfo: {
@@ -23,6 +27,24 @@ export default {
   },
   data() {
     return {
+      currentComponent: 'BookingsView',
+      tabs: [
+        {
+          title: 'Classes',
+          component: 'TheClasses',
+          type: 'component',
+        },
+        {
+          title: 'PT',
+          component: 'TrainingSchedule',
+          type: 'component',
+        },
+        {
+          title: 'Bookings',
+          component: 'BookingsView',
+          type: 'component',
+        },
+      ],
       bookings: [
         {
           date: '02.08.2022',
@@ -55,12 +77,21 @@ export default {
       ],
     };
   },
+  methods: {
+    changeTab(tab) {
+      this.$router.push({ name: 'Activities', params: { currentComponent: tab } });
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .bookings {
-  padding: 40px 0;
+  padding: 21px 0 40px;
+
+  .base-tabs {
+    margin-bottom: 20px;
+  }
 
   &__title {
     margin-bottom: 30px;

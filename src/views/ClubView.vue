@@ -1,10 +1,7 @@
 <template>
   <article class="club-page">
     <div class="container">
-      <section class="club-page__images">
-        <img :src="require('@/assets/images/pic-training.jpg')" alt="" />
-        <img :src="require('@/assets/images/pic-training.jpg')" alt="" />
-      </section>
+      <images-block-scrollable :images="images" />
 
       <section class="club-about">
         <div class="club-about__info">
@@ -83,17 +80,20 @@
 
 <script>
 import BaseButton from '@/components/BaseButton';
+import ImagesBlockScrollable from '@/components/ImagesBlockScrollable';
 
 export default {
   name: 'ClubView',
   components: {
     BaseButton,
+    ImagesBlockScrollable,
   },
   metaInfo: {
     title: 'Club',
   },
   data() {
     return {
+      images: ['pic-training', 'pic-training', 'pic-training'],
       clubName: 'Moovgym',
       clubAddress: 'Str. Sovata 1, Oradea',
       clubRating: 4.8,
@@ -185,20 +185,6 @@ export default {
   padding: 16px 0;
 
   &__images {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 23px;
-    width: fit-content;
-    margin-right: -22px;
-    margin-bottom: 41px;
-    padding: 0 22px 0 0;
-    overflow-x: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
   }
 }
 
@@ -309,6 +295,7 @@ export default {
 
   .small-btn {
     width: 150px;
+    font-size: 14px;
   }
 }
 
@@ -323,7 +310,7 @@ export default {
 
   &__date-time {
     display: grid;
-    grid-template-columns: 1fr 92px;
+    grid-template-columns: 1fr 98px;
     grid-column-gap: 46px;
     font-size: 15px;
     line-height: 22px;

@@ -36,6 +36,10 @@ export default {
   },
   methods: {
     setActive(component) {
+      if (component === this.activeTab) {
+        return;
+      }
+
       this.activeTab = component;
       this.$emit('change-tab', component);
     },
@@ -49,12 +53,12 @@ export default {
 .base-tabs {
   width: 100%;
   padding: 4px;
-  background-color: #eff1f2;
+  background-color: $light-grey-3;
   border-radius: 8px;
 
   &__list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(107px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(102px, 1fr));
   }
 
   &__item {

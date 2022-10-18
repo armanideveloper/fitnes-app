@@ -44,6 +44,22 @@ const routes = [
     component: () => import(/* webpackChunkName: "instructors" */ '../views/InstructorsView'),
   },
   {
+    path: '/instructors/:id',
+    name: 'Instructor',
+    component: () => import(/* webpackChunkName: "instructor" */ '../views/InstructorView'),
+    meta: { hideFooter: true },
+  },
+  {
+    path: '/instructors/:id/packages',
+    name: 'InstructorPackages',
+    component: () => import(/* webpackChunkName: "instructor-schedule" */ '../views/InstructorPackages'),
+  },
+  {
+    path: '/instructors/:id/schedule',
+    name: 'InstructorSchedule',
+    component: () => import(/* webpackChunkName: "instructor-schedule" */ '../views/InstructorSchedule'),
+  },
+  {
     path: '/profile',
     name: 'Profile',
     component: () => import(/* webpackChunkName: "profile" */ '../views/ProfileView.vue'),
@@ -98,7 +114,5 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
-
-// router.beforeEach((to, from) => {});
 
 export default router;

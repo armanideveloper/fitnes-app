@@ -43,7 +43,7 @@ export default {
           type: 'link',
         },
       ],
-      currentComponent: 'TheClasses',
+      currentComponent: this.$route.params.currentComponent || 'TheClasses',
     };
   },
   methods: {

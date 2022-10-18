@@ -70,7 +70,7 @@ export default {
     }
 
     &.selected {
-      background-color: #eff1f2;
+      background-color: $light-grey-3;
 
       .store-card {
         &__current-membership {
@@ -93,7 +93,7 @@ export default {
         }
 
         &__footer {
-          background-color: #eff1f2;
+          background-color: $light-grey-3;
         }
 
         &__btn {
