@@ -59,11 +59,11 @@ export default {
   data() {
     return {
       historyItems: [
-        { date: '02.10.2022', title: 'BodyPump', points: 2, status: 'Participated' },
-        { date: '05.10.2022', title: 'Gym', points: 2, status: 'Participated' },
-        { date: '06.10.2022', title: 'No-show', points: -2, status: 'No-show' },
-        { date: '07.10.2022', title: 'Cancel', points: -1, status: 'Cancel' },
-        { date: '29.10.2022', title: 'BodyPump', points: 0, status: 'Accepted' },
+        { date: '02.10.2022', time: '18:00', title: 'BodyPump', points: 2, status: 'Participated' },
+        { date: '05.10.2022', time: '18:11', title: 'Gym', points: 2, status: 'Participated' },
+        { date: '06.10.2022', time: '18:00', title: 'No-show', points: -2, status: 'No-show' },
+        { date: '07.10.2022', time: '18:00', title: 'Cancel', points: -1, status: 'Cancel' },
+        { date: '29.10.2022', time: '18:00', title: 'BodyPump', points: 0, status: 'Accepted' },
       ],
       calendarMasks: {
         weekdays: 'WWW',
@@ -74,7 +74,7 @@ export default {
     doneEventsAttrs() {
       return {
         highlight: {
-          contentClass: 'blue',
+          contentClass: 'green',
         },
         dates: this.historyItems
           .filter(item => item.status === 'Participated')
@@ -182,9 +182,9 @@ export default {
       .vc-day-content {
         line-height: 21px;
 
-        &.blue {
+        &.green {
           color: #fff;
-          background-color: $blue;
+          background-color: $green;
         }
       }
 

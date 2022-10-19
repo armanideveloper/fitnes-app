@@ -33,13 +33,10 @@ import BaseButton from '@/components/BaseButton';
 import BasePageHeader from '@/components/BasePageHeader';
 
 export default {
-  name: 'ChangePasswordSuccessView',
+  name: 'SuccessfulAction',
   components: {
     BaseButton,
     BasePageHeader,
-  },
-  metaInfo: {
-    title: 'Password changed successfully',
   },
 };
 </script>
@@ -51,6 +48,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 20px;
   padding-top: 42px;
   background-color: $blue;
 
@@ -91,6 +89,7 @@ export default {
     margin-bottom: 29px;
     color: $black;
     font-size: 24px;
+    font-weight: 500;
     line-height: 21px;
     text-align: center;
   }

@@ -63,6 +63,10 @@ export default {
 
 <style lang="scss" scoped>
 .change-password {
+  .base-page-header {
+    font-family: 'Inter', sans-serif;
+  }
+
   &__fields {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

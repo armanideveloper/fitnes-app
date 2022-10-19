@@ -130,7 +130,7 @@ export default {
   },
   data() {
     return {
-      images: ['pic-training', 'pic-training', 'pic-training'],
+      images: ['pic-training', 'pic-training', 'pic-training', 'pic-training', 'pic-training'],
       instructor: {
         img: 'marcus',
         name: 'Marcus',
@@ -197,6 +197,7 @@ export default {
 
 .instructor {
   padding-top: 15px;
+  font-family: 'Roboto', sans-serif;
 
   &__wrapper {
     display: flex;

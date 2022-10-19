@@ -17,6 +17,7 @@ export default {
   display: block;
   padding: 7px 0;
   color: #fff;
+  font-family: 'Roboto', sans-serif;
   font-size: 16px;
   line-height: 18px;
   text-align: center;
@@ -33,9 +34,8 @@ export default {
   margin: 0 auto;
   padding: 11px 0;
   color: #fff;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 30px;
+  font-size: 16px;
+  line-height: 22px;
   text-align: center;
   background-color: $blue;
   border-radius: 10px;

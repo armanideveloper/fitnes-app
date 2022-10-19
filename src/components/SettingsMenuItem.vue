@@ -5,7 +5,7 @@
         <img :src="require(`@/assets/images/icons/${icon}.svg`)" :alt="icon" />
       </div>
 
-      <p class="setting-menu-item__name" :class="nameColor" :style="{ color: textColor }">
+      <p class="settings-menu-item__name" :class="nameColor" :style="{ color: textColor }">
         {{ text }}
       </p>
 

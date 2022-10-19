@@ -99,6 +99,7 @@ export default {
   width: 298px;
   height: 90vh;
   padding: 65px 22px 22px;
+  font-family: 'Inter', sans-serif;
   background: #fff;
   box-shadow: 0 4px 50px 12px rgba(117, 125, 132, 0.35);
   border-radius: 34px;
@@ -128,6 +129,7 @@ export default {
 
   &__title {
     font-size: 22px;
+    font-family: 'Poppins', sans-serif;
     font-weight: 600;
   }
 
@@ -141,25 +143,22 @@ export default {
   }
 
   &__user {
-    display: grid;
-    grid-template-columns: 56px 1fr;
-    grid-template-rows: repeat(2, auto);
-    grid-column-gap: 6px;
-    margin-bottom: 22px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 14px;
   }
 }
 
 .user {
   &__avatar {
-    grid-row: span 2;
-    width: 100%;
+    width: 56px;
     height: 56px;
+    margin-bottom: 14px;
     border-radius: 50%;
     object-fit: cover;
   }
 
   &__name {
-    align-self: self-end;
     padding-left: 9px;
     font-size: 14px;
     font-weight: 500;
@@ -167,7 +166,6 @@ export default {
   }
 
   &__email {
-    align-self: self-start;
     color: $grey;
     font-size: 12px;
     line-height: 21px;

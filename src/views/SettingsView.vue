@@ -3,7 +3,7 @@
     <div class="container">
       <base-page-header>Settings</base-page-header>
 
-      <main>
+      <article>
         <ul class="settings__list">
           <li class="settings__item settings-item">
             Notifications
@@ -37,7 +37,7 @@
             </div>
           </li>
         </ul>
-      </main>
+      </article>
     </div>
   </div>
 </template>
@@ -75,6 +75,8 @@ export default {
 @import '@/assets/styles/vars/_colors.scss';
 
 .settings {
+  font-family: 'Inter', sans-serif;
+
   &__list {
     display: flex;
     flex-direction: column;

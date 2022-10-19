@@ -81,8 +81,9 @@ export default {
 
   &__title,
   &__sum {
+    padding-left: 12px;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 24px;
   }
 
@@ -140,6 +141,7 @@ export default {
 
   &__btn {
     width: 130px;
+    padding: 6px 0;
     margin-right: auto;
     margin-left: auto;
   }

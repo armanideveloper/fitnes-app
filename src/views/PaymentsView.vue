@@ -63,5 +63,6 @@ export default {
 
 <style lang="scss" scoped>
 .payments {
+  font-family: 'Inter', sans-serif;
 }
 </style>

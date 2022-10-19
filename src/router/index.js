@@ -47,7 +47,6 @@ const routes = [
     path: '/instructors/:id',
     name: 'Instructor',
     component: () => import(/* webpackChunkName: "instructor" */ '../views/InstructorView'),
-    meta: { hideFooter: true },
   },
   {
     path: '/instructors/:id/packages',

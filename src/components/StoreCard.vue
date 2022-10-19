@@ -21,7 +21,11 @@
 
     <footer class="store-card__footer">
       <template v-if="storeItem.selected">
-        <base-button class="small-btn store-card__btn store-card__btn--renew">Renew</base-button>
+        <router-link :to="{ name: 'StorePayment' }" v-slot="{ navigate }" custom>
+          <base-button class="small-btn store-card__btn store-card__btn--renew" @click.native="navigate"
+            >Renew</base-button
+          >
+        </router-link>
         <base-button class="small-btn store-card__btn store-card__btn--freeze">Freeze</base-button>
       </template>
 

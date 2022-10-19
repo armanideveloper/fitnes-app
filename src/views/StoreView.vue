@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      currentComponent: 'StorePackages',
+      currentComponent: this.$route.params.currentComponent || 'StorePackages',
       storeTabs: [
         {
           title: 'Memberships',

@@ -70,11 +70,14 @@ export default {
     width: 100%;
     padding: 6px 0;
     color: $grey;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
     border-radius: 8px;
     transition: all 0.15s ease-in-out;
 
     &.active {
       color: $blue-2;
+      font-weight: 500;
       background-color: #fff;
       box-shadow: 0 4px 60px rgba(178, 194, 210, 0.32);
     }

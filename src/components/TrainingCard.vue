@@ -72,6 +72,7 @@ export default {
 @import '@/assets/styles/vars/_colors.scss';
 
 .training-card {
+  font-family: 'Plus Jakarta Sans', sans-serif;
   background-color: #fff;
   border-radius: 12px;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
@@ -154,6 +155,7 @@ export default {
     min-width: 80px;
     margin: 0 auto;
     padding: 0;
+    font-family: 'Poppins', sans-serif;
     font-size: 12px;
     line-height: 20px;
 

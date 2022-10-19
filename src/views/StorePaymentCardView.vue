@@ -130,9 +130,7 @@ export default {
 
       console.log(data);
 
-      setTimeout(() => {
-        this.$router.push({ name: 'Home' });
-      }, 500);
+      this.$router.push({ name: 'StorePaymentSuccess' });
     },
   },
 };
@@ -184,6 +182,7 @@ export default {
   &__type-label {
     display: block;
     padding: 17px 0;
+    font-weight: 500;
     text-align: center;
     background: #fff;
     border-bottom: 4px solid transparent;
@@ -222,6 +221,7 @@ export default {
   &__card-number {
     align-items: flex-start;
     margin-bottom: 20px;
+    font-weight: 500;
   }
 
   &__expiry-cvv {
@@ -246,7 +246,8 @@ export default {
 
   &__expiry-date-months {
     padding: 17px 22px;
-    background-color: #fff;
+    font-weight: 500;
+    background: #fff url('@/assets/images/icons/small-arrow-down.svg') no-repeat center right 8px;
     border-radius: 10px 0 0 10px;
   }
 
@@ -255,6 +256,7 @@ export default {
       .base-text-input {
         max-width: 65px;
         padding: 17px 22px 17px 8px;
+        font-weight: 500;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
         border-left: 1px solid rgba(90, 101, 105, 0.6);

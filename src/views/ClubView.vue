@@ -36,7 +36,13 @@
         <a href="#" class="club-facilities__link">View gym rules</a>
 
         <div class="club-facilities__btn-block">
-          <base-button class="small-btn">View memberships</base-button>
+          <router-link
+            :to="{ name: 'Store', params: { currentComponent: 'StoreMemberships' } }"
+            v-slot="{ navigate }"
+            custom
+          >
+            <base-button class="small-btn" @click.native="navigate">View memberships</base-button>
+          </router-link>
           <base-button class="small-btn">View classes</base-button>
         </div>
       </section>
@@ -175,6 +181,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/vars/_colors.scss';
+
 @mixin base-text-size {
   font-size: 14px;
   line-height: 18px;
@@ -183,9 +190,7 @@ export default {
 
 .club-page {
   padding: 16px 0;
-
-  &__images {
-  }
+  font-family: 'Roboto', sans-serif;
 }
 
 .club-about {
@@ -195,7 +200,7 @@ export default {
     display: grid;
     grid-template-columns: 72px 1fr;
     grid-column-gap: 20px;
-    margin-bottom: 4px;
+    margin-bottom: 12px;
   }
 
   &__avatar-wrapper {
@@ -206,6 +211,7 @@ export default {
     height: 72px;
     background-color: $grey-100;
     border: 3px solid #fff;
+    box-shadow: 0 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
     border-radius: 50%;
   }
 
@@ -222,6 +228,7 @@ export default {
   }
 
   &__name {
+    margin-bottom: 9px;
     color: #8a9395;
     font-size: 22px;
     line-height: 26px;
@@ -301,6 +308,7 @@ export default {
 
 .club-schedule {
   margin-bottom: 26px;
+  font-family: 'Poppins', sans-serif;
 
   &__table {
     padding: 10px 36px;
@@ -336,6 +344,7 @@ export default {
     grid-column-gap: 24px;
     align-items: center;
     color: $dark-blue;
+    font-family: 'Poppins', sans-serif;
     font-weight: 500;
     font-size: 15px;
     line-height: 22px;

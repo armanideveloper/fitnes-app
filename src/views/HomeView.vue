@@ -37,6 +37,7 @@
           :value="stat.value"
           :time="stat.time"
           :img="stat.img"
+          :link-to="stat.linkTo"
           :class="stat.colorClass ? `info-card--${stat.colorClass}` : ''"
         />
       </section>
@@ -71,46 +72,52 @@
       </section>
 
       <section class="home__info">
-        <div class="card membership-card">
-          <p class="card__subtitle">Membership</p>
-          <h2 class="card__title">Standard</h2>
-          <p class="card__value">150 <span>RON</span></p>
-        </div>
-        <div class="card bookings-card">
-          <h2 class="card__title">Bookings left</h2>
-          <p class="card__value">150</p>
-        </div>
-        <div class="card dates-card">
-          <div class="dates-card__dates">
-            <div class="dates-card__date">
-              <p class="dates-card__date-title">Start date</p>
-              <p class="dates-card__date-value">01 September</p>
-            </div>
-
-            <div class="dates-card__buttons">
-              <button class="dates-card__btn active">
-                <svg width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M9.00023 3.76858C10.3335 4.53846 10.3334 6.46296 9.00004 7.23268L3.74988 10.2635C2.4165 11.0332 0.749888 10.0709 0.749972 8.53127L0.750302 2.46909C0.750386 0.929492 2.41711 -0.0326659 3.7504 0.737207L9.00023 3.76858Z"
-                    fill="#B8E1FF"
-                  />
-                </svg>
-              </button>
-              <button class="dates-card__btn">
-                <svg width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M9.00023 3.76858C10.3335 4.53846 10.3334 6.46296 9.00004 7.23268L3.74988 10.2635C2.4165 11.0332 0.749888 10.0709 0.749972 8.53127L0.750302 2.46909C0.750386 0.929492 2.41711 -0.0326659 3.7504 0.737207L9.00023 3.76858Z"
-                    fill="#B8E1FF"
-                  />
-                </svg>
-              </button>
-            </div>
-
-            <div class="dates-card__date">
-              <p class="dates-card__date-title">End date</p>
-              <p class="dates-card__date-value">30 September</p>
-            </div>
+        <router-link :to="{ name: 'Store', params: { currentComponent: 'StoreMemberships' } }" v-slot="{ navigate }">
+          <div class="card membership-card" @click="navigate">
+            <p class="card__subtitle">Membership</p>
+            <h2 class="card__title">Standard</h2>
+            <p class="card__value">150 <span>RON</span></p>
           </div>
+        </router-link>
+        <router-link :to="{ name: 'History' }" v-slot="{ navigate }">
+          <div class="card bookings-card" @click="navigate">
+            <h2 class="card__title">Bookings left</h2>
+            <p class="card__value">150</p>
+          </div>
+        </router-link>
+        <div class="card dates-card">
+          <router-link :to="{ name: 'Store', params: { currentComponent: 'StoreMemberships' } }">
+            <div class="dates-card__dates">
+              <div class="dates-card__date">
+                <p class="dates-card__date-title">Start date</p>
+                <p class="dates-card__date-value">01 September</p>
+              </div>
+
+              <div class="dates-card__buttons">
+                <button class="dates-card__btn active">
+                  <svg width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M9.00023 3.76858C10.3335 4.53846 10.3334 6.46296 9.00004 7.23268L3.74988 10.2635C2.4165 11.0332 0.749888 10.0709 0.749972 8.53127L0.750302 2.46909C0.750386 0.929492 2.41711 -0.0326659 3.7504 0.737207L9.00023 3.76858Z"
+                      fill="#B8E1FF"
+                    />
+                  </svg>
+                </button>
+                <button class="dates-card__btn">
+                  <svg width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M9.00023 3.76858C10.3335 4.53846 10.3334 6.46296 9.00004 7.23268L3.74988 10.2635C2.4165 11.0332 0.749888 10.0709 0.749972 8.53127L0.750302 2.46909C0.750386 0.929492 2.41711 -0.0326659 3.7504 0.737207L9.00023 3.76858Z"
+                      fill="#B8E1FF"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              <div class="dates-card__date">
+                <p class="dates-card__date-title">End date</p>
+                <p class="dates-card__date-value">30 September</p>
+              </div>
+            </div>
+          </router-link>
 
           <p class="dates-card__days-left">28 days left</p>
 
@@ -146,6 +153,7 @@ export default {
           value: '24',
           text: 'points',
           colorClass: 'dark-blue',
+          linkTo: 'History',
         },
         {
           img: 'right-square',
@@ -153,6 +161,7 @@ export default {
           text: 'Entries',
           time: 'last 30 days',
           colorClass: 'blue',
+          linkTo: 'History',
         },
         {
           img: 'target',

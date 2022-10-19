@@ -96,7 +96,7 @@ export default {
   },
   data() {
     return {
-      carouselImages: ['pic-training', 'pic-training', 'pic-training'],
+      carouselImages: ['pic-training', 'pic-training', 'pic-training', 'pic-training', 'pic-training'],
       searchStr: '',
       topInstructors: [
         {
@@ -120,11 +120,15 @@ export default {
           { id: 1, name: 'Marcus', img: 'marcus' },
           { id: 2, name: 'Marcus', img: '' },
           { id: 3, name: 'Marcus', img: '' },
+          { id: 4, name: 'Marcus', img: '' },
+          { id: 5, name: 'Marcus', img: '' },
         ],
         [
           { id: 4, name: 'Marcus', img: '' },
           { id: 5, name: 'Marcus', img: '' },
           { id: 6, name: 'Marcus', img: '' },
+          { id: 7, name: 'Marcus', img: '' },
+          { id: 8, name: 'Marcus', img: '' },
         ],
       ],
     };
