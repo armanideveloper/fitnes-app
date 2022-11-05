@@ -5,8 +5,15 @@
 
       <div class="store-payment__about payment-about">
         <p class="payment-about__text">
-          You are about to pay <br /><strong>{{ totalPrice }} RON</strong> (discount applied) <br />to
-          <strong>{{ paymentAddress }}</strong> <br />for
+          You are about to pay
+          <br />
+          <strong>{{ totalPrice }} RON</strong>
+          (discount applied)
+          <br />
+          to
+          <strong>{{ paymentAddress }}</strong>
+          <br />
+          for
           <strong>{{ paymentPurpose }}</strong>
         </p>
 
@@ -17,7 +24,8 @@
         <hr />
 
         <p class="payment-about__security">
-          Secure payment with <img :src="require('@/assets/images/stripe-logo.png')" alt="" />
+          Secure payment with
+          <img :src="require('@/assets/images/stripe-logo.png')" alt="" />
         </p>
       </div>
 
@@ -36,16 +44,14 @@
       </div>
 
       <div class="store-payment__buttons">
-        <router-link :to="{ name: 'Store' }" v-slot="{ navigate }" custom
-          ><base-button class="base-btn base-btn--white store-payment__btn" @click.native="navigate"
-            >Cancel payment</base-button
-          ></router-link
-        >
-        <router-link :to="{ name: 'StorePaymentCard', params: { price: totalPrice } }" v-slot="{ navigate }" custom
-          ><base-button class="base-btn store-payment__btn" @click.native="navigate"
-            >Go to payment</base-button
-          ></router-link
-        >
+        <router-link :to="{ name: 'Store' }" v-slot="{ navigate }" custom>
+          <base-button class="base-btn base-btn--white store-payment__btn" @click.native="navigate">
+            Cancel payment
+          </base-button>
+        </router-link>
+        <router-link :to="{ name: 'StorePaymentCard', params: { price: totalPrice } }" v-slot="{ navigate }" custom>
+          <base-button class="base-btn store-payment__btn" @click.native="navigate">Go to payment</base-button>
+        </router-link>
       </div>
     </div>
   </div>

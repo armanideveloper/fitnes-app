@@ -19,9 +19,9 @@
         <p class="done-block__subtitle"><slot name="doneBlockSubtitle"></slot></p>
 
         <router-link :to="{ name: 'Home' }" v-slot="{ href, navigate }">
-          <base-button class="base-btn" :href="href" @click.native="navigate"
-            ><slot name="buttonText">Done</slot></base-button
-          >
+          <base-button class="base-btn" :href="href" @click.native="navigate">
+            <slot name="buttonText">Done</slot>
+          </base-button>
         </router-link>
       </div>
     </main>

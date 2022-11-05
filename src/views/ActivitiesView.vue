@@ -3,9 +3,7 @@
     <div class="container">
       <base-tabs :tabs="tabs" :active-tab-initial="currentComponent" @change-tab="changeTab" />
 
-      <component :is="currentComponent">
-        <h2 class="schedule-title">Our schedule</h2>
-      </component>
+      <component :is="currentComponent" />
     </div>
   </div>
 </template>
@@ -19,7 +17,7 @@ export default {
   components: {
     BaseTabs,
     TheClasses,
-    TrainingSchedule: () => import('@/components/TrainingSchedule'),
+    PersonalTrainings: () => import('@/components/PersonalTrainings.vue'),
   },
   metaInfo: {
     title: 'Activities',
@@ -34,12 +32,12 @@ export default {
         },
         {
           title: 'PT',
-          component: 'TrainingSchedule',
+          component: 'PersonalTrainings',
           type: 'component',
         },
         {
-          title: 'Bookings',
-          component: 'Bookings',
+          title: 'History',
+          component: 'History',
           type: 'link',
         },
       ],
@@ -57,13 +55,5 @@ export default {
 <style lang="scss" scoped>
 .activities {
   padding: 21px 0 40px;
-}
-
-.schedule-title {
-  margin-top: 9px;
-  margin-bottom: 18px;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 22px;
 }
 </style>

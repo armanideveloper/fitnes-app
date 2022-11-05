@@ -70,8 +70,8 @@
                     />
                   </div>
 
-                  <h3 class="instructors-item__name">{{ instructor.name }}</h3></router-link
-                >
+                  <h3 class="instructors-item__name">{{ instructor.name }}</h3>
+                </router-link>
               </li>
             </ul>
           </div>

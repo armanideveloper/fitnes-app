@@ -1,7 +1,7 @@
 <template>
   <div class="store-card" :class="[`store-card--${storeItem.type}`, { selected: storeItem.selected }]">
     <main class="store-card__main">
-      <p class="store-card__current-membership">
+      <p v-if="'selected' in storeItem" class="store-card__current-membership">
         {{ storeItem.selected ? 'Current membership' : '' }}
       </p>
 
@@ -9,10 +9,17 @@
 
       <p class="store-card__subtitle">{{ storeItem.subtitle }}</p>
 
-      <div class="store-card__price-duration">
-        <p class="store-card__price">{{ storeItem.price }} <span>RON</span></p>
+      <p class="store-card__date">{{ storeItem.date }}</p>
 
-        <div class="store-card__duration-block">
+      <p class="store-card__time">{{ storeItem.time }}</p>
+
+      <div class="store-card__price-duration">
+        <p class="store-card__price">
+          {{ storeItem.price }}
+          <span>RON</span>
+        </p>
+
+        <div v-if="storeItem.duration" class="store-card__duration-block">
           <p class="store-card__duration-title">Valabilitate</p>
           <p class="store-card__duration">{{ storeItem.duration }} Luna</p>
         </div>
@@ -22,9 +29,9 @@
     <footer class="store-card__footer">
       <template v-if="storeItem.selected">
         <router-link :to="{ name: 'StorePayment' }" v-slot="{ navigate }" custom>
-          <base-button class="small-btn store-card__btn store-card__btn--renew" @click.native="navigate"
-            >Renew</base-button
-          >
+          <base-button class="small-btn store-card__btn store-card__btn--renew" @click.native="navigate">
+            Renew
+          </base-button>
         </router-link>
         <base-button class="small-btn store-card__btn store-card__btn--freeze">Freeze</base-button>
       </template>
@@ -56,13 +63,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/vars/_colors.scss';
+@import '@/assets/styles/vars/_mixins.scss';
 
 .store-card {
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  border-radius: 10px;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  @include store-card;
 
   &--membership {
     .store-card {
@@ -114,13 +118,29 @@ export default {
     }
   }
 
+  &--event {
+    .store-card__subtitle {
+      margin-bottom: 0;
+    }
+
+    .store-card__main {
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    .store-card__date,
+    .store-card__time {
+      color: $green-2;
+    }
+
+    .store-card__time {
+      margin-bottom: 7px;
+    }
+  }
+
   &__main {
-    flex: 1;
+    @include store-card-main;
     padding: 8px 13px 19px 13px;
-    color: #fff;
-    font-weight: 500;
-    background-color: $blue;
-    border-radius: 10px;
   }
 
   &__current-membership {

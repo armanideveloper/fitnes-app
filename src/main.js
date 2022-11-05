@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import VueMeta from 'vue-meta';
+import VCalendar from 'v-calendar';
+
 import App from './App.vue';
 import router from './router';
-import VCalendar from 'v-calendar';
+
 import clickOutside from '@/directives/click-outside';
 
 import './assets/styles/main.scss';

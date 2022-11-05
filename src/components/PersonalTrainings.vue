@@ -1,6 +1,6 @@
 <template>
   <training-schedule :trainings="trainings">
-    <h2 class="schedule-title">Gym Schedule</h2>
+    <h2 class="schedule-title">Trainer schedule</h2>
   </training-schedule>
 </template>
 
@@ -8,7 +8,7 @@
 import TrainingSchedule from '@/components/TrainingSchedule';
 
 export default {
-  name: 'TheClasses',
+  name: 'PersonalTrainings',
   components: {
     TrainingSchedule,
   },
@@ -16,9 +16,9 @@ export default {
     trainings: [
       {
         id: 1,
-        title: 'Body Pump',
+        title: 'Personal Training',
         notify: true,
-        date: '03.11.2022',
+        date: '04.11.2022',
         time: '07:00',
         format: '1-to-1',
         duration: '50 mins',
@@ -27,9 +27,9 @@ export default {
       },
       {
         id: 2,
-        title: 'Metabolic training',
+        title: 'Personal Training',
         notify: false,
-        date: '05.11.2022',
+        date: '07.11.2022',
         time: '07:00',
         format: '1-to-1',
         duration: '50 mins',
@@ -39,7 +39,7 @@ export default {
       },
       {
         id: 3,
-        title: 'Step aerobic',
+        title: 'Personal Training',
         notify: false,
         date: '08.11.2022',
         time: '07:00',
@@ -51,7 +51,7 @@ export default {
       },
       {
         id: 4,
-        title: 'Fat burn',
+        title: 'Personal Training',
         notify: true,
         date: '08.11.2022',
         time: '07:00',
@@ -63,7 +63,19 @@ export default {
       },
       {
         id: 5,
-        title: 'Fat burn',
+        title: 'Personal Training',
+        notify: true,
+        date: '09.11.2022',
+        time: '07:00',
+        format: '1-to-1',
+        duration: '50 mins',
+        place: 'ArsNova',
+        isBookingAvailable: false,
+        availableIn: '19h 59m',
+      },
+      {
+        id: 6,
+        title: 'Personal Training',
         notify: true,
         date: '09.11.2022',
         time: '07:00',

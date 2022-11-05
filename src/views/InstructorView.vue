@@ -33,7 +33,8 @@
             </div>
 
             <p class="main-info__rating">
-              <img :src="require('@/assets/images/icons/star-2.svg')" alt="" /> {{ instructor.rating }}
+              <img :src="require('@/assets/images/icons/star-2.svg')" alt="" />
+              {{ instructor.rating }}
             </p>
 
             <p class="main-info__description">{{ instructor.description }}</p>

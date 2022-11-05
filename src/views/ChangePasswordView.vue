@@ -9,9 +9,9 @@
         <form action="" class="change-password__form" @submit.prevent="changePasswordHandler">
           <fieldset class="change-password__fields">
             <base-text-input id="password" type="password" v-model="password">New password</base-text-input>
-            <base-text-input id="confirm-password" type="password" v-model="confirmPassword"
-              >Confirm new password</base-text-input
-            >
+            <base-text-input id="confirm-password" type="password" v-model="confirmPassword">
+              Confirm new password
+            </base-text-input>
           </fieldset>
 
           <base-button class="change-password__submit-btn small-btn mt-22">Apply</base-button>

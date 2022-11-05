@@ -39,6 +39,26 @@ const routes = [
     component: () => import(/* webpackChunkName: "store" */ '../views/StoreView'),
   },
   {
+    path: '/store/memberships',
+    name: 'StoreMemberships',
+    component: () => import(/* webpackChunkName: "store-memberships" */ '../views/StoreMembershipsView'),
+  },
+  {
+    path: '/store/packages',
+    name: 'StorePackages',
+    component: () => import(/* webpackChunkName: "store-packages" */ '../views/StorePackagesView'),
+  },
+  {
+    path: '/store/workouts',
+    name: 'StoreWorkouts',
+    component: () => import(/* webpackChunkName: "store-workouts" */ '../views/StoreWorkoutsView'),
+  },
+  {
+    path: '/store/events',
+    name: 'StoreEvents',
+    component: () => import(/* webpackChunkName: "store-events" */ '../views/StoreEventsView'),
+  },
+  {
     path: '/instructors',
     name: 'Instructors',
     component: () => import(/* webpackChunkName: "instructors" */ '../views/InstructorsView'),

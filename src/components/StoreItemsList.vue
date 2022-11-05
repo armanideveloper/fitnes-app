@@ -1,6 +1,6 @@
 <template>
   <section class="store-items">
-    <h2 class="store-items__title"><slot></slot></h2>
+    <h2 class="store-page-title"><slot /></h2>
 
     <div class="store-items__list">
       <store-card v-for="(item, index) in storeItems" :key="`store-item_${index}`" :store-item="item" />

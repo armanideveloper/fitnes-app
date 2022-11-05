@@ -106,7 +106,7 @@ export default {
     padding: 15px;
     text-align: center;
     background-color: #fff;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.02);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.01);
     border-radius: 8px;
 
     &.active {

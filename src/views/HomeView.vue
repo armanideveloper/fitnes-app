@@ -30,16 +30,41 @@
       </section>
 
       <section class="home__stats">
-        <info-card
-          v-for="(stat, index) in stats"
-          :key="`stat-item_${index}`"
-          :text="stat.text"
-          :value="stat.value"
-          :time="stat.time"
-          :img="stat.img"
-          :link-to="stat.linkTo"
-          :class="stat.colorClass ? `info-card--${stat.colorClass}` : ''"
-        />
+        <article class="info-card info-card--dark-blue">
+          <router-link class="info-card__link" :to="{ name: 'History' }">
+            <div class="info-card__img-wrapper">
+              <img class="info-card__img" :src="require(`@/assets/images/icons/coins.svg`)" alt="" />
+            </div>
+
+            <h2 class="info-card__value">{{ points }}</h2>
+
+            <p class="info-card__text">Points</p>
+          </router-link>
+        </article>
+
+        <article class="info-card info-card--blue">
+          <router-link class="info-card__link" :to="{ name: 'History' }">
+            <div class="info-card__img-wrapper">
+              <img class="info-card__img" :src="require(`@/assets/images/icons/right-square.svg`)" alt="" />
+            </div>
+
+            <h2 class="info-card__value">{{ entries }}</h2>
+
+            <p class="info-card__text">Entries</p>
+
+            <span class="info-card__time">last {{ days }} days</span>
+          </router-link>
+        </article>
+
+        <article class="info-card" @click="openSuccessSheet">
+          <div class="info-card__img-wrapper">
+            <img class="info-card__img" :src="require(`@/assets/images/icons/target.svg`)" alt="" />
+          </div>
+
+          <h2 class="info-card__value">{{ weeklyGoal }}/5</h2>
+
+          <p class="info-card__text">Weekly goal</p>
+        </article>
       </section>
 
       <section class="home__next-booking">
@@ -51,8 +76,8 @@
           <base-button class="small-btn">Cancel</base-button>
         </div>
         <div class="card checkin-card">
-          <template v-if="!bookingCheckedIn"
-            ><h2 class="checkin-card__title">Check-in</h2>
+          <template v-if="!bookingCheckedIn">
+            <h2 class="checkin-card__title">Check-in</h2>
 
             <button class="checkin-card__btn" @click="checkIn">
               <img :src="require('@/assets/images/icons/arrow-up.svg')" alt="" />
@@ -76,7 +101,10 @@
           <div class="card membership-card" @click="navigate">
             <p class="card__subtitle">Membership</p>
             <h2 class="card__title">Standard</h2>
-            <p class="card__value">150 <span>RON</span></p>
+            <p class="card__value">
+              150
+              <span>RON</span>
+            </p>
           </div>
         </router-link>
         <router-link :to="{ name: 'History' }" v-slot="{ navigate }">
@@ -124,21 +152,43 @@
           <progress class="dates-card__progress" :value="progress" max="100"></progress>
         </div>
       </section>
+
+      <vue-bottom-sheet
+        ref="successBottomSheet"
+        max-width="800px"
+        max-height="494px"
+        class="success-sheet"
+        effect="fx-fadein-scale"
+        :background-scrollable="false"
+        overlay-color="transparent"
+        is-full-screen
+      >
+        <img class="success-sheet__img" :src="require('@/assets/images/icons/nice-done.svg')" alt="" />
+
+        <h2 class="success-sheet__title">
+          Nice one!
+          <img :src="require('@/assets/images/congrats.png')" alt="" />
+        </h2>
+
+        <p class="success-sheet__text">You're done for this week. Keep up the good work</p>
+
+        <base-button class="success-sheet__btn small-btn" @click.native="closeSuccessSheet">Dismiss</base-button>
+      </vue-bottom-sheet>
     </div>
   </article>
 </template>
 
 <script>
+import VueBottomSheet from '@webzlodimir/vue-bottom-sheet';
 import BaseButton from '@/components/BaseButton';
 import SettingsMenu from '@/components/SettingsMenu';
-import InfoCard from '@/components/InfoCard';
 
 export default {
   name: 'HomeView',
   components: {
+    VueBottomSheet,
     BaseButton,
     SettingsMenu,
-    InfoCard,
   },
   metaInfo: {
     title: 'Home Page',
@@ -147,28 +197,10 @@ export default {
     return {
       username: 'John',
       showSettings: false,
-      stats: [
-        {
-          img: 'coins',
-          value: '24',
-          text: 'points',
-          colorClass: 'dark-blue',
-          linkTo: 'History',
-        },
-        {
-          img: 'right-square',
-          value: '20',
-          text: 'Entries',
-          time: 'last 30 days',
-          colorClass: 'blue',
-          linkTo: 'History',
-        },
-        {
-          img: 'target',
-          value: '5 / 5',
-          text: 'Weekly Goal',
-        },
-      ],
+      points: 24,
+      entries: 20,
+      days: 30,
+      weeklyGoal: 5,
       bookingCheckedIn: false,
       checkedInTime: null,
       progress: 76,
@@ -192,6 +224,16 @@ export default {
 
       this.bookingCheckedIn = true;
       this.checkedInTime = timeStr;
+    },
+    openSuccessSheet() {
+      if (this.weeklyGoal < 5) {
+        return false;
+      }
+
+      this.$refs.successBottomSheet.open();
+    },
+    closeSuccessSheet() {
+      this.$refs.successBottomSheet.close();
     },
   },
   destroyed() {
@@ -240,7 +282,7 @@ export default {
 
   &__greeting {
     font-size: 24px;
-    font-weight: 600;
+    font-weight: 500;
   }
 
   &__level-img {
@@ -294,6 +336,67 @@ export default {
   height: 48px;
   border-radius: 10px;
   box-shadow: 0 0 50px rgba(153, 153, 153, 0.25);
+}
+
+.info-card {
+  @include base-card-mixin;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px 4px 4px;
+  color: $green;
+  text-align: center;
+
+  &--dark-blue {
+    color: #fff;
+    background-color: $dark-blue;
+
+    .info-card__img-wrapper {
+      background-color: rgba(217, 217, 217, 0.2);
+    }
+  }
+
+  &--blue {
+    color: #fff;
+    background-color: $blue;
+
+    .info-card__img-wrapper {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__img-wrapper {
+    display: grid;
+    place-items: center;
+    width: 35px;
+    height: 35px;
+    margin-bottom: 8px;
+    border-radius: 50%;
+  }
+
+  &__value {
+    margin-bottom: 5px;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 22px;
+  }
+
+  &__text {
+    font-size: 14px;
+    font-weight: 300;
+    text-align: center;
+  }
+
+  &__time {
+    font-weight: 300;
+    font-size: 8px;
+  }
 }
 
 .card {
@@ -489,6 +592,72 @@ export default {
       border-radius: 10px;
       background-color: $green-2;
     }
+  }
+}
+
+.success-sheet {
+  // customizing of bottom-sheet styles
+  :deep() {
+    .bottom-sheet {
+      &__card {
+        border-radius: 12px 12px 0 0;
+      }
+
+      &__pan {
+        height: auto;
+        padding-top: 15px;
+        padding-bottom: 50px;
+      }
+
+      &__bar {
+        width: 66px;
+        height: 4px;
+        background: $grey-3;
+        border-radius: 19px;
+      }
+
+      &__content {
+        color: $grey-3;
+        font-weight: 500;
+        text-align: center;
+      }
+    }
+  }
+
+  &__img {
+    width: 176px;
+    height: 176px;
+    margin-bottom: 20px;
+    object-fit: cover;
+  }
+
+  &__title {
+    position: relative;
+    margin-bottom: 12px;
+    font-size: 30px;
+    line-height: 45px;
+
+    & > img {
+      position: absolute;
+      top: 50%;
+      transform: translate(19px, -50%);
+    }
+  }
+
+  &__text {
+    max-width: 232px;
+    margin: 0 auto 36px;
+    font-size: 18px;
+    line-height: 27px;
+  }
+
+  &__btn {
+    width: 101px;
+    margin: 0 auto;
+    padding: 3px 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
   }
 }
 </style>

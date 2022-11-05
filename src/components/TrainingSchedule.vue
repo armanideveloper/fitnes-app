@@ -20,82 +20,16 @@ export default {
     InlineCalendar,
     TrainingCard,
   },
+  props: {
+    trainings: {
+      type: Array,
+      required: true,
+      default: () => [],
+    },
+  },
   data() {
     return {
       selectedDate: null,
-      trainings: [
-        {
-          id: 1,
-          title: 'Personal Training',
-          notify: true,
-          date: '19.10.2022',
-          time: '07:00',
-          format: '1-to-1',
-          duration: '50 mins',
-          place: 'ArsNova',
-          isBookingAvailable: true,
-        },
-        {
-          id: 2,
-          title: 'Personal Training',
-          notify: false,
-          date: '19.10.2022',
-          time: '07:00',
-          format: '1-to-1',
-          duration: '50 mins',
-          place: 'ArsNova',
-          isBookingAvailable: false,
-          availableIn: '19h 59m',
-        },
-        {
-          id: 3,
-          title: 'Personal Training',
-          notify: false,
-          date: '20.10.2022',
-          time: '07:00',
-          format: '1-to-1',
-          duration: '50 mins',
-          place: 'ArsNova',
-          isBookingAvailable: false,
-          availableIn: '19h 59m',
-        },
-        {
-          id: 4,
-          title: 'Personal Training',
-          notify: true,
-          date: '20.10.2022',
-          time: '07:00',
-          format: '1-to-1',
-          duration: '50 mins',
-          place: 'ArsNova',
-          isBookingAvailable: false,
-          availableIn: '19h 59m',
-        },
-        {
-          id: 5,
-          title: 'Personal Training',
-          notify: true,
-          date: '21.10.2022',
-          time: '07:00',
-          format: '1-to-1',
-          duration: '50 mins',
-          place: 'ArsNova',
-          isBookingAvailable: false,
-          availableIn: '19h 59m',
-        },
-        {
-          id: 6,
-          title: 'Personal Training',
-          notify: true,
-          date: '21.10.2022',
-          time: '07:00',
-          format: '1-to-1',
-          duration: '50 mins',
-          place: 'ArsNova',
-          isBookingAvailable: false,
-          availableIn: '19h 59m',
-        },
-      ],
     };
   },
   computed: {
@@ -121,10 +55,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-@import '@/assets/styles/vars/_colors.scss';
-
-.schedule {
-}
-</style>

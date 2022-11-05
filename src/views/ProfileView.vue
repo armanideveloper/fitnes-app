@@ -17,8 +17,8 @@
           <fieldset class="profile-form__fields">
             <base-text-input id="firstname" v-model="profileData.name">First name *</base-text-input>
             <base-text-input id="surname" v-model="profileData.surname">Surname *</base-text-input>
-            <base-text-input class="col-full" id="address" v-model="profileData.address" input-text-align="left"
-              >Address *
+            <base-text-input class="col-full" id="address" v-model="profileData.address" input-text-align="left">
+              Address *
             </base-text-input>
             <base-text-input class="col-full" id="email" v-model="profileData.email">Email *</base-text-input>
             <base-text-input id="birthday" v-model="profileData.birthday">Date of birth</base-text-input>
@@ -29,14 +29,15 @@
 
               <div class="profile-form__radio-wrapper w-100">
                 <div class="profile-form-radio" v-for="gender in genderOptions" :key="gender">
-                  <label class="profile-form-radio__label"
-                    ><input
+                  <label class="profile-form-radio__label">
+                    <input
                       class="profile-form-radio__input"
                       type="radio"
                       :value="gender"
                       v-model="profileData.gender"
-                    />{{ gender }}</label
-                  >
+                    />
+                    {{ gender }}
+                  </label>
                 </div>
               </div>
             </div>

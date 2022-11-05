@@ -11,24 +11,38 @@
             <p class="training-card__time">{{ training.time }}</p>
 
             <base-toggle
+              v-if="'notify' in training"
               :default-state="notifications"
               :id="`training-notify-${training.id}`"
               @change-toggle-val="notifications = $event"
               class="primary"
-              >Notify</base-toggle
             >
+              Notify
+            </base-toggle>
+
+            <span v-if="training.repeats" class="training-card__tag training-card__repeats">
+              {{ training.repeats }}x/week
+            </span>
           </div>
 
           <div class="training-card__tags">
-            <span class="training-card__tag"
-              ><img :src="require('@/assets/images/icons/user-sm.svg')" alt="" />{{ training.format }}</span
-            >
-            <span class="training-card__tag"
-              ><img :src="require('@/assets/images/icons/clock-sm.svg')" alt="" />{{ training.duration }}</span
-            >
-            <span class="training-card__tag"
-              ><img :src="require('@/assets/images/icons/marker-pin-sm.svg')" alt="" />{{ training.place }}</span
-            >
+            <span class="training-card__tag" v-if="training.format">
+              <img :src="require('@/assets/images/icons/user-sm.svg')" alt="" />
+              {{ training.format }}
+            </span>
+            <span class="training-card__tag" v-if="training.duration">
+              <img :src="require('@/assets/images/icons/clock-sm.svg')" alt="" />
+              {{ training.duration }}
+            </span>
+            <span class="training-card__tag" v-if="training.place">
+              <img :src="require('@/assets/images/icons/marker-pin-sm.svg')" alt="" />
+              {{ training.place }}
+            </span>
+
+            <span v-if="training.equipment" class="training-card__tag">
+              <img :src="require('@/assets/images/icons/marker-pin-sm.svg')" alt="" />
+              {{ training.equipment }}
+            </span>
           </div>
         </div>
       </div>
@@ -36,9 +50,9 @@
 
     <footer class="training-card__footer">
       <base-button v-if="training.isBookingAvailable" class="small-btn training-card__book-btn">Book</base-button>
-      <base-button v-else class="small-btn training-card__book-btn training-card__book-btn--disabled"
-        >Booking available in {{ training.availableIn }}</base-button
-      >
+      <base-button v-else class="small-btn training-card__book-btn training-card__book-btn--disabled">
+        Booking available in {{ training.availableIn }}
+      </base-button>
     </footer>
   </li>
 </template>
@@ -105,7 +119,7 @@ export default {
 
   &__grid {
     display: grid;
-    grid-template-columns: 1fr 16%;
+    grid-template-columns: 1fr minmax(16%, 86px);
     margin-bottom: 12px;
   }
 
@@ -127,9 +141,15 @@ export default {
     line-height: 15px;
   }
 
+  &__repeats {
+    grid-row: 1 / 2;
+    grid-column: 2;
+    align-self: end;
+  }
+
   &__tags {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
     grid-column-gap: 4px;
   }
 

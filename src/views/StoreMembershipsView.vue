@@ -1,9 +1,15 @@
 <template>
-  <div class="store-packages">
-    <div class="store-packages__wrapper" v-for="(packagesSet, index) in packages" :key="`packages-set_${index}`">
-      <store-items-list :store-items="packagesSet.items">{{ packagesSet.title }}</store-items-list>
+  <div class="store-page store-memberships">
+    <div class="container">
+      <div class="store-page-img-wrapper">
+        <img :src="require('@/assets/images/pic-training.jpg')" class="store-page-img" alt="" />
+      </div>
 
-      <hr v-if="index !== packages.length - 1" />
+      <div class="store-memberships__wrapper" v-for="(packagesSet, index) in packages" :key="`packages-set_${index}`">
+        <store-items-list :store-items="packagesSet.items">{{ packagesSet.title }}</store-items-list>
+
+        <hr v-if="index !== packages.length - 1" />
+      </div>
     </div>
   </div>
 </template>
@@ -16,26 +22,29 @@ export default {
   components: {
     StoreItemsList,
   },
+  metaInfo: {
+    title: 'Store — Memberships',
+  },
   data() {
     return {
       packages: [
         {
-          title: 'Pachete Marcus M.',
+          title: 'Memberships',
           items: [
             {
               id: 1,
               selected: true,
-              type: 'package',
-              title: 'PT - 12 entries',
-              subtitle: '1-la-1 workout',
+              type: 'membership',
+              title: 'Standard',
+              subtitle: 'Standard fara clase incluse',
               price: 300,
               duration: 1,
             },
             {
               id: 2,
               selected: false,
-              type: 'package',
-              title: 'Pachet PT - 8 intrari',
+              type: 'membership',
+              title: 'All inclusive',
               subtitle: 'Mealplan inclus',
               price: 400,
               duration: 1,
@@ -43,24 +52,24 @@ export default {
           ],
         },
         {
-          title: 'Pachete Laura M.',
+          title: 'Packages',
           items: [
             {
               id: 1,
               selected: false,
               type: 'package',
-              title: 'PT - 12 entries',
-              subtitle: '1-la-1 workout',
-              price: 300,
+              title: 'Pachet 12 intrari',
+              subtitle: 'Clase de grup',
+              price: 180,
               duration: 1,
             },
             {
               id: 2,
               selected: false,
               type: 'package',
-              title: 'Pachet PT - 8 intrari',
-              subtitle: 'Mealplan inclus',
-              price: 400,
+              title: 'Pachet 8 intrari',
+              subtitle: 'Clase de grup',
+              price: 120,
               duration: 1,
             },
           ],
@@ -74,9 +83,7 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/styles/vars/_colors.scss';
 
-.store-packages {
-  padding: 71px 0 28px;
-
+.store-memberships {
   &__wrapper {
     hr {
       display: block;

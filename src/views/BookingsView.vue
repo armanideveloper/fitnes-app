@@ -36,7 +36,7 @@ export default {
         },
         {
           title: 'PT',
-          component: 'TrainingSchedule',
+          component: 'PersonalTrainings',
           type: 'component',
         },
         {

@@ -22,8 +22,9 @@
           inputmode="numeric"
           v-model="cardNumber"
           input-text-align="left"
-          >Card number</base-text-input
         >
+          Card number
+        </base-text-input>
 
         <div class="card-form__expiry-cvv">
           <div class="card-form__expiry-date-wrapper">
@@ -49,13 +50,14 @@
             input-text-align="left"
             type="password"
             maxlength="3"
-            >CVV</base-text-input
           >
+            CVV
+          </base-text-input>
         </div>
 
-        <base-text-input id="card-name" class="card-form__input mb-16" v-model="name" input-text-align="left"
-          >Name</base-text-input
-        >
+        <base-text-input id="card-name" class="card-form__input mb-16" v-model="name" input-text-align="left">
+          Name
+        </base-text-input>
 
         <label class="card-form__checkbox">
           <input id="saveForFuture" v-model="saveForFuture" type="checkbox" class="card-form__checkbox-input" />
@@ -64,14 +66,14 @@
       </form>
 
       <div class="store-card__buttons">
-        <router-link :to="{ name: 'Store' }" v-slot="{ navigate }" custom
-          ><base-button class="base-btn base-btn--white store-card__btn" @click.native="navigate"
-            >Cancel payment</base-button
-          ></router-link
-        >
-        <base-button class="base-btn store-card__btn" type="submit" form="payment-form"
-          >Pay {{ $route.params.price }} RON</base-button
-        >
+        <router-link :to="{ name: 'Store' }" v-slot="{ navigate }" custom>
+          <base-button class="base-btn base-btn--white store-card__btn" @click.native="navigate">
+            Cancel payment
+          </base-button>
+        </router-link>
+        <base-button class="base-btn store-card__btn" type="submit" form="payment-form">
+          Pay {{ $route.params.price }} RON
+        </base-button>
       </div>
     </div>
   </div>

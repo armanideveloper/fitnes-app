@@ -1,54 +1,51 @@
 <template>
-  <article class="store">
+  <article class="store-page store">
     <div class="container">
-      <base-tabs :tabs="storeTabs" @change-tab="changeTab" :active-tab-initial="currentComponent" />
+      <div class="store-page-img-wrapper">
+        <img :src="require('@/assets/images/pic-training.jpg')" class="store-page-img" alt="" />
+      </div>
 
-      <component :is="currentComponent" />
+      <h2 class="store-page-title">Store</h2>
+
+      <ul class="store__links">
+        <store-link v-for="link in links" :key="link.to" :link="link" />
+      </ul>
     </div>
   </article>
 </template>
 
 <script>
-import BaseTabs from '@/components/BaseTabs';
-import StorePackages from '@/components/StorePackages';
+import StoreLink from '@/components/StoreLink';
 
 export default {
   name: 'StoreView',
   components: {
-    BaseTabs,
-    StorePackages,
-    StoreMemberships: () => import('@/components/StoreMemberships'),
+    StoreLink,
   },
   metaInfo: {
     title: ' Store',
   },
   data() {
     return {
-      currentComponent: this.$route.params.currentComponent || 'StorePackages',
-      storeTabs: [
-        {
-          title: 'Memberships',
-          component: 'StoreMemberships',
-          type: 'component',
-        },
-        {
-          title: 'PT packages',
-          component: 'StorePackages',
-          type: 'component',
-        },
+      links: [
+        { title: 'Memberships', to: 'StoreMemberships' },
+        { title: 'Personal training', to: 'StorePackages' },
+        { title: 'Workouts', to: 'StoreWorkouts' },
+        { title: 'Events', to: 'StoreEvents' },
       ],
     };
-  },
-  methods: {
-    changeTab(tab) {
-      this.currentComponent = tab;
-    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .store {
-  padding: 28px 0;
+  &__links {
+    display: grid;
+    grid-column-gap: 10px;
+    grid-row-gap: 31px;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-auto-rows: 1fr;
+  }
 }
 </style>

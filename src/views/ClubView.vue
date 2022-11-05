@@ -14,13 +14,15 @@
             <h1 class="club-about__name">{{ clubName }}</h1>
 
             <p class="club-about__address">
-              <img :src="require('@/assets/images/icons/location.svg')" alt="" /> {{ clubAddress }}
+              <img :src="require('@/assets/images/icons/location.svg')" alt="" />
+              {{ clubAddress }}
             </p>
           </div>
         </div>
 
         <p class="club-about__rating">
-          <img :src="require('@/assets/images/icons/star-2.svg')" alt="" /> {{ clubRating }}
+          <img :src="require('@/assets/images/icons/star-2.svg')" alt="" />
+          {{ clubRating }}
         </p>
 
         <p class="club-about__description">{{ clubDescription }}</p>
@@ -69,8 +71,8 @@
               class="club-contact__link"
               :target="contact.type ? '_self' : '_blank'"
             >
-              {{ contact.text }}</a
-            >
+              {{ contact.text }}
+            </a>
           </li>
         </ul>
       </section>
