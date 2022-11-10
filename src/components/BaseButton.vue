@@ -32,7 +32,7 @@ export default {
   max-width: 332px;
   width: 100%;
   margin: 0 auto;
-  padding: 11px 0;
+  padding: 15px 0;
   color: #fff;
   font-size: 16px;
   line-height: 22px;

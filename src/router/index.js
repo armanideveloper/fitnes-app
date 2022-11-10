@@ -16,6 +16,12 @@ const routes = [
         name: 'History',
         component: () => import(/* webpackChunkName: "history" */ '../views/HistoryView'),
       },
+      {
+        path: '/main',
+        name: 'Main',
+        component: () => import(/* webpackChunkName: "history" */ '../views/MainPageView'),
+        meta: { hideFooter: true },
+      },
     ],
   },
   {
