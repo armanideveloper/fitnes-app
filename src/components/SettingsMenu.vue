@@ -73,7 +73,7 @@ export default {
         iconWrapperBg: '#E7E3FF',
       },
       {
-        to: 'Logout',
+        to: 'Main',
         text: 'Logout',
         icon: 'outline-logout',
         iconWrapperBg: '#FFE6E6',
