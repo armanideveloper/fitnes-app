@@ -28,6 +28,7 @@ export default {
 }
 
 .base-btn {
+  cursor: pointer;
   display: block;
   max-width: 332px;
   width: 100%;

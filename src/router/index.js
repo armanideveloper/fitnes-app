@@ -22,6 +22,18 @@ const routes = [
         component: () => import(/* webpackChunkName: "history" */ '../views/MainPageView'),
         meta: { hideFooter: true },
       },
+      {
+        path: '/sign-in',
+        name: 'SignIn',
+        component: () => import(/* webpackChunkName: "club" */ '../views/LoginView'),
+        meta: { hideFooter: true },
+      },
+      {
+        path: '/sign-up',
+        name: 'SingUp',
+        component: () => import(/* webpackChunkName: "club" */ '../views/RegisterView'),
+        meta: { hideFooter: true },
+      },
     ],
   },
   {

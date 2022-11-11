@@ -4,11 +4,11 @@
     <img :src="require(`@/assets/images/icons/blueLine.svg`)" />
     <h1 class="main-page-title">Your fitness journey starts here</h1>
     <p class="main-page-text">Grow a habit of being active with Gym On app</p>
-    <base-button class="base-btn">
+    <base-button class="base-btn" @click="$router.push('/sign-up')">
       <span class="blue-btn-text">Get started</span>
     </base-button>
-    <base-button class="base-btn base-btn--white mt-12">
-      <span class="blue-btn-white-text">Get started</span>
+    <base-button class="base-btn base-btn--white mt-12" @click="$router.push('/sign-in')">
+      <span class="blue-btn-white-text">Sign in</span>
     </base-button>
   </div>
 </template>
@@ -22,11 +22,10 @@ export default {
 };
 </script>
 
-<style type="text/css" lang="scss" scoped>
+<style lang="scss" scoped>
 @import '@/assets/styles/vars/_colors.scss';
 
 .main-page-controller {
-  //background: red;
   padding: 22px;
   text-align: center;
   .main-page-logo {
@@ -35,7 +34,6 @@ export default {
   }
   .main-page-title {
     margin: 79px auto 30px auto;
-    font-family: 'Inter';
     font-style: normal;
     font-weight: 500;
     font-size: 24px;
@@ -46,7 +44,6 @@ export default {
   .main-page-text {
     text-align: center;
     margin: 0 auto 31px auto;
-    font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     font-size: 15px;
@@ -55,7 +52,6 @@ export default {
     color: $light-black;
   }
   .blue-btn-text {
-    font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
     font-size: 19px;
