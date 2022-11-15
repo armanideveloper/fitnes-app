@@ -26,6 +26,7 @@
           :to="item.to"
           :text-color="item.textColor"
           :icon-wrapper-bg="item.iconWrapperBg"
+          :func="item.func"
         />
       </ul>
     </nav>
@@ -73,11 +74,12 @@ export default {
         iconWrapperBg: '#E7E3FF',
       },
       {
-        to: 'Main',
+        to: 'SignIn',
         text: 'Logout',
         icon: 'outline-logout',
         iconWrapperBg: '#FFE6E6',
         textColor: 'red',
+        func: 'logout',
       },
     ],
   }),

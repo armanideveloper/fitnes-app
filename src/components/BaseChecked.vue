@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input type="checkbox" id="checked" />
+    <input type="checkbox" id="checked" :value="value" v-model="model" />
     <label for="checked">{{ text }}</label>
   </div>
 </template>
@@ -10,6 +10,19 @@ export default {
   props: {
     text: {
       type: String,
+    },
+    value: {
+      type: Boolean,
+    },
+  },
+  computed: {
+    model: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit('input', val);
+      },
     },
   },
 };
@@ -21,10 +34,12 @@ export default {
 div {
   display: flex;
   align-items: center;
+
   input {
     width: 24px;
     height: 24px;
   }
+
   input[type='checkbox']:before {
     position: relative;
     display: block;
@@ -44,9 +59,7 @@ div {
     height: 24px;
     border: unset;
     content: '';
-    background-image: #4fc068;
-    background-repeat: no-repeat;
-    background-position: center;
+    background: #4fc068 no-repeat center;
   }
 
   input[type='checkbox']:not(:disabled):checked:after {
@@ -59,6 +72,7 @@ div {
     border-color: #4fc068;
     border-radius: 5px;
   }
+
   label {
     cursor: pointer;
     margin-left: 12px;

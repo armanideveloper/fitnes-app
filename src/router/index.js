@@ -19,13 +19,13 @@ const routes = [
       {
         path: '/main',
         name: 'Main',
-        component: () => import(/* webpackChunkName: "history" */ '../views/MainPageView'),
+        component: () => import(/* webpackChunkName: "main" */ '../views/MainPageView'),
         meta: { hideFooter: true },
       },
       {
         path: '/sign-in',
         name: 'SignIn',
-        component: () => import(/* webpackChunkName: "club" */ '../views/LoginView'),
+        component: () => import(/* webpackChunkName: "login" */ '../views/LoginView'),
         meta: { hideFooter: true },
       },
       {

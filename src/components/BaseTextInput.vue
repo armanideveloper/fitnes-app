@@ -47,13 +47,13 @@ export default {
       },
     },
   },
-  model: {
-    prop: 'value',
-    event: 'change-input-val',
-  },
+  // model: {
+  //   prop: 'value',
+  //   event: 'change-input-val',
+  // },
   methods: {
     changeInputVal(e) {
-      this.$emit('change-input-val', e.target.value);
+      this.$emit('input', e.target.value);
     },
   },
 };

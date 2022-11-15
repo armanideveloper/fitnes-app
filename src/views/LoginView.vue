@@ -6,7 +6,7 @@
     <base-input type="email" class="mt-24" title="Email Address" />
     <base-input :type="passwordType" class="mt-24" title="Password">
       <button @click="changeType">
-        <img class="eye-icon" :src="require('@/assets/images/icons/eye.svg')" />
+        <img class="eye-icon" :src="require('@/assets/images/icons/eye.svg')" alt="eye icon" />
       </button>
     </base-input>
     <div class="login-help-block mt-28 mb-60">
@@ -33,6 +33,9 @@ export default {
     GoBack,
     BaseInput,
     BaseChecked,
+  },
+  metaInfo: {
+    title: 'Sign In',
   },
   data() {
     return {

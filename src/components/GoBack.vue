@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<style type="text/css" lang="scss" scoped>
+<style lang="scss" scoped>
 div {
   flex: none;
   cursor: pointer;
@@ -12,8 +12,9 @@ div {
   width: 48px;
   height: 48px !important;
   background: #ffffff;
-  box-shadow: 0px 0px 50px rgba(153, 153, 153, 0.25);
+  box-shadow: 0 0 50px rgba(153, 153, 153, 0.25);
   border-radius: 10px;
+
   img {
     position: absolute;
     transform: translate(-50%, -50%);

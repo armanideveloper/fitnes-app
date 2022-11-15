@@ -10,6 +10,15 @@
 export default {
   props: {
     title: String,
+    value: {
+      type: String,
+      default: '',
+    },
+  },
+  methods: {
+    handleInput(e) {
+      this.$emit('input', e.target.value);
+    },
   },
 };
 </script>

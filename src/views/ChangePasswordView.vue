@@ -6,10 +6,13 @@
 
     <div class="container container--small">
       <main>
-        <form action="" class="change-password__form" @submit.prevent="changePasswordHandler">
+        <form action="" class="change-password__form" @submit.prevent="changePassword">
           <fieldset class="change-password__fields">
-            <base-text-input id="password" type="password" v-model="password">New password</base-text-input>
-            <base-text-input id="confirm-password" type="password" v-model="confirmPassword">
+            <base-text-input id="password" type="password" v-model="updatePasswordData.password">
+              New password
+            </base-text-input>
+
+            <base-text-input id="confirm-password" type="password" v-model="updatePasswordData.password2">
               Confirm new password
             </base-text-input>
           </fieldset>
@@ -22,6 +25,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import getterTypes from '@/store/types/getter-types';
+import actionTypes from '@/store/types/action-types';
 import BaseButton from '@/components/BaseButton';
 import BaseTextInput from '@/components/BaseTextInput';
 import BasePageHeader from '@/components/BasePageHeader';
@@ -38,24 +44,32 @@ export default {
   },
   data() {
     return {
-      password: '',
-      confirmPassword: '',
+      updatePasswordData: {
+        password: '',
+        password2: '',
+      },
     };
   },
+  computed: {
+    ...mapGetters({
+      userData: getterTypes.USER_DATA,
+    }),
+  },
   methods: {
-    changePasswordHandler() {
-      if (!this.password || !this.confirmPassword) {
-        console.error('Fill all the fields');
-        return;
-      }
-
-      if (this.password !== this.confirmPassword) {
-        console.error("Password and password confirmation don't match");
-        return;
-      }
-
-      console.log('Success');
-      this.$router.push({ name: 'ChangePasswordSuccess' });
+    changePassword() {
+      this.$store
+        .dispatch(actionTypes.UPDATE_PASSWORD, {
+          member: this.userData.id,
+          user: this.userData.id,
+          ...this.updatePasswordData,
+        })
+        .then(response => {
+          if (response.status === 'success') {
+            this.$router.push({ name: 'ChangePasswordSuccess' });
+          } else {
+            this.$toaster.error(response.message);
+          }
+        });
     },
   },
 };

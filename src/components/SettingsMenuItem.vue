@@ -1,6 +1,6 @@
 <template>
   <li class="settings-menu-item">
-    <router-link class="settings-menu-item__link" :to="{ name: to }">
+    <a class="settings-menu-item__link" @click.prevent="onLinkClick(func)">
       <div class="settings-menu-item__icon-wrapper" :style="{ backgroundColor: iconWrapperBg }">
         <img :src="require(`@/assets/images/icons/${icon}.svg`)" :alt="icon" />
       </div>
@@ -18,17 +18,18 @@
           stroke-linejoin="round"
         />
       </svg>
-    </router-link>
+    </a>
   </li>
 </template>
 
 <script>
+import actionTypes from '@/store/types/action-types';
+
 export default {
   name: 'SettingsMenuItem',
   props: {
     to: {
       type: String,
-      required: true,
       default: '',
     },
     icon: {
@@ -47,12 +48,27 @@ export default {
     textColor: {
       type: String,
     },
+    func: {
+      type: String,
+    },
   },
   computed: {
     nameColor() {
       if (!this.textColor) return;
 
       return `setting-menu-item__name--${this.textColor}`;
+    },
+  },
+  methods: {
+    onLinkClick(func) {
+      if (func) {
+        this[func]();
+      }
+
+      this.$router.push({ name: this.to });
+    },
+    logout() {
+      this.$store.dispatch(actionTypes.LOGOUT);
     },
   },
 };

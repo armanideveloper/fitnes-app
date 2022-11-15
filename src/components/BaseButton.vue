@@ -46,5 +46,9 @@ export default {
     background: #fff;
     box-shadow: 0 10px 60px rgba(219, 224, 225, 0.8);
   }
+
+  &:disabled {
+    background-color: rgba($blue, 0.5);
+  }
 }
 </style>
