@@ -21,7 +21,7 @@
       <settings-menu :class="{ opened: showSettings }" @close-settings="closeSettingsMenu" />
 
       <section class="home__top">
-        <h1 class="home__greeting">Hello {{ username }}</h1>
+        <h1 class="home__greeting">Hello {{ user.name }}</h1>
 
         <span class="home__level-title">Level</span>
         <div class="home__level-img">
@@ -52,7 +52,7 @@
 
             <p class="info-card__text">Entries</p>
 
-            <span class="info-card__time">last {{ days }} days</span>
+            <span class="info-card__time">last 30 days</span>
           </router-link>
         </article>
 
@@ -61,7 +61,7 @@
             <img class="info-card__img" :src="require(`@/assets/images/icons/target.svg`)" alt="" />
           </div>
 
-          <h2 class="info-card__value">{{ weeklyGoal }}/5</h2>
+          <h2 class="info-card__value">{{ weeklyEntries }}/{{ weeklyGoal }}</h2>
 
           <p class="info-card__text">Weekly goal</p>
         </article>
@@ -179,9 +179,11 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import VueBottomSheet from '@webzlodimir/vue-bottom-sheet';
 import BaseButton from '@/components/BaseButton';
 import SettingsMenu from '@/components/SettingsMenu';
+import getterTypes from '@/store/types/getter-types';
 
 export default {
   name: 'HomeView',
@@ -195,16 +197,20 @@ export default {
   },
   data() {
     return {
-      username: 'John',
       showSettings: false,
-      points: 24,
-      entries: 20,
-      days: 30,
       weeklyGoal: 5,
       bookingCheckedIn: false,
       checkedInTime: null,
       progress: 76,
     };
+  },
+  computed: {
+    ...mapGetters({
+      user: getterTypes.USER_DATA,
+      points: getterTypes.STATS_POINTS_SUM,
+      entries: getterTypes.STAT_ENTRIES_PER_MONTH,
+      weeklyEntries: getterTypes.STAT_ENTRIES_PER_WEEK,
+    }),
   },
   methods: {
     showSettingsMenu() {
@@ -226,7 +232,7 @@ export default {
       this.checkedInTime = timeStr;
     },
     openSuccessSheet() {
-      if (this.weeklyGoal < 5) {
+      if (this.weeklyEntries < this.weeklyGoal) {
         return false;
       }
 

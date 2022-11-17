@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>{{ title }}</p>
-    <input v-bind="$attrs" />
+    <input v-bind="$attrs" :value="value" @input="handleInput" />
     <slot />
   </div>
 </template>

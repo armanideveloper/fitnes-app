@@ -3,7 +3,7 @@
     <div class="container">
       <h2 class="history__title">History</h2>
 
-      <v-calendar class="history__calendar" :masks="calendarMasks" :attributes="attributes" is-expanded>
+      <v-calendar class="history__calendar" :masks="calendarMasks" :attributes="attributes" locale="en-US" is-expanded>
         <button
           class="vc-btn vc-btn--prev"
           slot="header-left-button"
@@ -39,14 +39,16 @@
       </v-calendar>
 
       <ul class="history__list">
-        <history-item v-for="(item, index) in historyItems" :key="`history-items_${index}`" :item="item" />
+        <history-item v-for="(item, index) in pointsItems" :key="`history-items_${index}`" :item="item" />
       </ul>
     </div>
   </article>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import HistoryItem from '@/components/HistoryItem';
+import getterTypes from '@/store/types/getter-types';
 
 export default {
   name: 'HistoryView',
@@ -58,58 +60,39 @@ export default {
   },
   data() {
     return {
-      historyItems: [
-        { date: '02.10.2022', time: '18:00', title: 'BodyPump', points: 2, status: 'Participated' },
-        { date: '05.10.2022', time: '18:11', title: 'Gym', points: 2, status: 'Participated' },
-        { date: '06.10.2022', time: '18:00', title: 'No-show', points: -2, status: 'No-show' },
-        { date: '07.10.2022', time: '18:00', title: 'Cancel', points: -1, status: 'Cancel' },
-        { date: '29.10.2022', time: '18:00', title: 'BodyPump', points: 0, status: 'Accepted' },
-      ],
       calendarMasks: {
         weekdays: 'WWW',
       },
     };
   },
   computed: {
-    doneEventsAttrs() {
-      return {
-        highlight: {
-          contentClass: 'green',
-        },
-        dates: this.historyItems
-          .filter(item => item.status === 'Participated')
-          .map(item => {
-            const [day, month, year] = item.date.split('.');
-            return new Date(+year, month - 1, +day);
-          }),
-      };
-    },
-    cancelledEventsAttrs() {
-      return {
-        dot: {
-          class: 'red',
-        },
-        dates: this.historyItems
-          .filter(item => ['Cancel', 'No-show'].includes(item.status))
-          .map(item => {
-            const [day, month, year] = item.date.split('.');
-            return new Date(+year, month - 1, +day);
-          }),
-      };
-    },
-    acceptedEventsAttrs() {
-      return {
-        dot: '#0094ff',
-        dates: this.historyItems
-          .filter(item => item.status === 'Accepted')
-          .map(item => {
-            const [day, month, year] = item.date.split('.');
-            return new Date(+year, month - 1, +day);
-          }),
-      };
-    },
+    ...mapGetters({
+      pointsItems: getterTypes.STATS_POINTS,
+    }),
     attributes() {
-      return [this.doneEventsAttrs, this.cancelledEventsAttrs, this.acceptedEventsAttrs];
+      return [
+        ...this.pointsItems.map(item => ({
+          dates: item.created_datetime.split(' ')[0],
+          ...(Number(item.value) > 0 && {
+            highlight: {
+              color: 'green',
+              contentClass: 'green',
+            },
+          }),
+          ...(Number(item.value) < 0 && {
+            dot: {
+              color: 'red',
+              class: 'red',
+            },
+          }),
+          popover: { label: item.reason, visibility: 'click' },
+          customData: item,
+        })),
+        {
+          dot: '#0094ff',
+          dates: new Date(),
+        },
+      ];
     },
   },
 };

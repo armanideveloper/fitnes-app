@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import HomeView from '../views/HomeView';
 import MainView from '@/views/MainView';
+import store from '@/store';
 
 Vue.use(VueRouter);
 
@@ -30,8 +31,8 @@ const routes = [
       },
       {
         path: '/sign-up',
-        name: 'SingUp',
-        component: () => import(/* webpackChunkName: "club" */ '../views/RegisterView'),
+        name: 'SignUp',
+        component: () => import(/* webpackChunkName: "register" */ '../views/RegisterView'),
         meta: { hideFooter: true },
       },
     ],
@@ -150,6 +151,18 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+});
+
+const pagesUnnecessaryAuth = ['Main', 'SignIn', 'SignUp'];
+
+router.beforeEach((to, from, next) => {
+  if (pagesUnnecessaryAuth.includes(to.name) && store.getters['[auth] IS_LOGGED_IN']) {
+    next({ name: 'Home' });
+  } else if (!pagesUnnecessaryAuth.includes(to.name) && !store.getters['[auth] IS_LOGGED_IN']) {
+    next({ name: 'SignIn' });
+  }
+
+  next();
 });
 
 export default router;

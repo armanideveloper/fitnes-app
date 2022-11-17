@@ -1,23 +1,23 @@
 <template>
   <li class="history-item" :class="`history-item--${itemColor}`">
-    <p class="history-item__date">{{ item.date }}</p>
+    <p class="history-item__date">{{ formattedDate }}</p>
 
     <div class="history-item__title-time">
-      <h2 class="history-item__title">{{ item.title }}</h2>
+      <h2 class="history-item__title">{{ item.reason }}</h2>
       <p class="history-item__time">{{ item.time }}</p>
     </div>
 
-    <p v-if="item.status !== 'Accepted'" class="history-item__points">{{ item.points }} pts</p>
-    <base-button v-else class="small-btn">Cancel</base-button>
+    <p class="history-item__points">{{ item.value }} pts</p>
+    <!--    <base-button v-else class="small-btn">Cancel</base-button>-->
   </li>
 </template>
 
 <script>
-import BaseButton from '@/components/BaseButton';
+// import BaseButton from '@/components/BaseButton';
 
 export default {
   name: 'HistoryItem',
-  components: { BaseButton },
+  // components: { BaseButton },
   props: {
     item: {
       type: Object,
@@ -26,16 +26,20 @@ export default {
     },
   },
   computed: {
+    formattedDate() {
+      const date = this.item.created_datetime.split(' ')[0];
+      return date.split('-').reverse().join('.');
+    },
     itemColor() {
-      if (!['Accepted', 'Participated'].includes(this.item.status)) {
+      if (Number(this.item.value) < 0) {
         return 'red';
       }
 
-      if (this.item.status === 'Participated') {
-        return 'green';
-      }
+      // if (this.item.status === 'Participated') {
+      //   return 'green';
+      // }
 
-      return 'blue';
+      return 'green';
     },
   },
 };
@@ -46,9 +50,10 @@ export default {
 
 .history-item {
   display: grid;
-  grid-template-columns: 76px 1fr 79px;
+  grid-template-columns: 76px 1fr 62px;
   align-items: center;
-  padding: 5px 7px 5px 21px;
+  height: 48px;
+  padding: 0 7px 0 21px;
   color: $dark-black;
   font-size: 14px;
   line-height: 17px;
@@ -85,9 +90,15 @@ export default {
 
   &__title-time {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 100%;
+    //flex-direction: column;
+    justify-content: center;
     gap: 5px;
+    text-align: center;
+  }
+
+  &__date {
+    color: $dark-black;
   }
 }
 </style>
