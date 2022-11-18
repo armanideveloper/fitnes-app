@@ -59,7 +59,7 @@ export default {
     changePassword() {
       this.$store
         .dispatch(actionTypes.UPDATE_PASSWORD, {
-          member: this.userData.id,
+          member: this.userData.member.id,
           user: this.userData.id,
           ...this.updatePasswordData,
         })

@@ -5,30 +5,20 @@
         v-for="(date, index) in datesReadable"
         :key="`date-item_${index}`"
         class="inline-calendar__date date-item"
-        :class="{ active: date.id === selectedDate }"
+        :class="{ active: date.id === selectedDate.id }"
         @click="setActiveDate(date)"
       >
         <p class="date-item__weekday">{{ date.weekday }}</p>
 
         <h2 class="date-item__day">{{ date.day }}</h2>
       </li>
-      <base-observer
-        class="inline-calendar__date date-item"
-        @intersect="getDatesInRange(maxDate, daysRange, true)"
-        :options="{ threshold: 0.01 }"
-      />
     </ul>
   </div>
 </template>
 
 <script>
-import BaseObserver from '@/components/BaseObserver';
-
 export default {
   name: 'InlineCalendar',
-  components: {
-    BaseObserver,
-  },
   data() {
     return {
       today: new Date(),
@@ -76,7 +66,7 @@ export default {
       this.setActiveDate(this.datesReadable[0]);
     },
     setActiveDate(date) {
-      this.selectedDate = date.id;
+      this.selectedDate = date;
       this.$emit('set-active-date', date);
     },
   },
@@ -84,8 +74,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/vars/_colors.scss';
-
 .inline-calendar {
   display: flex;
   margin-bottom: 8px;
@@ -93,6 +81,8 @@ export default {
   &__dates {
     display: flex;
     gap: 10px;
+    margin-right: -22px;
+    padding-right: 22px;
     overflow-x: auto;
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -103,10 +93,11 @@ export default {
   }
 
   &__date {
+    flex: 0 0 55px;
     padding: 15px;
     text-align: center;
     background-color: #fff;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.01);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
     border-radius: 8px;
 
     &.active {

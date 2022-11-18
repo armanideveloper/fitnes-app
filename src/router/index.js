@@ -35,6 +35,12 @@ const routes = [
         component: () => import(/* webpackChunkName: "register" */ '../views/RegisterView'),
         meta: { hideFooter: true },
       },
+      {
+        path: '/forgot-password',
+        name: 'ForgotPassword',
+        component: () => import(/* webpackChunkName: "forgot-password" */ '../views/ForgotPasswordView'),
+        meta: { hideFooter: true },
+      },
     ],
   },
   {
@@ -153,7 +159,7 @@ const router = new VueRouter({
   routes,
 });
 
-const pagesUnnecessaryAuth = ['Main', 'SignIn', 'SignUp'];
+const pagesUnnecessaryAuth = ['Main', 'SignIn', 'SignUp', 'ForgotPassword'];
 
 router.beforeEach((to, from, next) => {
   if (pagesUnnecessaryAuth.includes(to.name) && store.getters['[auth] IS_LOGGED_IN']) {

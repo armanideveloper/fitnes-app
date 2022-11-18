@@ -107,12 +107,14 @@
             </p>
           </div>
         </router-link>
+
         <router-link :to="{ name: 'History' }" v-slot="{ navigate }">
           <div class="card bookings-card" @click="navigate">
             <h2 class="card__title">Bookings left</h2>
             <p class="card__value">150</p>
           </div>
         </router-link>
+
         <div class="card dates-card">
           <router-link :to="{ name: 'Store', params: { currentComponent: 'StoreMemberships' } }">
             <div class="dates-card__dates">
@@ -130,6 +132,7 @@
                     />
                   </svg>
                 </button>
+
                 <button class="dates-card__btn">
                   <svg width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path

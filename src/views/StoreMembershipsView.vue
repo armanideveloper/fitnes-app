@@ -81,7 +81,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/vars/_colors.scss';
+@import '@/assets/styles/shared/store-page.scss';
 
 .store-memberships {
   &__wrapper {

@@ -106,8 +106,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/vars/_colors.scss';
-
 .store-payment {
   :deep() {
     .base-page-header {

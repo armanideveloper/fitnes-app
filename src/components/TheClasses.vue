@@ -5,75 +5,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import TrainingSchedule from '@/components/TrainingSchedule';
+import getterTypes from '@/store/types/getter-types';
 
 export default {
   name: 'TheClasses',
   components: {
     TrainingSchedule,
   },
-  data: () => ({
-    trainings: [
-      {
-        id: 1,
-        title: 'Body Pump',
-        notify: true,
-        date: '03.11.2022',
-        time: '07:00',
-        format: '1-to-1',
-        duration: '50 mins',
-        place: 'ArsNova',
-        isBookingAvailable: true,
-      },
-      {
-        id: 2,
-        title: 'Metabolic training',
-        notify: false,
-        date: '05.11.2022',
-        time: '07:00',
-        format: '1-to-1',
-        duration: '50 mins',
-        place: 'ArsNova',
-        isBookingAvailable: false,
-        availableIn: '19h 59m',
-      },
-      {
-        id: 3,
-        title: 'Step aerobic',
-        notify: false,
-        date: '08.11.2022',
-        time: '07:00',
-        format: '1-to-1',
-        duration: '50 mins',
-        place: 'ArsNova',
-        isBookingAvailable: false,
-        availableIn: '19h 59m',
-      },
-      {
-        id: 4,
-        title: 'Fat burn',
-        notify: true,
-        date: '08.11.2022',
-        time: '07:00',
-        format: '1-to-1',
-        duration: '50 mins',
-        place: 'ArsNova',
-        isBookingAvailable: false,
-        availableIn: '19h 59m',
-      },
-      {
-        id: 5,
-        title: 'Fat burn',
-        notify: true,
-        date: '09.11.2022',
-        time: '07:00',
-        format: '1-to-1',
-        duration: '50 mins',
-        place: 'ArsNova',
-        isBookingAvailable: false,
-        availableIn: '19h 59m',
-      },
-    ],
-  }),
+  computed: {
+    ...mapGetters({
+      trainings: getterTypes.TRAININGS_CLASSES,
+    }),
+  },
 };
 </script>

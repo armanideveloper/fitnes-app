@@ -72,8 +72,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/vars/_colors.scss';
-
 .store-packages {
   padding: 71px 0 28px;
 

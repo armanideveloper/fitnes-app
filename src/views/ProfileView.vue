@@ -123,9 +123,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/vars/_colors.scss';
-@import '@/assets/styles/vars/_mixins.scss';
-
 @mixin fields-grid-base {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

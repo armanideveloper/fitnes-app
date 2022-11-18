@@ -48,8 +48,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/vars/_colors.scss';
-
 .base-tabs {
   width: 100%;
   padding: 4px;

@@ -11,8 +11,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/vars/_colors.scss';
-
 .small-btn {
   display: block;
   padding: 7px 0;
@@ -22,13 +20,13 @@ export default {
   line-height: 18px;
   text-align: center;
   letter-spacing: -0.02em;
-  background: #0094ff;
-  border: 1px solid #e9edef;
+  background: $blue;
+  border: 1px solid $snow-white-2;
   border-radius: 40px;
+  cursor: pointer;
 }
 
 .base-btn {
-  cursor: pointer;
   display: block;
   max-width: 332px;
   width: 100%;
@@ -40,6 +38,7 @@ export default {
   text-align: center;
   background-color: $blue;
   border-radius: 10px;
+  cursor: pointer;
 
   &--white {
     color: $grey;

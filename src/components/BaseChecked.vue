@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <input type="checkbox" id="checked" :value="value" v-model="model" />
-    <label for="checked">{{ text }}</label>
+  <div class="checked">
+    <input class="checked__input" type="checkbox" id="checked" :value="value" v-model="model" />
+    <label class="checked__label" for="checked">{{ text }}</label>
   </div>
 </template>
 
@@ -28,52 +28,48 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-@import '@/assets/styles/vars/_colors.scss';
-
-div {
+<style lang="scss">
+.checked {
   display: flex;
   align-items: center;
 
-  input {
+  &__input {
     width: 24px;
     height: 24px;
+
+    &::before,
+    &::after {
+      position: relative;
+      display: block;
+      width: 24px;
+      height: 24px;
+      border: unset;
+      content: '';
+    }
+
+    &::before {
+      background: #fff;
+    }
+
+    &::after {
+      left: 1px;
+      top: -24px;
+      background: #4fc068 no-repeat center;
+    }
+
+    &:not(:disabled):checked::after {
+      background-image: url('../assets/images/icons/checked.svg');
+    }
+
+    &:not(:disabled)::after {
+      background-image: linear-gradient(135deg, #4fc068 0%, #4fc068 100%);
+      border-color: #4fc068;
+      border-radius: 5px;
+      cursor: pointer;
+    }
   }
 
-  input[type='checkbox']:before {
-    position: relative;
-    display: block;
-    width: 24px;
-    height: 24px;
-    border: unset;
-    content: '';
-    background: #fff;
-  }
-
-  input[type='checkbox']:after {
-    position: relative;
-    display: block;
-    left: 1px;
-    top: -24px;
-    width: 24px;
-    height: 24px;
-    border: unset;
-    content: '';
-    background: #4fc068 no-repeat center;
-  }
-
-  input[type='checkbox']:not(:disabled):checked:after {
-    background-image: url('../assets/images/icons/checked.svg');
-  }
-
-  input[type='checkbox']:not(:disabled):after {
-    cursor: pointer;
-    background-image: linear-gradient(135deg, #4fc068 0%, #4fc068 100%);
-    border-color: #4fc068;
-    border-radius: 5px;
-  }
-
-  label {
+  &__label {
     cursor: pointer;
     margin-left: 12px;
     font-weight: 400;

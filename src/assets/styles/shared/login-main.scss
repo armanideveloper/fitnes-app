@@ -1,0 +1,62 @@
+.login-main {
+  width: 375px;
+  margin: 0 auto;
+  padding: 42px 22px 96px 22px;
+
+  .login-title {
+    font-weight: 500;
+    font-size: 22px;
+    color: $dark-black;
+    margin-top: 28px;
+    margin-bottom: 11px;
+  }
+
+  .login-sub-title {
+    margin-bottom: 36px;
+    font-weight: 400;
+    font-size: 14px;
+    color: $light-black;
+  }
+
+  .login-text {
+    text-align: center;
+    margin-top: 28px;
+    font-weight: 400;
+    font-size: 14px;
+    color: $light-black;
+
+    a {
+      font-weight: 600;
+      color: $blue;
+      text-decoration: underline;
+    }
+  }
+
+  .blue-btn-text {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 19px;
+    line-height: 28px;
+    color: #fff;
+  }
+
+  .eye-icon {
+    cursor: pointer;
+    position: absolute;
+    top: 16px;
+    right: 18px;
+  }
+
+  .login-help-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .login-forgot-text {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 21px;
+      color: $red-danger;
+    }
+  }
+}

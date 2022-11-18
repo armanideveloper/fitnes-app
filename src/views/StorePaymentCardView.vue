@@ -139,8 +139,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/vars/_colors.scss';
-
 .store-card {
   padding-bottom: 102px;
 

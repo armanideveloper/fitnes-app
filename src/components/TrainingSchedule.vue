@@ -15,7 +15,7 @@ import InlineCalendar from '@/components/InlineCalendar';
 import TrainingCard from '@/components/TrainingCard';
 
 export default {
-  name: 'PersonalTrainings',
+  name: 'TrainingSchedule',
   components: {
     InlineCalendar,
     TrainingCard,
@@ -24,7 +24,7 @@ export default {
     trainings: {
       type: Array,
       required: true,
-      default: () => [],
+      default: () => {},
     },
   },
   data() {
@@ -34,8 +34,8 @@ export default {
   },
   computed: {
     trainingsFiltered() {
-      return this.trainings.filter(item => {
-        const itemDate = new Date(item.date.split('.').reverse().join('-'));
+      const currentDayTrainings = this.trainings?.filter(item => {
+        const itemDate = new Date(item.date);
         const selectedDate = new Date(this.selectedDate?.date);
 
         if (
@@ -45,7 +45,9 @@ export default {
         ) {
           return item;
         }
-      });
+      })[0];
+
+      return currentDayTrainings?.schedules;
     },
   },
   methods: {

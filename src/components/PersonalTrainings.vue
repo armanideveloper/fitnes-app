@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import getterTypes from '@/store/types/getter-types';
 import TrainingSchedule from '@/components/TrainingSchedule';
 
 export default {
@@ -12,80 +14,10 @@ export default {
   components: {
     TrainingSchedule,
   },
-  data: () => ({
-    trainings: [
-      {
-        id: 1,
-        title: 'Personal Training',
-        notify: true,
-        date: '04.11.2022',
-        time: '07:00',
-        format: '1-to-1',
-        duration: '50 mins',
-        place: 'ArsNova',
-        isBookingAvailable: true,
-      },
-      {
-        id: 2,
-        title: 'Personal Training',
-        notify: false,
-        date: '07.11.2022',
-        time: '07:00',
-        format: '1-to-1',
-        duration: '50 mins',
-        place: 'ArsNova',
-        isBookingAvailable: false,
-        availableIn: '19h 59m',
-      },
-      {
-        id: 3,
-        title: 'Personal Training',
-        notify: false,
-        date: '08.11.2022',
-        time: '07:00',
-        format: '1-to-1',
-        duration: '50 mins',
-        place: 'ArsNova',
-        isBookingAvailable: false,
-        availableIn: '19h 59m',
-      },
-      {
-        id: 4,
-        title: 'Personal Training',
-        notify: true,
-        date: '08.11.2022',
-        time: '07:00',
-        format: '1-to-1',
-        duration: '50 mins',
-        place: 'ArsNova',
-        isBookingAvailable: false,
-        availableIn: '19h 59m',
-      },
-      {
-        id: 5,
-        title: 'Personal Training',
-        notify: true,
-        date: '09.11.2022',
-        time: '07:00',
-        format: '1-to-1',
-        duration: '50 mins',
-        place: 'ArsNova',
-        isBookingAvailable: false,
-        availableIn: '19h 59m',
-      },
-      {
-        id: 6,
-        title: 'Personal Training',
-        notify: true,
-        date: '09.11.2022',
-        time: '07:00',
-        format: '1-to-1',
-        duration: '50 mins',
-        place: 'ArsNova',
-        isBookingAvailable: false,
-        availableIn: '19h 59m',
-      },
-    ],
-  }),
+  computed: {
+    ...mapGetters({
+      trainings: getterTypes.TRAININGS_PTS,
+    }),
+  },
 };
 </script>

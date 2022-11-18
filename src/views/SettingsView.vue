@@ -26,11 +26,11 @@
                 :key="`weekly-target_${index}`"
               >
                 <input
+                  v-model="weeklyTarget"
                   :id="`target-item-${target}`"
                   class="settings-item__radio-input"
                   :value="target"
                   type="radio"
-                  v-model="weeklyTarget"
                 />
                 <label :for="`target-item-${target}`" class="settings-item__radio-label">{{ target }}</label>
               </div>
@@ -72,8 +72,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/vars/_colors.scss';
-
 .settings {
   font-family: 'Inter', sans-serif;
 

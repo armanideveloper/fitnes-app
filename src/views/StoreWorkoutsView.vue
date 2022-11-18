@@ -42,6 +42,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/styles/shared/store-page.scss';
+
 .store-workouts {
   &__list {
     list-style-type: none;

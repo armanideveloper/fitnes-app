@@ -383,7 +383,7 @@ export default {
       width: 100%;
       height: 10px;
       border: 0;
-      background-color: #e9edef;
+      background-color: $snow-white-2;
     }
 
     &::-webkit-progress-value {
@@ -396,7 +396,7 @@ export default {
       width: 100%;
       height: 10px;
       border: 0;
-      background-color: #e9edef;
+      background-color: $snow-white-2;
     }
   }
 }

@@ -62,9 +62,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/vars/_colors.scss';
-@import '@/assets/styles/vars/_mixins.scss';
-
 .store-card {
   @include store-card;
 

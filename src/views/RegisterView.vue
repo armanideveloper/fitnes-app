@@ -94,57 +94,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/vars/_colors.scss';
-.login-main {
-  width: 375px;
-  margin: 0 auto;
-  padding: 42px 22px 96px 22px;
-  .login-title {
-    font-weight: 500;
-    font-size: 22px;
-    color: $dark-black;
-    margin-top: 28px;
-    margin-bottom: 11px;
-  }
-  .login-sub-title {
-    margin-bottom: 36px;
-    font-weight: 400;
-    font-size: 14px;
-    color: $light-black;
-  }
-  .login-text {
-    text-align: center;
-    margin-top: 28px;
-    font-weight: 400;
-    font-size: 14px;
-    color: $light-black;
-    a {
-      font-weight: 600;
-      color: $blue;
-      text-decoration: underline;
-    }
-  }
-  .blue-btn-text {
-    font-style: normal;
-    font-weight: 500;
-    font-size: 19px;
-    line-height: 28px;
-    color: #fff;
-  }
-  .eye-icon {
-    cursor: pointer;
-    position: absolute;
-    top: 16px;
-    right: 18px;
-  }
-}
-.mt-24 {
-  margin-top: 24px;
-}
-.mt-28 {
-  margin-top: 28px;
-}
-.mb-60 {
-  margin-bottom: 60px;
-}
+@import '@/assets/styles/shared/login-main.scss';
 </style>

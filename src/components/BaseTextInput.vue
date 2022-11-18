@@ -47,10 +47,6 @@ export default {
       },
     },
   },
-  // model: {
-  //   prop: 'value',
-  //   event: 'change-input-val',
-  // },
   methods: {
     changeInputVal(e) {
       this.$emit('input', e.target.value);

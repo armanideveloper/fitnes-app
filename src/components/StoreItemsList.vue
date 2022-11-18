@@ -27,6 +27,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/styles/shared/store-page.scss';
+
 .store-items {
   &__title {
     margin-bottom: 21px;

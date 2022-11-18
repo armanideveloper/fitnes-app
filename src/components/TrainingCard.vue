@@ -6,18 +6,17 @@
 
         <div class="training-card__inner">
           <div class="training-card__grid">
-            <h3 class="training-card__title">{{ training.title }}</h3>
+            <h3 class="training-card__title">{{ training.name }}</h3>
 
-            <p class="training-card__time">{{ training.time }}</p>
+            <p class="training-card__time">{{ timeFormatted }}</p>
 
             <base-toggle
-              v-if="'notify' in training"
-              :default-state="notifications"
+              :default-state="!!+training.reminder"
               :id="`training-notify-${training.id}`"
-              @change-toggle-val="notifications = $event"
+              @change-toggle-val="toggleNotifications"
               class="primary"
             >
-              Notify
+              Notify me
             </base-toggle>
 
             <span v-if="training.repeats" class="training-card__tag training-card__repeats">
@@ -26,17 +25,17 @@
           </div>
 
           <div class="training-card__tags">
-            <span class="training-card__tag" v-if="training.format">
+            <span class="training-card__tag">
               <img :src="require('@/assets/images/icons/user-sm.svg')" alt="" />
-              {{ training.format }}
+              {{ training.gs_tags }}
             </span>
-            <span class="training-card__tag" v-if="training.duration">
+            <span class="training-card__tag">
               <img :src="require('@/assets/images/icons/clock-sm.svg')" alt="" />
-              {{ training.duration }}
+              {{ training.duration }} mins
             </span>
-            <span class="training-card__tag" v-if="training.place">
+            <span class="training-card__tag">
               <img :src="require('@/assets/images/icons/marker-pin-sm.svg')" alt="" />
-              {{ training.place }}
+              {{ training.location_name }}
             </span>
 
             <span v-if="training.equipment" class="training-card__tag">
@@ -49,15 +48,31 @@
     </main>
 
     <footer class="training-card__footer">
-      <base-button v-if="training.isBookingAvailable" class="small-btn training-card__book-btn">Book</base-button>
+      <base-button
+        v-if="training.can_be_selected && !training.choosen"
+        class="small-btn training-card__book-btn"
+        @click.native="toggleReservation('reservation')"
+      >
+        Book
+      </base-button>
+      <base-button
+        v-else-if="training.choosen"
+        class="small-btn training-card__book-btn"
+        @click.native="toggleReservation('cancel_reservation')"
+      >
+        Cancel
+      </base-button>
       <base-button v-else class="small-btn training-card__book-btn training-card__book-btn--disabled">
-        Booking available in {{ training.availableIn }}
+        Booking available in {{ training.open_registration_hours }}h
       </base-button>
     </footer>
   </li>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import actionTypes from '@/store/types/action-types';
+import getterTypes from '@/store/types/getter-types';
 import BaseButton from '@/components/BaseButton';
 import BaseToggle from '@/components/BaseToggle';
 
@@ -74,17 +89,58 @@ export default {
       default: () => {},
     },
   },
-  data() {
-    return {
-      notifications: this.training.notify,
-    };
+  computed: {
+    ...mapGetters({
+      user: getterTypes.USER_DATA,
+    }),
+    timeFormatted() {
+      const [hours, minutes] = this.training.time_from.split(':');
+      return `${hours}:${minutes}`;
+    },
+  },
+  methods: {
+    toggleReservation(action) {
+      this.$store
+        .dispatch(actionTypes.TOGGLE_RESERVATION, {
+          action,
+          date: this.training.date_from,
+          reservation: this.training.id,
+          user: this.user.id,
+          member: this.user.member.id,
+          registration: this.user.registration.id,
+        })
+        .then(response => {
+          if (response.status === 'success') {
+            this.$toaster.success(response.message);
+          } else {
+            this.$toaster.error(response.message);
+          }
+        });
+    },
+    toggleNotifications(val) {
+      this.$store
+        .dispatch(actionTypes.TOGGLE_NOTIFICATIONS, {
+          action: 'reminder',
+          status: `${+val}`,
+          date: this.training.date_from,
+          reservation: this.training.id,
+          user: this.user.id,
+          member: this.user.member.id,
+          registration: this.user.registration.id,
+        })
+        .then(response => {
+          if (response.status === 'success') {
+            this.$toaster.success(response.message);
+          } else {
+            this.$toaster.error(response.message);
+          }
+        });
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/vars/_colors.scss';
-
 .training-card {
   font-family: 'Plus Jakarta Sans', sans-serif;
   background-color: #fff;
@@ -119,7 +175,7 @@ export default {
 
   &__grid {
     display: grid;
-    grid-template-columns: 1fr minmax(16%, 86px);
+    grid-template-columns: 1fr 42px;
     margin-bottom: 12px;
   }
 

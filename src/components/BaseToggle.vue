@@ -58,8 +58,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/vars/_colors.scss';
-
 .toggle {
   display: flex;
   gap: 10px;

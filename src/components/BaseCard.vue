@@ -13,8 +13,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/vars/_mixins.scss';
-
 .base-card {
   @include base-card-mixin;
 }

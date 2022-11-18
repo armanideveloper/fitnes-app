@@ -65,8 +65,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/vars/_colors.scss';
-
 .payments-item {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

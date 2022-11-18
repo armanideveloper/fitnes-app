@@ -56,8 +56,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/vars/_colors.scss';
-
 .booking-item {
   display: grid;
   grid-template-columns: repeat(2, auto);

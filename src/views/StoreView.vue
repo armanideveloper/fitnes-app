@@ -39,6 +39,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/styles/shared/store-page.scss';
+
 .store {
   &__links {
     display: grid;
