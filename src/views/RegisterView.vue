@@ -36,7 +36,7 @@
 
     <p class="login-text">
       Already have an account?
-      <router-link to="/sign-in">Sign in</router-link>
+      <router-link :to="{ name: 'SignIn' }">Sign in</router-link>
     </p>
   </div>
 </template>

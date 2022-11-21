@@ -1,4 +1,4 @@
-import { setStorageItem, clearStorage } from '@/helpers/storage';
+import { setStorageItem, removeStorageItem } from '@/helpers/storage';
 import mutationTypes from '../../types/mutation-types';
 
 const mutations = {
@@ -7,7 +7,7 @@ const mutations = {
     state.userData = payload;
   },
   [mutationTypes.CLEAR_USER_DATA](state) {
-    clearStorage();
+    removeStorageItem('userData');
     state.userData = null;
   },
 };

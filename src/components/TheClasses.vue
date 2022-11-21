@@ -8,6 +8,7 @@
 import { mapGetters } from 'vuex';
 import TrainingSchedule from '@/components/TrainingSchedule';
 import getterTypes from '@/store/types/getter-types';
+import actionTypes from '@/store/types/action-types';
 
 export default {
   name: 'TheClasses',
@@ -16,8 +17,16 @@ export default {
   },
   computed: {
     ...mapGetters({
+      user: getterTypes.USER_DATA,
       trainings: getterTypes.TRAININGS_CLASSES,
     }),
+  },
+  mounted() {
+    if (this.trainings.length) {
+      return;
+    }
+
+    this.$store.dispatch(actionTypes.LOGIN, { username: this.user.username, password: this.user.password });
   },
 };
 </script>

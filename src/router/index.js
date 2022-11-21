@@ -165,7 +165,7 @@ router.beforeEach((to, from, next) => {
   if (pagesUnnecessaryAuth.includes(to.name) && store.getters['[auth] IS_LOGGED_IN']) {
     next({ name: 'Home' });
   } else if (!pagesUnnecessaryAuth.includes(to.name) && !store.getters['[auth] IS_LOGGED_IN']) {
-    next({ name: 'SignIn' });
+    next({ name: 'Main' });
   }
 
   next();

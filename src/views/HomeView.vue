@@ -21,7 +21,7 @@
       <settings-menu :class="{ opened: showSettings }" @close-settings="closeSettingsMenu" />
 
       <section class="home__top">
-        <h1 class="home__greeting">Hello {{ user.name }}</h1>
+        <h1 class="home__greeting">Hello {{ user?.name }}</h1>
 
         <span class="home__level-title">Level</span>
         <div class="home__level-img">
@@ -67,94 +67,46 @@
         </article>
       </section>
 
-      <section class="home__next-booking">
-        <div class="card next-booking-card">
-          <p class="card__subtitle">Next booking</p>
-          <h2 class="card__title">Personal training</h2>
-          <p class="card__time">20:00</p>
+      <section class="home__cards">
+        <membership-info class="full-height-card" />
 
-          <base-button class="small-btn">Cancel</base-button>
-        </div>
         <div class="card checkin-card">
-          <template v-if="!bookingCheckedIn">
-            <h2 class="checkin-card__title">Check-in</h2>
+          <h2 class="checkin-card__title">Check-in</h2>
 
-            <button class="checkin-card__btn" @click="checkIn">
-              <img :src="require('@/assets/images/icons/arrow-up.svg')" alt="" />
-            </button>
-          </template>
+          <button class="checkin-card__btn" @click="checkIn">
+            <img :src="require('@/assets/images/icons/arrow-up.svg')" alt="" />
+          </button>
 
-          <template v-else>
+          <template v-if="checkinSuccess">
             <h2 class="checkin-card__title">Checked-in</h2>
 
             <button class="checkin-card__btn checkin-card__btn--checked">
               <img :src="require('@/assets/images/icons/checkmark-white.svg')" alt="" />
             </button>
 
-            <p class="checkin-card__time">check in at {{ checkedInTime }}</p>
+            <p class="checkin-card__time">check in at {{ checkinTime }}</p>
+          </template>
+        </div>
+
+        <div class="card next-booking-card">
+          <p class="card__subtitle">Next booking</p>
+
+          <template v-if="upcomingBooking">
+            <h2 class="card__title">Personal training</h2>
+
+            <p v-if="upcomingBooking" class="card__time">
+              {{ upcomingBookingDate | formatDate }} {{ upcomingBookingTime | formatTime }}
+            </p>
+
+            <base-button @click.native="cancelReservation('cancel_reservation')" class="small-btn">Cancel</base-button>
+          </template>
+          <template v-else>
+            <h2 class="card__title">You have no upcoming trainings yet</h2>
           </template>
         </div>
       </section>
 
-      <section class="home__info">
-        <router-link :to="{ name: 'Store', params: { currentComponent: 'StoreMemberships' } }" v-slot="{ navigate }">
-          <div class="card membership-card" @click="navigate">
-            <p class="card__subtitle">Membership</p>
-            <h2 class="card__title">Standard</h2>
-            <p class="card__value">
-              150
-              <span>RON</span>
-            </p>
-          </div>
-        </router-link>
-
-        <router-link :to="{ name: 'History' }" v-slot="{ navigate }">
-          <div class="card bookings-card" @click="navigate">
-            <h2 class="card__title">Bookings left</h2>
-            <p class="card__value">150</p>
-          </div>
-        </router-link>
-
-        <div class="card dates-card">
-          <router-link :to="{ name: 'Store', params: { currentComponent: 'StoreMemberships' } }">
-            <div class="dates-card__dates">
-              <div class="dates-card__date">
-                <p class="dates-card__date-title">Start date</p>
-                <p class="dates-card__date-value">01 September</p>
-              </div>
-
-              <div class="dates-card__buttons">
-                <button class="dates-card__btn active">
-                  <svg width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M9.00023 3.76858C10.3335 4.53846 10.3334 6.46296 9.00004 7.23268L3.74988 10.2635C2.4165 11.0332 0.749888 10.0709 0.749972 8.53127L0.750302 2.46909C0.750386 0.929492 2.41711 -0.0326659 3.7504 0.737207L9.00023 3.76858Z"
-                      fill="#B8E1FF"
-                    />
-                  </svg>
-                </button>
-
-                <button class="dates-card__btn">
-                  <svg width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M9.00023 3.76858C10.3335 4.53846 10.3334 6.46296 9.00004 7.23268L3.74988 10.2635C2.4165 11.0332 0.749888 10.0709 0.749972 8.53127L0.750302 2.46909C0.750386 0.929492 2.41711 -0.0326659 3.7504 0.737207L9.00023 3.76858Z"
-                      fill="#B8E1FF"
-                    />
-                  </svg>
-                </button>
-              </div>
-
-              <div class="dates-card__date">
-                <p class="dates-card__date-title">End date</p>
-                <p class="dates-card__date-value">30 September</p>
-              </div>
-            </div>
-          </router-link>
-
-          <p class="dates-card__days-left">28 days left</p>
-
-          <progress class="dates-card__progress" :value="progress" max="100"></progress>
-        </div>
-      </section>
+      <news-notifications />
 
       <vue-bottom-sheet
         ref="successBottomSheet"
@@ -183,16 +135,21 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import actionTypes from '@/store/types/action-types';
+import getterTypes from '@/store/types/getter-types';
 import VueBottomSheet from '@webzlodimir/vue-bottom-sheet';
 import BaseButton from '@/components/BaseButton';
+import MembershipInfo from '@/components/MembershipInfo';
+import NewsNotifications from '@/components/NewsNotifications';
 import SettingsMenu from '@/components/SettingsMenu';
-import getterTypes from '@/store/types/getter-types';
 
 export default {
   name: 'HomeView',
   components: {
     VueBottomSheet,
     BaseButton,
+    MembershipInfo,
+    NewsNotifications,
     SettingsMenu,
   },
   metaInfo: {
@@ -202,18 +159,36 @@ export default {
     return {
       showSettings: false,
       weeklyGoal: 5,
-      bookingCheckedIn: false,
-      checkedInTime: null,
-      progress: 76,
+      scanQr: false,
+      checkinSuccess: false,
+      checkinTime: null,
     };
   },
   computed: {
     ...mapGetters({
       user: getterTypes.USER_DATA,
+      statsData: getterTypes.STATS_DATA,
       points: getterTypes.STATS_POINTS_SUM,
       entries: getterTypes.STAT_ENTRIES_PER_MONTH,
       weeklyEntries: getterTypes.STAT_ENTRIES_PER_WEEK,
+      upcomingTrainings: getterTypes.UPCOMING_TRAININGS,
     }),
+    upcomingBooking() {
+      return this.upcomingTrainings[0];
+    },
+    upcomingBookingDate() {
+      return this.upcomingBooking?.date_from;
+    },
+    upcomingBookingTime() {
+      return this.upcomingBooking?.time_from;
+    },
+  },
+  mounted() {
+    if (!this.statsData) {
+      return;
+    }
+
+    this.$store.dispatch(actionTypes.LOGIN, { username: this.user.username, password: this.user.password });
   },
   methods: {
     showSettingsMenu() {
@@ -224,15 +199,42 @@ export default {
       this.showSettings = false;
       document.body.classList.remove('scroll-lock');
     },
+    cancelReservation() {
+      this.$store
+        .dispatch(actionTypes.TOGGLE_RESERVATION, {
+          action: 'cancel_reservation',
+          date: this.upcomingBookingDate,
+          reservation: this.upcomingBooking.id,
+          user: this.user.id,
+          member: this.user.member.id,
+          registration: this.user.registration.id,
+        })
+        .then(response => {
+          if (response.status === 'success') {
+            this.$toaster.success(response.message);
+          } else {
+            this.$toaster.error(response.message);
+          }
+        });
+    },
     checkIn() {
-      function padTo2Digits(num) {
-        return String(num).padStart(2, '0');
-      }
-      const date = new Date();
-      const timeStr = padTo2Digits(date.getHours()) + ':' + padTo2Digits(date.getMinutes());
-
-      this.bookingCheckedIn = true;
-      this.checkedInTime = timeStr;
+      this.$store
+        .dispatch(actionTypes.CHECK_IN, {
+          action: 'checkin',
+          type: '1',
+          user: this.user.id,
+          member: this.user.member.id,
+          location: '7',
+          registration: this.user.registration.id,
+        })
+        .then(response => {
+          if (response.status === 'success') {
+            this.checkinSuccess = true;
+            this.checkinTime = response.dt.split(' ')[1];
+          } else {
+            this.$toaster.error(response.message);
+          }
+        });
     },
     openSuccessSheet() {
       if (this.weeklyEntries < this.weeklyGoal) {
@@ -254,11 +256,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/vars/_colors.scss';
-@import '@/assets/styles/vars/_mixins.scss';
+@import '@/assets/styles/shared/home-page-card.scss';
 
 .home {
-  padding-top: 42px;
+  padding: 42px 0;
 
   &__header {
     display: flex;
@@ -311,16 +312,16 @@ export default {
     margin-bottom: 30px;
   }
 
-  &__next-booking {
+  &__cards {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 110px 1fr;
     grid-column-gap: 13px;
     margin-bottom: 28px;
-  }
 
-  &__info {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    .full-height-card {
+      grid-row: span 2;
+    }
   }
 }
 
@@ -409,10 +410,11 @@ export default {
 }
 
 .card {
-  @include base-card-mixin;
-  text-align: center;
-
   &.next-booking-card {
+    @include base-card-mixin;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding: 5px 2px 8px;
 
     .card__title {
@@ -431,69 +433,11 @@ export default {
       line-height: 22px;
     }
   }
-
-  &.bookings-card,
-  &.membership-card {
-    position: relative;
-    z-index: 2;
-  }
-
-  &.membership-card {
-    padding: 23px 0 34px;
-
-    .card__title {
-      margin-bottom: 13px;
-    }
-  }
-
-  &.bookings-card {
-    padding-top: 38px;
-
-    .card__title {
-      margin-bottom: 9px;
-    }
-  }
-
-  &.dates-card {
-    padding: 25px 9px 22px;
-    grid-column: span 2;
-    transform: translateY(-16px);
-  }
-
-  &__subtitle {
-    color: $grey-3;
-    font-size: 15px;
-    line-height: 22px;
-  }
-
-  &__title {
-    color: $dark-blue;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 22px;
-  }
-
-  &__time {
-    color: $dark-blue;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 22px;
-  }
-
-  &__value {
-    color: $blue;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 22px;
-
-    span {
-      font-size: 12px;
-    }
-  }
 }
 
 .checkin-card {
-  padding: 20px 9px 0 9px;
+  @include base-card-mixin;
+  padding: 20px 8px 0;
   background-color: $blue;
 
   &__title {
@@ -526,82 +470,6 @@ export default {
 }
 
 .dates-card {
-  &__dates {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  &__date {
-    text-align: center;
-    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-  }
-
-  &__date-title {
-    color: $grey-3;
-    font-size: 15px;
-    line-height: 22px;
-  }
-
-  &__date-value {
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 22px;
-  }
-
-  &__buttons {
-    display: flex;
-    align-items: flex-start;
-    gap: 6px;
-    margin-top: 8px;
-  }
-
-  &__btn {
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-
-    &.active {
-      svg path {
-        fill: $blue;
-      }
-    }
-  }
-
-  &__days-left {
-    font-size: 14px;
-    line-height: 22px;
-    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-  }
-
-  &__progress {
-    width: 100%;
-    height: 8px;
-    border: 0;
-    border-radius: 10px;
-    background-color: $green-2;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-
-    &::-webkit-progress-bar {
-      width: 100%;
-      height: 8px;
-      border: 0;
-      border-radius: 10px;
-      background-color: $green-2;
-    }
-
-    &::-webkit-progress-value {
-      height: 8px;
-      background-color: $blue;
-      border: 0;
-      border-radius: 10px;
-    }
-
-    &::-moz-progress-bar {
-      width: 100%;
-      height: 8px;
-      border: 0;
-      border-radius: 10px;
-      background-color: $green-2;
-    }
-  }
 }
 
 .success-sheet {

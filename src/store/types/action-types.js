@@ -6,4 +6,5 @@ export default {
   LOGOUT: '[auth] LOGOUT',
   TOGGLE_RESERVATION: '[trainings] TOGGLE_RESERVATION',
   TOGGLE_NOTIFICATIONS: '[trainings] TOGGLE_NOTIFICATIONS',
+  CHECK_IN: '[trainings] CHECK_IN',
 };

@@ -3,13 +3,18 @@
     <div class="container">
       <h2 class="history__title">History</h2>
 
-      <v-calendar class="history__calendar" :masks="calendarMasks" :attributes="attributes" locale="en-US" is-expanded>
-        <button
-          class="vc-btn vc-btn--prev"
-          slot="header-left-button"
-          slot-scope="{ page }"
-          @click="page.movePrevMonth()"
-        >
+      <v-calendar
+        v-if="pointsItems"
+        ref="calendar"
+        class="history__calendar"
+        :masks="calendarMasks"
+        :attributes="attributes"
+        locale="en-US"
+        is-expanded
+        @update:from-page="currentDate = $event.date"
+        @update:to-page="currentDate = new Date($event.year, $event.month, 0)"
+      >
+        <button class="vc-btn vc-btn--prev" slot="header-left-button" @click="moveToMonth(-1)">
           <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M8.5 15C8.5 15 1.5 10.856 1.5 8C1.5 5.145 8.5 1 8.5 1"
@@ -20,12 +25,7 @@
             />
           </svg>
         </button>
-        <button
-          class="vc-btn vc-btn--next"
-          slot="header-right-button"
-          slot-scope="{ page }"
-          @click="page.moveNextMonth()"
-        >
+        <button class="vc-btn vc-btn--next" slot="header-right-button" @click="moveToMonth(1)">
           <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M1.5 0.999998C1.5 0.999998 8.5 5.144 8.5 8C8.5 10.855 1.5 15 1.5 15"
@@ -38,8 +38,8 @@
         </button>
       </v-calendar>
 
-      <ul class="history__list">
-        <history-item v-for="(item, index) in pointsItems" :key="`history-items_${index}`" :item="item" />
+      <ul v-if="historyItems" class="history__list">
+        <history-item v-for="(item, index) in historyItems" :key="`history-items_${index}`" :item="item" />
       </ul>
     </div>
   </article>
@@ -47,8 +47,10 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import HistoryItem from '@/components/HistoryItem';
+import actionTypes from '@/store/types/action-types';
 import getterTypes from '@/store/types/getter-types';
+import { checkSameMonth } from '@/helpers/dates';
+import HistoryItem from '@/components/HistoryItem';
 
 export default {
   name: 'HistoryView',
@@ -63,15 +65,29 @@ export default {
       calendarMasks: {
         weekdays: 'WWW',
       },
+      currentDate: null,
     };
   },
   computed: {
     ...mapGetters({
+      user: getterTypes.USER_DATA,
       pointsItems: getterTypes.STATS_POINTS,
+      upcomingItems: getterTypes.UPCOMING_TRAININGS,
     }),
+    upcomingItemsReversed() {
+      return this.upcomingItems.slice(0).reverse();
+    },
+    historyItems() {
+      return (
+        this.pointsItems.length &&
+        [...this.upcomingItemsReversed, ...this.pointsItems].filter(
+          item => checkSameMonth(item.created_datetime || item.c_date_time_dt, this.currentDate) === true
+        )
+      );
+    },
     attributes() {
       return [
-        ...this.pointsItems.map(item => ({
+        ...this.pointsItems?.map((item, index) => ({
           dates: item.created_datetime.split(' ')[0],
           ...(Number(item.value) > 0 && {
             highlight: {
@@ -79,28 +95,53 @@ export default {
               contentClass: 'green',
             },
           }),
-          ...(Number(item.value) < 0 && {
-            dot: {
-              color: 'red',
-              class: 'red',
-            },
-          }),
-          popover: { label: item.reason, visibility: 'click' },
+          ...(Number(item.value) < 0 &&
+            index < 3 && {
+              dot: {
+                color: 'red',
+                class: 'red',
+              },
+            }),
+          popover: {
+            label: item.reason,
+            visibility: 'click',
+            hideIndicator: true,
+          },
           customData: item,
         })),
-        {
+        ...this.upcomingItems?.map(item => ({
           dot: '#0094ff',
+          dates: new Date(item.date_from),
+          popover: {
+            label: item.gs_tags,
+            visibility: 'click',
+            hideIndicator: true,
+          },
+        })),
+        {
           dates: new Date(),
+          highlight: {
+            contentClass: 'grey',
+          },
         },
       ];
+    },
+  },
+  mounted() {
+    if (!this.pointsItems.length || !this.upcomingItems.length) {
+      this.$store.dispatch(actionTypes.LOGIN, { username: this.user.username, password: this.user.password });
+    }
+  },
+  methods: {
+    async moveToMonth(month) {
+      const calendar = this.$refs.calendar;
+      await calendar.move({ month: month });
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/vars/_colors.scss';
-
 .history {
   padding: 40px 0;
 
@@ -168,6 +209,10 @@ export default {
         &.green {
           color: #fff;
           background-color: $green;
+        }
+
+        &.grey {
+          background-color: $grey-100;
         }
       }
 

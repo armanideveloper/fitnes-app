@@ -49,7 +49,7 @@
 
     <footer class="training-card__footer">
       <base-button
-        v-if="training.can_be_selected && !training.choosen"
+        v-if="training.is_open && !training.choosen"
         class="small-btn training-card__book-btn"
         @click.native="toggleReservation('reservation')"
       >
@@ -63,7 +63,7 @@
         Cancel
       </base-button>
       <base-button v-else class="small-btn training-card__book-btn training-card__book-btn--disabled">
-        Booking available in {{ training.open_registration_hours }}h
+        Booking available in {{ training.time_till_open_hours }}
       </base-button>
     </footer>
   </li>

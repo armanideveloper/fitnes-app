@@ -1,8 +1,8 @@
 import mutationTypes from '../../types/mutation-types';
 
 const mutations = {
-  [mutationTypes.SET_STATS_DATA](state, payload) {
-    state.statsData = payload;
+  [mutationTypes.SET_TRAINERS](state, payload) {
+    state.trainers = payload;
   },
 };
 

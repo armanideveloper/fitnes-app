@@ -15,8 +15,10 @@ const actions = {
           points: resp.data.data.points,
           checkins: resp.data.data.checkins,
         });
-        commit(mutationTypes.SET_TRAININGS_CLASSES, resp.data.data.schedules_groupped_days);
+        commit(mutationTypes.SET_TRAININGS_CLASSES, resp.data.data.schedules_cl_groupped_days);
         commit(mutationTypes.SET_TRAININGS_PTS, resp.data.data.schedules_pt_groupped_days);
+        commit(mutationTypes.SET_TRAINERS, resp.data.data.trainers);
+        commit(mutationTypes.SET_PACKAGES, resp.data.data.pachete);
 
         return { status: 'success', message: resp.data.msg };
       }

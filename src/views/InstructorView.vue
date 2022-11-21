@@ -52,11 +52,11 @@
           </section>
 
           <section class="instructor__links">
-            <router-link :to="{ name: 'InstructorPackages' }" v-slot="{ navigate }">
+            <router-link :to="{ name: 'InstructorPackages' }" v-slot="{ navigate }" custom>
               <base-button class="small-btn" @click.native="navigate">View packages</base-button>
             </router-link>
 
-            <router-link :to="{ name: 'InstructorSchedule' }" v-slot="{ navigate }">
+            <router-link :to="{ name: 'InstructorSchedule' }" v-slot="{ navigate }" custom>
               <base-button class="small-btn" @click.native="navigate">View schedule</base-button>
             </router-link>
           </section>
@@ -187,8 +187,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/vars/_colors.scss';
-
 @mixin section-title {
   color: $black-2;
   font-size: 16px;

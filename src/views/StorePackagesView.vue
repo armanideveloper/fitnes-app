@@ -6,16 +6,19 @@
       </div>
 
       <div class="store-packages__wrapper" v-for="(packagesSet, index) in packages" :key="`packages-set_${index}`">
-        <store-items-list :store-items="packagesSet.items">{{ packagesSet.title }}</store-items-list>
+        <store-items-list :store-items="packagesSet.items">Packages {{ packagesSet.trainerName }}</store-items-list>
 
-        <hr v-if="index !== packages.length - 1" />
+        <hr v-if="packages.length > 1 && index !== packages.length - 1" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import getterTypes from '@/store/types/getter-types';
 import StoreItemsList from '@/components/StoreItemsList';
+import actionTypes from '@/store/types/action-types';
 
 export default {
   name: 'StorePackages',
@@ -25,57 +28,18 @@ export default {
   metaInfo: {
     title: 'Store — Packages',
   },
-  data() {
-    return {
-      packages: [
-        {
-          title: 'Pachete Marcus M.',
-          items: [
-            {
-              id: 1,
-              selected: true,
-              type: 'package',
-              title: 'PT - 12 entries',
-              subtitle: '1-la-1 workout',
-              price: 300,
-              duration: 1,
-            },
-            {
-              id: 2,
-              selected: false,
-              type: 'package',
-              title: 'Pachet PT - 8 intrari',
-              subtitle: 'Mealplan inclus',
-              price: 400,
-              duration: 1,
-            },
-          ],
-        },
-        {
-          title: 'Pachete Laura M.',
-          items: [
-            {
-              id: 1,
-              selected: false,
-              type: 'package',
-              title: 'PT - 12 entries',
-              subtitle: '1-la-1 workout',
-              price: 300,
-              duration: 1,
-            },
-            {
-              id: 2,
-              selected: false,
-              type: 'package',
-              title: 'Pachet PT - 8 intrari',
-              subtitle: 'Mealplan inclus',
-              price: 400,
-              duration: 1,
-            },
-          ],
-        },
-      ],
-    };
+  computed: {
+    ...mapGetters({
+      user: getterTypes.USER_DATA,
+      packages: getterTypes.PACKAGES_BY_TRAINER,
+    }),
+  },
+  mounted() {
+    if (this.packages.length) {
+      return;
+    }
+
+    this.$store.dispatch(actionTypes.LOGIN, { username: this.user.username, password: this.user.password });
   },
 };
 </script>

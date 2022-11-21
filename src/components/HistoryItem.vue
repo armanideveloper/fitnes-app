@@ -3,21 +3,24 @@
     <p class="history-item__date">{{ formattedDate }}</p>
 
     <div class="history-item__title-time">
-      <h2 class="history-item__title">{{ item.reason }}</h2>
-      <p class="history-item__time">{{ item.time }}</p>
+      <h2 class="history-item__title">{{ item.reason || item.gs_tags }}</h2>
+      <p v-if="formattedTime" class="history-item__time">{{ formattedTime }}</p>
     </div>
 
-    <p class="history-item__points">{{ item.value }} pts</p>
-    <!--    <base-button v-else class="small-btn">Cancel</base-button>-->
+    <p v-if="item.value" class="history-item__points">{{ item.value }} pts</p>
+    <base-button v-else class="small-btn" @click.native="cancelReservation">Cancel</base-button>
   </li>
 </template>
 
 <script>
-// import BaseButton from '@/components/BaseButton';
+import { mapGetters } from 'vuex';
+import actionTypes from '@/store/types/action-types';
+import getterTypes from '@/store/types/getter-types';
+import BaseButton from '@/components/BaseButton';
 
 export default {
   name: 'HistoryItem',
-  // components: { BaseButton },
+  components: { BaseButton },
   props: {
     item: {
       type: Object,
@@ -26,31 +29,61 @@ export default {
     },
   },
   computed: {
+    ...mapGetters({
+      user: getterTypes.USER_DATA,
+    }),
     formattedDate() {
-      const date = this.item.created_datetime.split(' ')[0];
+      const date = this.item.created_datetime ? this.item.created_datetime.split(' ')[0] : this.item.date_from;
+
       return date.split('-').reverse().join('.');
     },
+    formattedTime() {
+      if (this.item.time_from) {
+        const [hours, minutes] = this.item.time_from?.split(':');
+        return `${hours}:${minutes}`;
+      }
+
+      return null;
+    },
     itemColor() {
+      if (!this.item.value) {
+        return 'blue';
+      }
+
       if (Number(this.item.value) < 0) {
         return 'red';
       }
 
-      // if (this.item.status === 'Participated') {
-      //   return 'green';
-      // }
-
       return 'green';
+    },
+  },
+  methods: {
+    cancelReservation() {
+      this.$store
+        .dispatch(actionTypes.TOGGLE_RESERVATION, {
+          action: 'cancel_reservation',
+          date: this.item.date_from,
+          reservation: this.item.id,
+          user: this.user.id,
+          member: this.user.member.id,
+          registration: this.user.registration.id,
+        })
+        .then(response => {
+          if (response.status === 'success') {
+            this.$toaster.success(response.message);
+          } else {
+            this.$toaster.error(response.message);
+          }
+        });
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/vars/_colors.scss';
-
 .history-item {
   display: grid;
-  grid-template-columns: 76px 1fr 62px;
+  grid-template-columns: 76px 1fr 80px;
   align-items: center;
   height: 48px;
   padding: 0 7px 0 21px;
@@ -91,8 +124,9 @@ export default {
   &__title-time {
     display: flex;
     width: 100%;
-    //flex-direction: column;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     gap: 5px;
     text-align: center;
   }

@@ -1,17 +1,17 @@
 <template>
-  <div class="store-card" :class="[`store-card--${storeItem.type}`, { selected: storeItem.selected }]">
+  <div class="store-card" :class="[`store-card--${storeItem.type}`, { selected: isSelected }]">
     <main class="store-card__main">
       <p v-if="'selected' in storeItem" class="store-card__current-membership">
-        {{ storeItem.selected ? 'Current membership' : '' }}
+        {{ isSelected ? 'Current membership' : '' }}
       </p>
 
-      <h3 class="store-card__title">{{ storeItem.title }}</h3>
+      <h3 class="store-card__title">{{ storeItem.name }}</h3>
 
-      <p class="store-card__subtitle">{{ storeItem.subtitle }}</p>
+      <p class="store-card__subtitle">1-la-1 workout</p>
 
-      <p class="store-card__date">{{ storeItem.date }}</p>
+      <!--      <p class="store-card__date">{{ storeItem.date }}</p>-->
 
-      <p class="store-card__time">{{ storeItem.time }}</p>
+      <!--      <p class="store-card__time">{{ storeItem.time }}</p>-->
 
       <div class="store-card__price-duration">
         <p class="store-card__price">
@@ -19,15 +19,15 @@
           <span>RON</span>
         </p>
 
-        <div v-if="storeItem.duration" class="store-card__duration-block">
+        <div v-if="storeItem.grace_period" class="store-card__duration-block">
           <p class="store-card__duration-title">Valabilitate</p>
-          <p class="store-card__duration">{{ storeItem.duration }} Luna</p>
+          <p class="store-card__duration">{{ storeItem.grace_period }} Days</p>
         </div>
       </div>
     </main>
 
     <footer class="store-card__footer">
-      <template v-if="storeItem.selected">
+      <template v-if="isSelected">
         <router-link :to="{ name: 'StorePayment' }" v-slot="{ navigate }" custom>
           <base-button class="small-btn store-card__btn store-card__btn--renew" @click.native="navigate">
             Renew
@@ -44,7 +44,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import BaseButton from '@/components/BaseButton';
+import getterTypes from '@/store/types/getter-types';
 
 export default {
   name: 'StoreCard',
@@ -58,6 +60,14 @@ export default {
       default: () => {},
     },
   },
+  computed: {
+    ...mapGetters({
+      user: getterTypes.USER_DATA,
+    }),
+    isSelected() {
+      return this.storeItem.id === this.user.registration.plan_id;
+    },
+  },
 };
 </script>
 
@@ -65,52 +75,52 @@ export default {
 .store-card {
   @include store-card;
 
+  &.selected {
+    background-color: $light-grey-3;
+
+    .store-card {
+      &__current-membership {
+        color: $blue;
+      }
+
+      &__main {
+        color: $dark-blue;
+        background-color: #fff;
+        text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+      }
+
+      &__price-duration {
+        flex-direction: column;
+        gap: unset;
+      }
+
+      &__duration-block {
+        color: $dark-blue;
+      }
+
+      &__footer {
+        background-color: $light-grey-3;
+      }
+
+      &__btn {
+        &--renew,
+        &--freeze {
+          box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+        }
+        &--renew {
+          background-color: #fff;
+          color: $blue;
+        }
+      }
+    }
+  }
+
   &--membership {
     .store-card {
       &__price-duration {
         flex-direction: row;
         justify-content: center;
         gap: 40px;
-      }
-    }
-
-    &.selected {
-      background-color: $light-grey-3;
-
-      .store-card {
-        &__current-membership {
-          color: $blue;
-        }
-
-        &__main {
-          color: $dark-blue;
-          background-color: #fff;
-          text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-        }
-
-        &__price-duration {
-          flex-direction: column;
-          gap: unset;
-        }
-
-        &__duration-block {
-          color: $dark-blue;
-        }
-
-        &__footer {
-          background-color: $light-grey-3;
-        }
-
-        &__btn {
-          &--renew,
-          &--freeze {
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-          }
-          &--renew {
-            background-color: #fff;
-            color: $blue;
-          }
-        }
       }
     }
   }

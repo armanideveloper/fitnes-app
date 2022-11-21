@@ -33,6 +33,21 @@ const actions = {
       return { status: 'error', message: resp.data.msg };
     });
   },
+  async [actionTypes.CHECK_IN]({ rootGetters, dispatch }, data) {
+    return axios.get('/checkin', { params: data }).then(resp => {
+      if (resp.data.status) {
+        const { username, password } = rootGetters[getterTypes.USER_DATA];
+        dispatch(actionTypes.LOGIN, {
+          username,
+          password,
+        });
+
+        return { status: 'success', message: resp.data.msg, dt: resp.data.dt };
+      }
+
+      return { status: 'error', message: resp.data.msg };
+    });
+  },
 };
 
 export default {

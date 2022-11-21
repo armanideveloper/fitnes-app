@@ -182,8 +182,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/vars/_colors.scss';
-
 @mixin base-text-size {
   font-size: 14px;
   line-height: 18px;

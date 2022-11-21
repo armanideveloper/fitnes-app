@@ -29,3 +29,10 @@ export const compareDates = (d1, d2) => {
 
   return 'equal';
 };
+
+export const checkSameMonth = (d1, d2) => {
+  const date1 = d1 instanceof Date ? d1 : new Date(d1);
+  const date2 = d2 instanceof Date ? d2 : new Date(d1);
+
+  return date1.getFullYear() === date2.getFullYear() && date1.getMonth() === date2.getMonth();
+};
