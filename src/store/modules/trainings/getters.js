@@ -6,7 +6,7 @@ const getters = {
   [getterTypes.TRAININGS_PTS]: state => Object.values(state.personalTrainings),
   [getterTypes.UPCOMING_TRAININGS]: state => {
     const upcomingTrainingsArr = [...Object.values(state.classes), ...Object.values(state.personalTrainings)]
-      .filter(t => compareDates(new Date(), new Date(t.date)) === 'less')
+      .filter(t => compareDates(new Date(), new Date(t.date)) === 'less' || 'equal')
       .map(t => t.schedules)
       .flat()
       .filter(t => t.choosen === 1);

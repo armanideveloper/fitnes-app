@@ -3,7 +3,12 @@
     <h2 class="store-page-title"><slot /></h2>
 
     <div class="store-items__list">
-      <store-card v-for="(item, index) in storeItems" :key="`store-item_${index}`" :store-item="item" />
+      <store-card
+        v-for="(item, index) in storeItems"
+        :key="`store-item_${index}`"
+        :store-item="item"
+        v-on="$listeners"
+      />
     </div>
   </section>
 </template>

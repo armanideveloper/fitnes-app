@@ -68,7 +68,7 @@
       </section>
 
       <section class="home__cards">
-        <membership-info class="full-height-card" />
+        <membership-info class="full-height-card" :plan="plan" />
 
         <div class="card checkin-card">
           <h2 class="checkin-card__title">Check-in</h2>
@@ -181,6 +181,15 @@ export default {
     },
     upcomingBookingTime() {
       return this.upcomingBooking?.time_from;
+    },
+    plan() {
+      return {
+        ...this.user.plan,
+        start_date: this.user.registration.start_date,
+        end_date: this.user.registration.end_date,
+        freeze_start: this.user.registration.freeze_start,
+        freeze_end: this.user.registration.freeze_end,
+      };
     },
   },
   mounted() {
@@ -316,7 +325,6 @@ export default {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 110px 1fr;
-    grid-column-gap: 13px;
     margin-bottom: 28px;
 
     .full-height-card {
@@ -469,37 +477,8 @@ export default {
   }
 }
 
-.dates-card {
-}
-
 .success-sheet {
-  // customizing of bottom-sheet styles
-  :deep() {
-    .bottom-sheet {
-      &__card {
-        border-radius: 12px 12px 0 0;
-      }
-
-      &__pan {
-        height: auto;
-        padding-top: 15px;
-        padding-bottom: 50px;
-      }
-
-      &__bar {
-        width: 66px;
-        height: 4px;
-        background: $grey-3;
-        border-radius: 19px;
-      }
-
-      &__content {
-        color: $grey-3;
-        font-weight: 500;
-        text-align: center;
-      }
-    }
-  }
+  @include bottom-sheet;
 
   &__img {
     width: 176px;

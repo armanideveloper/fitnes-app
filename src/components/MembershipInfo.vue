@@ -3,9 +3,9 @@
     <router-link :to="{ name: 'Store', params: { currentComponent: 'StoreMemberships' } }" v-slot="{ navigate }" custom>
       <div class="card membership-card" @click="navigate">
         <p class="card__subtitle">Your membership</p>
-        <h2 class="card__title">Standard</h2>
+        <h2 class="card__title">{{ plan.name }}</h2>
         <p class="card__value">
-          150
+          {{ plan.price }}
           <span>RON</span>
         </p>
       </div>
@@ -16,7 +16,7 @@
         <div class="dates-card__dates">
           <div class="dates-card__date">
             <p class="dates-card__date-title">Start date</p>
-            <p class="dates-card__date-value">01.09.2022</p>
+            <p class="dates-card__date-value">{{ plan.start_date | formatDate }}</p>
           </div>
 
           <div class="dates-card__buttons">
@@ -41,32 +41,61 @@
 
           <div class="dates-card__date">
             <p class="dates-card__date-title">End date</p>
-            <p class="dates-card__date-value">10.10.2022</p>
+            <p class="dates-card__date-value">{{ plan.end_date | formatDate }}</p>
           </div>
         </div>
       </router-link>
 
-      <progress class="dates-card__progress" :value="progress" max="100" />
+      <div class="dates-card__progress progress-bar">
+        <div class="progress-bar__line progress-bar__line--gone" :style="{ width: `${daysGonePercent}%` }"></div>
+        <div
+          v-if="daysFrozenPercent"
+          class="progress-bar__line progress-bar__line--frozen"
+          :style="{ width: `${daysFrozenPercent}%` }"
+        ></div>
+      </div>
 
-      <p class="dates-card__days-left">28 days left</p>
+      <p class="dates-card__days-left">{{ daysLeft }} {{ daysLeftText }}</p>
     </div>
 
     <router-link :to="{ name: 'History' }" v-slot="{ navigate }" custom>
       <div class="card bookings-card" @click="navigate">
         <h2 class="card__title">Bookings left</h2>
-        <p class="card__value">150</p>
+        <p class="card__value">{{ plan.entries_left }}</p>
       </div>
     </router-link>
   </section>
 </template>
 
 <script>
+import { diffInDays } from '@/helpers/dates';
+
 export default {
   name: 'MembershipInfo',
-  data() {
-    return {
-      progress: 76,
-    };
+  props: {
+    plan: {
+      type: Object,
+      default: () => {},
+    },
+  },
+  computed: {
+    daysAll() {
+      return diffInDays(this.plan.start_date, this.plan.end_date);
+    },
+    daysLeft() {
+      return diffInDays(new Date(), this.plan.end_date);
+    },
+    daysGonePercent() {
+      const daysGone = diffInDays(this.plan.start_date, new Date());
+      return Math.round((daysGone / this.daysAll) * 100);
+    },
+    daysFrozenPercent() {
+      const daysFrozen = diffInDays(this.plan.freeze_start, this.plan.freeze_end);
+      return Math.round((daysFrozen / this.daysAll) * 100);
+    },
+    daysLeftText() {
+      return this.daysLeft !== 11 && String(this.daysLeft).slice(-1) === '1' ? 'day left' : 'days left';
+    },
   },
 };
 </script>
@@ -117,8 +146,6 @@ export default {
   }
 
   &__btn {
-    //filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-
     &.active {
       svg path {
         fill: $blue;
@@ -137,30 +164,6 @@ export default {
     border: 0;
     border-radius: 10px;
     background-color: $green-2;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-
-    &::-webkit-progress-bar {
-      width: 100%;
-      height: 8px;
-      border: 0;
-      border-radius: 10px;
-      background-color: $green-2;
-    }
-
-    &::-webkit-progress-value {
-      height: 8px;
-      background-color: $blue;
-      border: 0;
-      border-radius: 10px;
-    }
-
-    &::-moz-progress-bar {
-      width: 100%;
-      height: 8px;
-      border: 0;
-      border-radius: 10px;
-      background-color: $green-2;
-    }
   }
 }
 
@@ -169,6 +172,20 @@ export default {
 
   .card__title {
     margin-bottom: 9px;
+  }
+}
+
+.progress-bar {
+  display: flex;
+
+  &__line {
+    &--gone {
+      background-color: $blue;
+    }
+
+    &--frozen {
+      background-color: $light-grey;
+    }
   }
 }
 </style>

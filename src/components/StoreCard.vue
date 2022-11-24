@@ -19,26 +19,37 @@
           <span>RON</span>
         </p>
 
-        <div v-if="storeItem.grace_period" class="store-card__duration-block">
+        <div v-if="storeItem.days" class="store-card__duration-block">
           <p class="store-card__duration-title">Valabilitate</p>
-          <p class="store-card__duration">{{ storeItem.grace_period }} Days</p>
+          <p class="store-card__duration">{{ storeItem.days }} Days</p>
         </div>
       </div>
     </main>
 
     <footer class="store-card__footer">
       <template v-if="isSelected">
-        <router-link :to="{ name: 'StorePayment' }" v-slot="{ navigate }" custom>
-          <base-button class="small-btn store-card__btn store-card__btn--renew" @click.native="navigate">
-            Renew
-          </base-button>
-        </router-link>
-        <base-button class="small-btn store-card__btn store-card__btn--freeze">Freeze</base-button>
+        <base-button
+          class="small-btn store-card__btn store-card__btn--renew"
+          @click.native="$emit('open-calendar', { plan: storeItem.id, isRange: false })"
+        >
+          Renew
+        </base-button>
+
+        <base-button
+          class="small-btn store-card__btn store-card__btn--freeze"
+          @click.native="$emit('open-calendar', { plan: storeItem.id, isRange: true })"
+        >
+          Freeze
+        </base-button>
       </template>
 
-      <router-link v-else :to="{ name: 'StorePayment' }" v-slot="{ navigate }" custom>
-        <base-button class="small-btn store-card__btn store-card__btn--buy" @click.native="navigate">Buy</base-button>
-      </router-link>
+      <base-button
+        v-else
+        class="small-btn store-card__btn store-card__btn--buy"
+        @click.native="$emit('open-calendar', { plan: storeItem.id, isRange: false })"
+      >
+        Buy
+      </base-button>
     </footer>
   </div>
 </template>

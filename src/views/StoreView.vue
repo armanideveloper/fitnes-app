@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       links: [
-        { title: 'Memberships', to: 'StoreMemberships' },
+        { title: 'Gym Memberships', to: 'StoreMemberships' },
         { title: 'Personal training', to: 'StorePackages' },
         { title: 'Workouts', to: 'StoreWorkouts' },
         { title: 'Events', to: 'StoreEvents' },
@@ -46,7 +46,7 @@ export default {
     display: grid;
     grid-column-gap: 10px;
     grid-row-gap: 31px;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: 1fr;
   }
 }

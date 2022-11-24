@@ -10,6 +10,7 @@ const actions = {
           ...resp.data.data.user,
           member: resp.data.data.member,
           registration: resp.data.data.registration,
+          plan: resp.data.data.plan,
         });
         commit(mutationTypes.SET_STATS_DATA, {
           points: resp.data.data.points,
@@ -19,6 +20,7 @@ const actions = {
         commit(mutationTypes.SET_TRAININGS_PTS, resp.data.data.schedules_pt_groupped_days);
         commit(mutationTypes.SET_TRAINERS, resp.data.data.trainers);
         commit(mutationTypes.SET_PACKAGES, resp.data.data.pachete);
+        commit(mutationTypes.SET_MEMBERSHIPS, resp.data.data.plans);
 
         return { status: 'success', message: resp.data.msg };
       }
