@@ -70,7 +70,7 @@ export default {
         .dispatch(actionTypes.CHECK_PLAN, {
           action: 'check_plan',
           plan: this.selectedPlan,
-          start_date: date.id,
+          start_date: date,
           user: this.user.id,
           member: this.user.member.id,
           registration: this.user.registration.id,
