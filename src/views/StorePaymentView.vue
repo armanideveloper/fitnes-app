@@ -8,17 +8,20 @@
           You are about to pay
           <br />
           <strong>{{ totalPrice }} RON</strong>
-          (discount applied)
+          <span v-if="isDiscountApplied">&nbsp;(discount applied)</span>
           <br />
           to
-          <strong>{{ paymentAddress }}</strong>
+          <strong>Company Ltd.</strong>
           <br />
           for
           <strong>{{ paymentPurpose }}</strong>
         </p>
 
         <p class="payment-about__availability">
-          Your purchase will be available at Moovgym location or Partner locations
+          Your purchase will be available at
+          <strong>Moovgym</strong>
+          location or
+          <strong>Partner locations</strong>
         </p>
 
         <hr />
@@ -32,7 +35,7 @@
       <div class="payment-about__discount discount">
         <div class="discount__wrapper">
           <label class="discount__label" for="discount">Apply discount</label>
-          <select class="discount__select" name="discount" id="discount" v-model="discount">
+          <select class="discount__select" name="discount" id="discount" v-model="discountSelected">
             <option disabled value="">Please select discount</option>
             <option v-for="(option, index) in discounts" :key="`discount-option_${index}`" :value="option">
               {{ option }}
@@ -49,17 +52,19 @@
             Cancel payment
           </base-button>
         </router-link>
-        <router-link :to="{ name: 'StorePaymentCard', params: { price: totalPrice } }" v-slot="{ navigate }" custom>
-          <base-button class="base-btn store-payment__btn" @click.native="navigate">Go to payment</base-button>
-        </router-link>
+        <base-button class="base-btn store-payment__btn" @click.native="paymentClickHandler">Go to payment</base-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import getterTypes from '@/store/types/getter-types';
 import BaseButton from '@/components/BaseButton';
 import BasePageHeader from '@/components/BasePageHeader';
+import { sleep } from '@/helpers/async';
+import axios from '@/axios';
 
 export default {
   name: 'StorePaymentView',
@@ -73,33 +78,152 @@ export default {
   data() {
     return {
       backTo: 'Store',
-      paymentSum: 150,
-      discount: null,
+      discountSelected: null,
       isDiscountApplied: false,
-      paymentAddress: 'Company Ltd',
-      paymentPurpose: 'Standard membership',
-      location: 'Moovgym',
-      partners: 'Partner locations',
-      discounts: [30, 50, 70],
+      inBrowser: null,
+      ref: {},
     };
   },
+  created() {
+    this.inBrowser = typeof window !== 'undefined';
+  },
   computed: {
-    totalPrice() {
-      if (!this.isDiscountApplied) {
-        return this.paymentSum;
+    ...mapGetters({
+      user: getterTypes.USER_DATA,
+      planForBuying: getterTypes.PLAN_FOR_BUYING,
+    }),
+    paymentPurpose() {
+      return this.planForBuying?.name;
+    },
+    initialPrice() {
+      return +this.planForBuying?.price;
+    },
+    discounts() {
+      const pointsNumber = +this.user.member.reward_points;
+
+      if (pointsNumber >= 100) {
+        const maxDiscount = Math.floor(pointsNumber / 100);
+        return [...Array(maxDiscount)].map((v, i) => (i + 1) * 10);
       }
 
-      return this.paymentSum - this.discount;
+      return null;
     },
-  },
-  watch: {
-    discount() {
-      this.isDiscountApplied = false;
+    totalPrice() {
+      if (!this.isDiscountApplied) {
+        return this.initialPrice;
+      }
+
+      return this.initialPrice - this.discountSelected;
     },
   },
   methods: {
     applyDiscount() {
+      if (!this.discountSelected) {
+        return;
+      }
+
       this.isDiscountApplied = true;
+    },
+    paymentClickHandler() {
+      const _this = this;
+      const rand = Date.now();
+
+      if (_this.inBrowser) {
+        this.openWindow(rand);
+      } else {
+        // This need to be uncommented before using with Cordova
+        /*this.ref = cordova.InAppBrowser.open(the_url, '_blank', 'enableViewportScale=yes,toolbarposition=top,location=no,closebuttoncaption=Inchide,clearcache=yes,clearsessioncache=yes');
+        //ref.addEventListener('message', processMessage);
+        this.ref.addEventListener('exit', function() {
+          clearTimeout(window.check_payment_timeout);
+        });*/
+      }
+
+      _this.checkPayment(rand, res => {
+        _this.processMessageData(JSON.parse(res));
+      });
+    },
+    openWindow(rand) {
+      const url = `https://gymon.io/payment/checkoutdev.php?&user=${this.user.id}'&live=${process.env.VUE_APP_STRIPE_LIVE}&amount=${this.totalPrice}&rand=${rand}`;
+      this.ref = window.open(url, '_blank');
+    },
+    checkWindow() {
+      return this.ref && !this.ref.closed;
+    },
+    checkPayment(rand, callback) {
+      const _this = this;
+
+      try {
+        axios.get(`/check_payment?user=${_this.user.id}&rand=${rand}`).then(response => {
+          if (response.data.status) {
+            callback(response.data);
+          } else {
+            if (_this.inBrowser) {
+              if (this.checkWindow()) {
+                window.check_payment_timeout = setTimeout(function () {
+                  _this.checkPayment(rand, callback);
+                }, 1000 * 2);
+              } else {
+                _this.$toaster.info('Cancel check payment');
+                clearTimeout(window.check_payment_timeout);
+              }
+            } else {
+              window.check_payment_timeout = setTimeout(function () {
+                _this.checkPayment(rand, callback);
+              }, 1000 * 2);
+            }
+          }
+        });
+      } catch (e) {
+        if (_this.inBrowser) {
+          if (this.checkWindow()) {
+            window.check_payment_timeout = setTimeout(function () {
+              _this.checkPayment(rand, callback);
+            }, 1000 * 2);
+          } else {
+            clearTimeout(window.check_payment_timeout);
+          }
+        } else {
+          window.check_payment_timeout = setTimeout(function () {
+            _this.checkPayment(rand, callback);
+          }, 1000 * 2);
+        }
+      }
+    },
+    processMessageData(dataPayment) {
+      if (!dataPayment) return;
+      if (!dataPayment.message || !dataPayment.channel) return;
+
+      if (this.ref && this.ref.close) this.ref.close();
+
+      if (dataPayment.message === 'succeeded' || dataPayment.message === 'processing') {
+        this.processPayment(dataPayment);
+      } else {
+        this.$toaster.info(dataPayment.msg);
+      }
+    },
+    async processPayment(dataPayment) {
+      try {
+        await sleep();
+
+        const response = await axios.get(
+          `/plan?discount=${this.discountSelected || 0}&charge=1&plan=${dataPayment.charge.id}&start_date=${
+            this.planForBuying.start_date
+          }&user=${this.user.id}&member=${this.user.member.id}&registration=${this.user.registration.id}`
+        );
+
+        if (response.status) {
+          this.$toaster.success('Plata a fost efectuata cu success');
+
+          setTimeout(() => {
+            this.$router.push({ name: 'StorePaymentSuccess' });
+          }, 2000);
+        } else {
+          this.$toaster.error(response.data.message);
+        }
+      } catch (e) {
+        this.$toaster.error('Communication error');
+      }
     },
   },
 };
@@ -107,7 +231,7 @@ export default {
 
 <style lang="scss" scoped>
 .store-payment {
-  :deep() {
+  ::v-deep {
     .base-page-header {
       margin-bottom: 50px;
 

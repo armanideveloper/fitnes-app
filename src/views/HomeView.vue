@@ -36,7 +36,7 @@
               <img class="info-card__img" :src="require(`@/assets/images/icons/coins.svg`)" alt="" />
             </div>
 
-            <h2 class="info-card__value">{{ points }}</h2>
+            <h2 class="info-card__value">{{ user?.member.reward_points }}</h2>
 
             <p class="info-card__text">Points</p>
           </router-link>
@@ -168,7 +168,6 @@ export default {
     ...mapGetters({
       user: getterTypes.USER_DATA,
       statsData: getterTypes.STATS_DATA,
-      points: getterTypes.STATS_POINTS_SUM,
       entries: getterTypes.STAT_ENTRIES_PER_MONTH,
       weeklyEntries: getterTypes.STAT_ENTRIES_PER_WEEK,
       upcomingTrainings: getterTypes.UPCOMING_TRAININGS,

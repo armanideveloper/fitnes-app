@@ -7,6 +7,9 @@ const mutations = {
   [mutationTypes.SET_TRAININGS_PTS](state, payload) {
     state.personalTrainings = payload;
   },
+  [mutationTypes.SET_MY_TRAININGS](state, payload) {
+    state.myTrainings = payload;
+  },
 };
 
 export default {

@@ -18,6 +18,7 @@ export default {
     BaseTabs,
     TheClasses,
     PersonalTrainings: () => import('@/components/PersonalTrainings.vue'),
+    TheWorkouts: () => import('@/components/TheWorkouts.vue'),
   },
   metaInfo: {
     title: 'Activities',
@@ -36,9 +37,9 @@ export default {
           type: 'component',
         },
         {
-          title: 'History',
-          component: 'History',
-          type: 'link',
+          title: 'Workouts',
+          component: 'TheWorkouts',
+          type: 'component',
         },
       ],
       currentComponent: this.$route.params.currentComponent || 'TheClasses',

@@ -46,7 +46,7 @@
       <base-button
         v-else
         class="small-btn store-card__btn store-card__btn--buy"
-        @click.native="$emit('open-calendar', { plan: storeItem.id, isRange: false })"
+        @click.native="$emit('open-calendar', { plan: storeItem, isRange: false })"
       >
         Buy
       </base-button>

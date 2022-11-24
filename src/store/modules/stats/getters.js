@@ -4,10 +4,6 @@ import { compareDates, diffInDays, getLastSunday } from '@/helpers/dates';
 const getters = {
   [getterTypes.STATS_DATA]: state => state.statsData,
   [getterTypes.STATS_POINTS]: state => state.statsData?.points || 0,
-  [getterTypes.STATS_POINTS_SUM]: state =>
-    state.statsData?.points?.reduce((acc, currVal) => {
-      return acc + Number(currVal.value);
-    }, 0) || 0,
   [getterTypes.STAT_ENTRIES_PER_MONTH]: state =>
     state.statsData?.checkins?.filter(c => diffInDays(new Date(), c.checkin_datetime) < 30).length || 0,
   [getterTypes.STAT_ENTRIES_PER_WEEK]: state =>

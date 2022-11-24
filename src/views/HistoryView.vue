@@ -74,13 +74,10 @@ export default {
       pointsItems: getterTypes.STATS_POINTS,
       upcomingItems: getterTypes.UPCOMING_TRAININGS,
     }),
-    upcomingItemsReversed() {
-      return this.upcomingItems.slice(0).reverse();
-    },
     historyItems() {
       return (
         this.pointsItems.length &&
-        [...this.upcomingItemsReversed, ...this.pointsItems].filter(
+        [...this.upcomingItems, ...this.pointsItems].filter(
           item => checkSameMonth(item.created_datetime || item.c_date_time_dt, this.currentDate) === true
         )
       );
@@ -105,7 +102,7 @@ export default {
       });
 
       const upcomingItems = this.upcomingItems.map((item, index, array) => {
-        const itemDate = item.date_from;
+        const itemDate = item.r_date;
         let dateIsUsed;
 
         if (index === 0) {
@@ -113,7 +110,8 @@ export default {
         }
 
         if (index > 0) {
-          dateIsUsed = compareDates(itemDate, array[index - 1].date_from) === 'equal';
+          console.log(compareDates(itemDate, array[index - 1].r_date));
+          dateIsUsed = compareDates(itemDate, array[index - 1].r_date) === 'equal';
         }
 
         return {
@@ -121,6 +119,8 @@ export default {
           dateIsUsed,
         };
       });
+
+      console.log(upcomingItems);
 
       return [
         ...pointsItems.map(item => ({
@@ -143,7 +143,6 @@ export default {
             visibility: 'click',
             hideIndicator: true,
           },
-          customData: item,
         })),
         ...upcomingItems.map(item => ({
           ...(!item.dateIsUsed && { dot: '#0094ff' }),

@@ -13,6 +13,7 @@ const getters = {
       })
       .filter(p => p.items.length);
   },
+  [getterTypes.PLAN_FOR_BUYING]: state => state.planForBuying,
 };
 
 export default {

@@ -1,7 +1,10 @@
+import { mapGetters } from 'vuex';
+import mutationTypes from '@/store/types/mutation-types';
 import actionTypes from '@/store/types/action-types';
 import VueBottomSheet from '@webzlodimir/vue-bottom-sheet';
 import StoreItemsList from '@/components/StoreItemsList';
 import { diffInDays } from '@/helpers/dates';
+import getterTypes from '@/store/types/getter-types';
 
 export default {
   components: {
@@ -21,6 +24,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      planForBuying: getterTypes.PLAN_FOR_BUYING,
+    }),
     selectedDate: {
       get() {
         return new Date();
@@ -56,7 +62,7 @@ export default {
   },
   methods: {
     openCalendar(payload) {
-      this.selectedPlan = payload.plan;
+      this.$store.commit(mutationTypes.SELECT_PLAN_FOR_BUYING, payload.plan);
       this.isRangeCalendar = payload.isRange;
 
       this.$refs.calendarBottomSheet.open();
@@ -69,7 +75,7 @@ export default {
       this.$store
         .dispatch(actionTypes.CHECK_PLAN, {
           action: 'check_plan',
-          plan: this.selectedPlan,
+          plan: this.planForBuying.id,
           start_date: date,
           user: this.user.id,
           member: this.user.member.id,

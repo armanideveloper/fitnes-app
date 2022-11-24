@@ -18,6 +18,7 @@ const actions = {
         });
         commit(mutationTypes.SET_TRAININGS_CLASSES, resp.data.data.schedules_cl_groupped_days);
         commit(mutationTypes.SET_TRAININGS_PTS, resp.data.data.schedules_pt_groupped_days);
+        commit(mutationTypes.SET_MY_TRAININGS, resp.data.data.my_schedules);
         commit(mutationTypes.SET_TRAINERS, resp.data.data.trainers);
         commit(mutationTypes.SET_PACKAGES, resp.data.data.pachete);
         commit(mutationTypes.SET_MEMBERSHIPS, resp.data.data.plans);
