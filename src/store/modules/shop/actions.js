@@ -15,7 +15,7 @@ const actions = {
   },
   [actionTypes.FREEZE_PLAN](context, data) {
     return axios.get('/freeze', { params: data }).then(resp => {
-      if (!resp.data.status) {
+      if (resp.data.status) {
         return { status: 'success', message: resp.data.msg };
       }
 

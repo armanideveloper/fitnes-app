@@ -1,10 +1,10 @@
 import { mapGetters } from 'vuex';
 import mutationTypes from '@/store/types/mutation-types';
 import actionTypes from '@/store/types/action-types';
+import getterTypes from '@/store/types/getter-types';
+import { diffInDays } from '@/helpers/dates';
 import VueBottomSheet from '@webzlodimir/vue-bottom-sheet';
 import StoreItemsList from '@/components/StoreItemsList';
-import { diffInDays } from '@/helpers/dates';
-import getterTypes from '@/store/types/getter-types';
 
 export default {
   components: {
@@ -104,7 +104,7 @@ export default {
         .then(response => {
           if (response.status === 'success') {
             this.$refs.calendarBottomSheet.close();
-            this.$router.push({ name: 'StorePayment' });
+            this.$toaster.success(response.message);
           } else {
             this.$toaster.error(response.message);
           }

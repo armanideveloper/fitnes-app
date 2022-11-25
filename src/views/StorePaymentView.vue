@@ -35,8 +35,8 @@
       <div class="payment-about__discount discount">
         <div class="discount__wrapper">
           <label class="discount__label" for="discount">Apply discount</label>
-          <select class="discount__select" name="discount" id="discount" v-model="discountSelected">
-            <option disabled value="">Please select discount</option>
+          <select class="discount__select" name="discount" id="discount" v-model="selectedDiscount">
+            <option disabled value="0">Discount</option>
             <option v-for="(option, index) in discounts" :key="`discount-option_${index}`" :value="option">
               {{ option }}
             </option>
@@ -47,11 +47,9 @@
       </div>
 
       <div class="store-payment__buttons">
-        <router-link :to="{ name: 'Store' }" v-slot="{ navigate }" custom>
-          <base-button class="base-btn base-btn--white store-payment__btn" @click.native="navigate">
-            Cancel payment
-          </base-button>
-        </router-link>
+        <base-button class="base-btn base-btn--white store-payment__btn" @click.native="cancelPaymentHandler">
+          Cancel payment
+        </base-button>
         <base-button class="base-btn store-payment__btn" @click.native="paymentClickHandler">Go to payment</base-button>
       </div>
     </div>
@@ -62,9 +60,9 @@
 import { mapGetters } from 'vuex';
 import getterTypes from '@/store/types/getter-types';
 import BaseButton from '@/components/BaseButton';
-import BasePageHeader from '@/components/BasePageHeader';
-import { sleep } from '@/helpers/async';
 import axios from '@/axios';
+import { sleep } from '@/helpers/async';
+import BasePageHeader from '@/components/BasePageHeader';
 
 export default {
   name: 'StorePaymentView',
@@ -78,7 +76,7 @@ export default {
   data() {
     return {
       backTo: 'Store',
-      discountSelected: null,
+      discount: 0,
       isDiscountApplied: false,
       inBrowser: null,
       ref: {},
@@ -108,17 +106,26 @@ export default {
 
       return null;
     },
+    selectedDiscount: {
+      get() {
+        return this.discount;
+      },
+      set(val) {
+        this.discount = val;
+        this.isDiscountApplied = false;
+      },
+    },
     totalPrice() {
       if (!this.isDiscountApplied) {
         return this.initialPrice;
       }
 
-      return this.initialPrice - this.discountSelected;
+      return this.initialPrice - this.discount;
     },
   },
   methods: {
     applyDiscount() {
-      if (!this.discountSelected) {
+      if (!this.discount) {
         return;
       }
 
@@ -144,7 +151,7 @@ export default {
       });
     },
     openWindow(rand) {
-      const url = `https://gymon.io/payment/checkoutdev.php?&user=${this.user.id}'&live=${process.env.VUE_APP_STRIPE_LIVE}&amount=${this.totalPrice}&rand=${rand}`;
+      const url = `https://gymon.io/payment/checkoutdev.php?&user=${this.user.id}&live=${process.env.VUE_APP_STRIPE_LIVE}&amount=${this.totalPrice}&rand=${rand}`;
       this.ref = window.open(url, '_blank');
     },
     checkWindow() {
@@ -224,6 +231,13 @@ export default {
       } catch (e) {
         this.$toaster.error('Communication error');
       }
+    },
+    cancelPaymentHandler() {
+      if (window.check_payment_timeout) {
+        clearTimeout(window.check_payment_timeout);
+      }
+
+      this.$router.push({ name: 'Store' });
     },
   },
 };
@@ -326,6 +340,7 @@ export default {
     background: #fff url('@/assets/images/icons/arrow-down.svg') no-repeat calc(100% - 20px) center;
     box-shadow: 0 15px 60px rgba(219, 224, 225, 0.8);
     border-radius: 10px;
+    white-space: nowrap;
   }
 
   &__btn {

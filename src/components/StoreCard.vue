@@ -30,14 +30,14 @@
       <template v-if="isSelected">
         <base-button
           class="small-btn store-card__btn store-card__btn--renew"
-          @click.native="$emit('open-calendar', { plan: storeItem.id, isRange: false })"
+          @click.native="$emit('open-calendar', { plan: storeItem, isRange: false })"
         >
           Renew
         </base-button>
 
         <base-button
           class="small-btn store-card__btn store-card__btn--freeze"
-          @click.native="$emit('open-calendar', { plan: storeItem.id, isRange: true })"
+          @click.native="$emit('open-calendar', { plan: storeItem, isRange: true })"
         >
           Freeze
         </base-button>
