@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkfitness_app"]=self["webpackChunkfitness_app"]||[]).push([[645],{4645:function(e,s,t){t.r(s),t.d(s,{default:function(){return a}});var n=function(){var e=this,s=e._self._c;return s("h2",{staticClass:"schedule-title"},[e._v("Exercise by yourself")])},u=[],c={name:"TheWorkouts"},l=c,r=t(1001),f=(0,r.Z)(l,n,u,!1,null,"33ef3ecc",null),a=f.exports}}]);
+//# sourceMappingURL=645.a4d1bf11.js.map
