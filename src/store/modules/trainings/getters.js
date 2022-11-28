@@ -11,13 +11,13 @@ const getters = {
           new Date(t.r_date),
           new Date(new Date().toISOString().split('T')[0]) // today's date without time
         );
-        return dateComparison === 'greater' || dateComparison === 'equal';
+        return (dateComparison === 'greater' || dateComparison === 'equal') && t.participated === '0';
       })
       .sort((a, b) => {
         const dateTimeA = Date.parse(`${a.r_date}T${a.time_from}`);
         const dateTimeB = Date.parse(`${b.r_date}T${b.time_from}`);
 
-        return dateTimeA - dateTimeB;
+        return dateTimeB - dateTimeA;
       }),
 };
 

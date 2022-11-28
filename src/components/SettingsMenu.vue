@@ -11,9 +11,9 @@
     <div class="settings-menu__user user">
       <img :src="require('@/assets/images/avatar.png')" alt="" class="user__avatar" />
 
-      <p class="user__name">Victor Lemme</p>
+      <p class="user__name">{{ user.name }}</p>
 
-      <p class="user__email">victorlemme@gmail.com</p>
+      <p class="user__email">{{ user.username }}</p>
     </div>
 
     <nav class="settings-menu__nav">
@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import getterTypes from '@/store/types/getter-types';
 import SettingsMenuItem from '@/components/SettingsMenuItem';
 
 export default {
@@ -83,6 +85,11 @@ export default {
       },
     ],
   }),
+  computed: {
+    ...mapGetters({
+      user: getterTypes.USER_DATA,
+    }),
+  },
   methods: {
     closeMenu() {
       this.$emit('close-settings');

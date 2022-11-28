@@ -77,9 +77,13 @@ export default {
     historyItems() {
       return (
         this.pointsItems.length &&
-        [...this.upcomingItems, ...this.pointsItems].filter(
-          item => checkSameMonth(item.created_datetime || item.c_date_time_dt, this.currentDate) === true
-        )
+        [...this.upcomingItems, ...this.pointsItems].filter(item => {
+          if (item.created_datetime) {
+            return checkSameMonth(item.created_datetime, this.currentDate);
+          }
+
+          return checkSameMonth(item.r_date, this.currentDate);
+        })
       );
     },
     attributes() {
@@ -110,7 +114,6 @@ export default {
         }
 
         if (index > 0) {
-          console.log(compareDates(itemDate, array[index - 1].r_date));
           dateIsUsed = compareDates(itemDate, array[index - 1].r_date) === 'equal';
         }
 
@@ -119,8 +122,6 @@ export default {
           dateIsUsed,
         };
       });
-
-      console.log(upcomingItems);
 
       return [
         ...pointsItems.map(item => ({

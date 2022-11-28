@@ -173,7 +173,7 @@ export default {
       upcomingTrainings: getterTypes.UPCOMING_TRAININGS,
     }),
     upcomingBooking() {
-      return this.upcomingTrainings[0];
+      return this.upcomingTrainings[this.upcomingTrainings.length - 1];
     },
     upcomingBookingDate() {
       return this.upcomingBooking?.date_from;

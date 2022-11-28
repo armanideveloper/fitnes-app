@@ -15,28 +15,28 @@
       <main>
         <form id="profile-form" action="" class="profile__form profile-form" @submit.prevent="profileDataHandler">
           <fieldset class="profile-form__fields">
-            <base-text-input id="firstname" v-model="profileData.name">First name *</base-text-input>
+            <base-text-input id="firstname" v-model="username">First name *</base-text-input>
             <base-text-input id="surname" v-model="profileData.surname">Surname *</base-text-input>
-            <base-text-input class="col-full" id="address" v-model="profileData.address" input-text-align="left">
+            <base-text-input class="col-full" id="address" v-model="address" input-text-align="left">
               Address *
             </base-text-input>
-            <base-text-input class="col-full" id="email" v-model="profileData.email">Email *</base-text-input>
+            <base-text-input class="col-full" id="email" v-model="email">Email *</base-text-input>
             <base-text-input id="birthday" v-model="profileData.birthday">Date of birth</base-text-input>
-            <base-text-input id="phone" v-model="profileData.phone">Phone</base-text-input>
+            <base-text-input id="phone" v-model="phone">Phone</base-text-input>
 
             <div class="profile-form__fields-wrapper col-full">
               <p class="profile-form__fields-label">Gender *</p>
 
               <div class="profile-form__radio-wrapper w-100">
-                <div class="profile-form-radio" v-for="gender in genderOptions" :key="gender">
+                <div class="profile-form-radio" v-for="genderItem in genderOptions" :key="genderItem">
                   <label class="profile-form-radio__label">
                     <input
                       class="profile-form-radio__input"
                       type="radio"
-                      :value="gender"
+                      :value="genderItem"
                       v-model="profileData.gender"
                     />
-                    {{ gender }}
+                    {{ genderItem }}
                   </label>
                 </div>
               </div>
@@ -51,7 +51,8 @@
 </template>
 
 <script>
-// import BaseRadioInput from '@/components/BaseRadioInput';
+import { mapGetters } from 'vuex';
+import getterTypes from '@/store/types/getter-types';
 import BaseButton from '@/components/BaseButton';
 import BaseTextInput from '@/components/BaseTextInput';
 import BasePageHeader from '@/components/BasePageHeader';
@@ -59,7 +60,6 @@ import BasePageHeader from '@/components/BasePageHeader';
 export default {
   name: 'ProfileView',
   components: {
-    // BaseRadioInput,
     BaseButton,
     BaseTextInput,
     BasePageHeader,
@@ -77,13 +77,56 @@ export default {
         email: '',
         birthday: '',
         phone: '',
-        gender: 'Male',
+        gender: '',
       },
       avatarPreviewImg: '',
       genderOptions: ['Male', 'Female'],
     };
   },
   computed: {
+    ...mapGetters({
+      user: getterTypes.USER_DATA,
+    }),
+    username: {
+      get() {
+        return this.user.name;
+      },
+      set(val) {
+        this.profileData.name = val;
+      },
+    },
+    address: {
+      get() {
+        return this.user.member.address;
+      },
+      set(val) {
+        this.profileData.address = val;
+      },
+    },
+    email: {
+      get() {
+        return this.user.username;
+      },
+      set(val) {
+        this.profileData.email = val;
+      },
+    },
+    phone: {
+      get() {
+        return this.user.member.contact;
+      },
+      set(val) {
+        this.profileData.phone = val;
+      },
+    },
+    gender: {
+      get() {
+        return this.user.member.gender;
+      },
+      set(val) {
+        this.profileData.gender = val;
+      },
+    },
     profileAvatarPreview: {
       get() {
         if (!this.avatarPreviewImg) {
@@ -97,7 +140,17 @@ export default {
       },
     },
   },
+  mounted() {
+    this.fillProfileData();
+  },
   methods: {
+    fillProfileData() {
+      this.profileData.name = this.username;
+      this.profileData.address = this.address;
+      this.profileData.email = this.email;
+      this.profileData.phone = this.phone;
+      this.profileData.gender = this.gender;
+    },
     uploadNewAvatar(e) {
       const input = e.target;
       // Ensure that you have a file before attempting to read it

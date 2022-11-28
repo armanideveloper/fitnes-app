@@ -3,7 +3,7 @@
     <p class="history-item__date">{{ formattedDate }}</p>
 
     <div class="history-item__title-time">
-      <h2 class="history-item__title">{{ item.reason || item.gs_tags }}</h2>
+      <h2 class="history-item__title">{{ formattedReason || item.gs_tags }}</h2>
       <p v-if="formattedTime" class="history-item__time">{{ formattedTime }}</p>
     </div>
 
@@ -43,7 +43,28 @@ export default {
         return `${hours}:${minutes}`;
       }
 
+      if (Number(this.item.value) > 0) {
+        const [hours, minutes] = this.item.created_datetime.split(' ')[1].split(':');
+        return `${hours}:${minutes}`;
+      }
+
       return null;
+    },
+    formattedReason() {
+      if (!this.item.reason) {
+        return '';
+      }
+
+      const strArr = this.item.reason.split(' ');
+      const strArrFirst = strArr.shift();
+      const strArrLower = strArr.map(s => s.toLowerCase());
+
+      if (strArrFirst === 'PT') {
+        return [strArrFirst, ...strArrLower].join(' ');
+      }
+
+      const strArrFirstCapitalized = strArrFirst.charAt(0).toUpperCase() + strArrFirst.toLowerCase().slice(1);
+      return [strArrFirstCapitalized, ...strArrLower].join(' ');
     },
     itemColor() {
       if (!this.item.value) {
